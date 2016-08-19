@@ -15,19 +15,20 @@ starfield = new Image();
 starfield.src = 'assets/images/background.png';
 starfield2 = new Image();
 starfield2.src = 'assets/images/bg2.png';
-wave = new Image();
-wave.src = 'assets/images/wave.png';
 
-module.exports = function drawStarfield() {
-  conf.ctx.drawImage(wave, waveX, waveY);
-  waveY += 0.2;
+var wave = {
+  y: 0,
+  x: 0,
+  src: 'assets/images/wave.png',
+  height: 491
+}
+background = new Image();
+background.src = wave.src;
 
-  if (waveY > 1000) {
-    waveY = -491;
-  }
+exports.update = function() {
+  wave.y += 0.25;
+  if (wave.y > 1000) wave.y = - wave.height;
 
-  conf.ctx.drawImage(starfield2, starX, star2Y);
-  conf.ctx.drawImage(starfield2, starX, star2Y2);
   if (star2Y > 593) {
     star2Y = -592;
   }
@@ -37,8 +38,6 @@ module.exports = function drawStarfield() {
   star2Y += 0.5;
   star2Y2 += 0.5;
 
-  conf.ctx.drawImage(starfield, starX, starY);
-  conf.ctx.drawImage(starfield, starX, starY2);
   if (starY > 900) {
     starY = -899;
   }
@@ -47,5 +46,14 @@ module.exports = function drawStarfield() {
   }
   starY += 1;
   starY2 += 1;
+};
 
+exports.draw = function () {
+  conf.ctx.drawImage(background, wave.x, wave.y);
+
+  conf.ctx.drawImage(starfield2, starX, star2Y);
+  conf.ctx.drawImage(starfield2, starX, star2Y2);
+
+  conf.ctx.drawImage(starfield, starX, starY);
+  conf.ctx.drawImage(starfield, starX, starY2);
 };

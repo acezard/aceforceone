@@ -1,10 +1,11 @@
 var conf = require('./canvasconf'),
-    drawStarfield = require('./background');
+    game = require('./game');
 
 gameLoop();
 
 function gameLoop() {
+  game.update();
+  game.draw();
+
   requestAnimationFrame(gameLoop, conf.canvas);
-  conf.ctx.clearRect(0, 0, conf.canvasWidth, conf.canvasHeight);
-  drawStarfield();
 }
