@@ -1,5 +1,5 @@
 var conf = require('./canvasconf'),
-    starfield = require('./starfield'),
+    starfield = require('./background'),
     player = require('./player');
 
 exports.update = function() {

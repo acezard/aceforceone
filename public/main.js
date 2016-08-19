@@ -1,12 +1,64 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+var conf = require('./canvasconf');
+
+var starfield,
+    starfield2,
+    wave,
+    starX = 0,
+    starY = 0,
+    starY2 = -900,
+    star2Y = 0
+    star2Y2 = -593,
+    waveX = 0,
+    waveY = 0;
+
+starfield = new Image();
+starfield.src = 'assets/images/background.png';
+starfield2 = new Image();
+starfield2.src = 'assets/images/bg2.png';
+wave = new Image();
+wave.src = 'assets/images/wave.png';
+
+exports.draw = function () {
+  conf.ctx.drawImage(wave, waveX, waveY);
+  waveY += 0.2;
+
+  if (waveY > 1000) {
+    waveY = -491;
+  }
+
+  conf.ctx.drawImage(starfield2, starX, star2Y);
+  conf.ctx.drawImage(starfield2, starX, star2Y2);
+  if (star2Y > 593) {
+    star2Y = -592;
+  }
+  if (star2Y2 > 593) {
+    star2Y2 = -592;
+  }
+  star2Y += 0.5;
+  star2Y2 += 0.5;
+
+  conf.ctx.drawImage(starfield, starX, starY);
+  conf.ctx.drawImage(starfield, starX, starY2);
+  if (starY > 900) {
+    starY = -899;
+  }
+  if (starY2 > 900) {
+    starY2 = -899;
+  }
+  starY += 1;
+  starY2 += 1;
+
+};
+},{"./canvasconf":2}],2:[function(require,module,exports){
 exports.canvas = document.getElementById("canvas");
 exports.ctx = canvas.getContext("2d");
 exports.canvasWidth = canvas.clientWidth;
 exports.canvasHeight = canvas.clientHeight;
 
-},{}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 var conf = require('./canvasconf'),
-    starfield = require('./starfield'),
+    starfield = require('./background'),
     player = require('./player');
 
 exports.update = function() {
@@ -19,7 +71,7 @@ exports.draw = function() {
   starfield.draw();
   player.draw();
 }
-},{"./canvasconf":1,"./player":5,"./starfield":6}],3:[function(require,module,exports){
+},{"./background":1,"./canvasconf":2,"./player":6}],4:[function(require,module,exports){
 var conf = require('./canvasconf'),
     game = require('./game');
 
@@ -32,7 +84,7 @@ function gameLoop() {
   requestAnimationFrame(gameLoop, conf.canvas);
 }
 
-},{"./canvasconf":1,"./game":2}],4:[function(require,module,exports){
+},{"./canvasconf":2,"./game":3}],5:[function(require,module,exports){
 var conf = require('./canvasconf');
 
 var inputs = {
@@ -80,7 +132,7 @@ function keyup(e) {
 }
 
 module.exports = inputs;
-},{"./canvasconf":1}],5:[function(require,module,exports){
+},{"./canvasconf":2}],6:[function(require,module,exports){
 var conf = require('./canvasconf');
 var inputs = require('./input');
 
@@ -111,105 +163,4 @@ exports.draw = function() {
   conf.ctx.drawImage(model, player.x, player.y);
 };
 
-},{"./canvasconf":1,"./input":4}],6:[function(require,module,exports){
-// Dependencies
-var conf = require('./canvasconf');
-var utils = require('./utils');
-
-// Global speed
-var speed = new SpeedFactor(1.5);
-
-function SpeedFactor(number) {
-  this.fast = number * 2;
-  this.medium = number * 1.5;
-  this.slow = number;
-}
-
-// Background objects 
-var bigstars = {
-  x: 0,
-  y: 0,
-  y2: 0,
-  src: 'assets/images/bigstars.png',
-  h: 0,
-  speed: speed.fast
-}
-
-foreground = new Image();
-foreground.src = bigstars.src;
-foreground.onload = function() {
-  bigstars.h = foreground.naturalHeight;
-  bigstars.y2 = - bigstars.h;
-}
-
-var smallstars = {
-  x: 0,
-  y: 0,
-  y2: 0,
-  src: 'assets/images/smallstars.png',
-  h: 0,
-  speed: speed.medium
-}
-
-middleground = new Image();
-middleground.src = smallstars.src;
-middleground.onload = function() {
-  smallstars.h = middleground.naturalHeight;
-  smallstars.y2 = - smallstars.h;
-}
-
-var nebula = {
-  y: 0,
-  x: 0,
-  src: 'assets/images/nebula.png',
-  h: 0,
-  speed: speed.slow,
-  limit: utils.getRandom(conf.canvasHeight, conf.canvasHeight * 5)
-}
-
-background = new Image();
-background.src = nebula.src;
-background.onload = function() {
-  nebula.h = background.naturalHeight;
-  nebula.y = - nebula.h;
-}
-
-// Update
-exports.update = function() {
-  // Background
-  if (nebula.y > nebula.limit) {
-    nebula.y = - nebula.h;
-    nebula.limit = utils.getRandom(conf.canvasHeight, conf.canvasHeight * 5);
-    console.log(nebula.limit);
-  } 
-  nebula.y += nebula.speed;
-
-
-  // Middleground
-  if (smallstars.y > conf.canvasHeight) smallstars.y = (-smallstars.h) - smallstars.speed;
-  if (smallstars.y2 > conf.canvasHeight) smallstars.y2 = (-smallstars.h) - smallstars.speed;
-  smallstars.y += smallstars.speed;
-  smallstars.y2 += smallstars.speed;
-
-  // Foreground
-  if (bigstars.y > bigstars.h) bigstars.y = (-bigstars.h) - bigstars.speed;
-  if (bigstars.y2 > bigstars.h) bigstars.y2 = (-bigstars.h) - bigstars.speed;
-  bigstars.y += bigstars.speed;
-  bigstars.y2 += bigstars.speed;
-};
-
-// Draw
-exports.draw = function () {
-  conf.ctx.drawImage(background, nebula.x, nebula.y);
-
-  conf.ctx.drawImage(middleground, smallstars.x, smallstars.y);
-  conf.ctx.drawImage(middleground, smallstars.x, smallstars.y2);
-
-  conf.ctx.drawImage(foreground, bigstars.x, bigstars.y);
-  conf.ctx.drawImage(foreground, bigstars.x, bigstars.y2);
-};
-},{"./canvasconf":1,"./utils":7}],7:[function(require,module,exports){
-exports.getRandom = function(min, max) {
-  return Math.random() * (max - min) + min;
-}
-},{}]},{},[3]);
+},{"./canvasconf":2,"./input":5}]},{},[4]);
