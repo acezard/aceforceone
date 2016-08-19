@@ -127,7 +127,7 @@ var bigstars = {
   x: 0,
   y: 0,
   y2: 0,
-  src: 'assets/images/background.png',
+  src: 'assets/images/bigstars.png',
   h: 0,
   speed: speed.fast
 }
@@ -143,7 +143,7 @@ var smallstars = {
   x: 0,
   y: 0,
   y2: 0,
-  src: 'assets/images/bg2.png',
+  src: 'assets/images/smallstars.png',
   h: 0,
   speed: speed.medium
 }
@@ -158,7 +158,7 @@ middleground.onload = function() {
 var nebula = {
   y: 0,
   x: 0,
-  src: 'assets/images/background.png',
+  src: 'assets/images/nebula.png',
   h: 0,
   speed: speed.slow,
   limit: utils.getRandom(conf.canvasHeight, conf.canvasHeight * 5)
