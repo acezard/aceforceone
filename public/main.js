@@ -6,17 +6,20 @@ exports.canvasHeight = canvas.clientHeight;
 
 },{}],2:[function(require,module,exports){
 var conf = require('./canvasconf'),
-    starfield = require('./starfield');
+    starfield = require('./starfield'),
+    player = require('./player');
 
 exports.update = function() {
   starfield.update();
+  player.update();
 }
 
 exports.draw = function() {
   conf.ctx.clearRect(0, 0, conf.canvasWidth, conf.canvasHeight);
   starfield.draw();
+  player.draw();
 }
-},{"./canvasconf":1,"./starfield":4}],3:[function(require,module,exports){
+},{"./canvasconf":1,"./player":5,"./starfield":6}],3:[function(require,module,exports){
 var conf = require('./canvasconf'),
     game = require('./game');
 
@@ -30,6 +33,85 @@ function gameLoop() {
 }
 
 },{"./canvasconf":1,"./game":2}],4:[function(require,module,exports){
+var conf = require('./canvasconf');
+
+var inputs = {
+  up: false,
+  right: false,
+  down: false,
+  left: false
+}
+
+document.addEventListener('keydown', keydown);
+document.addEventListener('keyup', keyup);
+
+function keydown(e) {
+  switch (event.key) {
+    case 'ArrowUp':
+      inputs.up = true;
+      break;
+    case 'ArrowRight':
+      inputs.right = true;
+      break;
+    case 'ArrowDown':
+      inputs.down = true;
+      break;
+    case 'ArrowLeft':
+      inputs.left = true;
+      break;
+  }
+}
+
+function keyup(e) {
+  switch (event.key) {
+    case 'ArrowUp':
+      inputs.up = false;
+      break;
+    case 'ArrowRight':
+      inputs.right = false;
+      break;
+    case 'ArrowDown':
+      inputs.down = false;
+      break;
+    case 'ArrowLeft':
+      inputs.left = false;
+      break;
+  }
+}
+
+module.exports = inputs;
+},{"./canvasconf":1}],5:[function(require,module,exports){
+var conf = require('./canvasconf');
+var inputs = require('./input');
+
+var ship_w = 100;
+var ship_h = 84;
+
+var player = {
+  x: conf.canvasWidth / 2 - ship_w / 2,
+  y: conf.canvasHeight - ship_w
+}
+
+var model = new Image();
+model.src = 'assets/images/player.png';
+
+exports.update = function() {
+  if (inputs.up) player.y -= 5;
+  if (inputs.right) player.x += 5;
+  if (inputs.down) player.y += 5;
+  if (inputs.left) player.x -= 5;
+
+  if (player.x <= 0) player.x = 0;
+  if (player.y <= 0) player.y = 0;
+  if (player.x + ship_w >= conf.canvasWidth) player.x = conf.canvasWidth - ship_w;
+  if (player.y + ship_h >= conf.canvasHeight) player.y = conf.canvasHeight - ship_h;
+}
+
+exports.draw = function() {
+  conf.ctx.drawImage(model, player.x, player.y);
+};
+
+},{"./canvasconf":1,"./input":4}],6:[function(require,module,exports){
 var conf = require('./canvasconf');
 
 var starfield,
