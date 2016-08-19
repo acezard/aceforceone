@@ -1,5 +1,19 @@
 html {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: #111;
+  background-image: url('../assets/images/pagebg.png');
+  background-repeat: no-repeat;
+  background-position: 50% 0%;
+}
+
+body {
+  background-image: url('../assets/images/stars.png'), url('../assets/images/stars2.png');
+  background-repeat: no-repeat;
+  background-position: 10% 10%, 90% 90%;
+  text-align: center;
+}
+
+canvas {
+  display: inline-block;
+  box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.5);
+  background-color: #0d1125;
 }
