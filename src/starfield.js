@@ -1,6 +1,8 @@
+// Dependencies
 var conf = require('./canvasconf');
 var utils = require('./utils');
 
+// Global speed
 var speed = new SpeedFactor(1.5);
 
 function SpeedFactor(number) {
@@ -9,6 +11,7 @@ function SpeedFactor(number) {
   this.slow = number;
 }
 
+// Background objects 
 var bigstars = {
   x: 0,
   y: 0,
@@ -57,6 +60,7 @@ background.onload = function() {
   nebula.y = - nebula.h;
 }
 
+// Update
 exports.update = function() {
   // Background
   if (nebula.y > nebula.limit) {
@@ -80,6 +84,7 @@ exports.update = function() {
   bigstars.y2 += bigstars.speed;
 };
 
+// Draw
 exports.draw = function () {
   conf.ctx.drawImage(background, nebula.x, nebula.y);
 
