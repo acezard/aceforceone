@@ -1,4 +1,13 @@
 var conf = require('./canvasconf');
+var utils = require('./utils');
+
+var speed = new SpeedFactor(1.5);
+
+function SpeedFactor(number) {
+  this.fast = number * 2;
+  this.medium = number * 1.5;
+  this.slow = number;
+}
 
 var bigstars = {
   x: 0,
@@ -6,7 +15,7 @@ var bigstars = {
   y2: 0,
   src: 'assets/images/background.png',
   h: 0,
-  speed: 3
+  speed: speed.fast
 }
 
 foreground = new Image();
@@ -22,7 +31,7 @@ var smallstars = {
   y2: 0,
   src: 'assets/images/bg2.png',
   h: 0,
-  speed: 2
+  speed: speed.medium
 }
 
 middleground = new Image();
@@ -32,28 +41,35 @@ middleground.onload = function() {
   smallstars.y2 = - smallstars.h;
 }
 
-var wave = {
+var nebula = {
   y: 0,
   x: 0,
-  src: 'assets/images/wave.png',
+  src: 'assets/images/background.png',
   h: 0,
-  speed: 1
+  speed: speed.slow,
+  limit: utils.getRandom(conf.canvasHeight, conf.canvasHeight * 5)
 }
 
 background = new Image();
-background.src = wave.src;
+background.src = nebula.src;
 background.onload = function() {
-  wave.h = background.naturalHeight;
+  nebula.h = background.naturalHeight;
+  nebula.y = - nebula.h;
 }
 
 exports.update = function() {
   // Background
-  if (wave.y > 1000) wave.y = - wave.h; // 1000 is arbitrary
-  wave.y += wave.speed;
+  if (nebula.y > nebula.limit) {
+    nebula.y = - nebula.h;
+    nebula.limit = utils.getRandom(conf.canvasHeight, conf.canvasHeight * 5);
+    console.log(nebula.limit);
+  } 
+  nebula.y += nebula.speed;
+
 
   // Middleground
-  if (smallstars.y > smallstars.h) smallstars.y = (-smallstars.h) - smallstars.speed;
-  if (smallstars.y2 > smallstars.h) smallstars.y2 = (-smallstars.h) - smallstars.speed;
+  if (smallstars.y > conf.canvasHeight) smallstars.y = (-smallstars.h) - smallstars.speed;
+  if (smallstars.y2 > conf.canvasHeight) smallstars.y2 = (-smallstars.h) - smallstars.speed;
   smallstars.y += smallstars.speed;
   smallstars.y2 += smallstars.speed;
 
@@ -65,7 +81,7 @@ exports.update = function() {
 };
 
 exports.draw = function () {
-  conf.ctx.drawImage(background, wave.x, wave.y);
+  conf.ctx.drawImage(background, nebula.x, nebula.y);
 
   conf.ctx.drawImage(middleground, smallstars.x, smallstars.y);
   conf.ctx.drawImage(middleground, smallstars.x, smallstars.y2);
