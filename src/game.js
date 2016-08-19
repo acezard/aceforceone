@@ -1,14 +1,14 @@
 var conf = require('./canvasconf'),
-    starfield = require('./background'),
+    background = require('./background'),
     player = require('./player');
 
 exports.update = function() {
-  starfield.update();
+  background.update();
   player.update();
 }
 
 exports.draw = function() {
   conf.ctx.clearRect(0, 0, conf.canvasWidth, conf.canvasHeight);
-  starfield.draw();
+  background.draw();
   player.draw();
 }
