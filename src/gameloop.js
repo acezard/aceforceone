@@ -1,11 +1,22 @@
 var conf = require('./canvasconf'),
     game = require('./game');
 
-gameLoop();
+var lastTime;
 
 function gameLoop() {
-  game.update();
+  var now = Date.now();
+  var dt = (now - lastTime) / 1e3;
+
+  game.update(dt);
   game.draw();
 
+  lastTime = now;
   requestAnimationFrame(gameLoop, conf.canvas);
 }
+
+function init() {
+  lastTime = Date.now();
+  gameLoop();
+}
+
+init();
