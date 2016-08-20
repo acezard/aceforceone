@@ -3,7 +3,7 @@ var conf = require('./canvasconf');
 var utils = require('./utils');
 
 // Global speed
-var speed = new SpeedFactor(1.5);
+var speed = new SpeedFactor(0.5);
 
 function SpeedFactor(number) {
   this.fast = number * 2;
