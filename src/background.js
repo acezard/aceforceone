@@ -66,7 +66,6 @@ exports.update = function() {
   if (nebula.y > nebula.limit) {
     nebula.y = - nebula.h;
     nebula.limit = utils.getRandom(conf.canvasHeight, conf.canvasHeight * 5);
-    console.log(nebula.limit);
   } 
   nebula.y += nebula.speed;
 

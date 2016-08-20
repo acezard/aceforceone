@@ -67,7 +67,6 @@ exports.update = function() {
   if (nebula.y > nebula.limit) {
     nebula.y = - nebula.h;
     nebula.limit = utils.getRandom(conf.canvasHeight, conf.canvasHeight * 5);
-    console.log(nebula.limit);
   } 
   nebula.y += nebula.speed;
 
@@ -95,28 +94,83 @@ exports.draw = function () {
   conf.ctx.drawImage(foreground, bigstars.x, bigstars.y);
   conf.ctx.drawImage(foreground, bigstars.x, bigstars.y2);
 };
-},{"./canvasconf":2,"./utils":7}],2:[function(require,module,exports){
+},{"./canvasconf":2,"./utils":8}],2:[function(require,module,exports){
 exports.canvas = document.getElementById("canvas");
 exports.ctx = canvas.getContext("2d");
 exports.canvasWidth = canvas.clientWidth;
 exports.canvasHeight = canvas.clientHeight;
 
 },{}],3:[function(require,module,exports){
+var conf = require('./canvasconf');
+
+var xs1Total = 7;
+var xs1Collection = [];
+var xs1model = new Image();
+
+xs1model.src = 'assets/images/enemy-xs-1.png';
+
+xs1model.onload = function() {
+  var enemyXS1Config = {
+    speed: 3,
+    height: xs1model.naturalHeight,
+    width: xs1model.naturalWidth
+  }
+
+  var waveIncrementX = conf.canvasWidth / xs1Total;
+  var offset = (conf.canvasWidth - ((xs1Total - 1) * waveIncrementX + enemyXS1Config.width)) / 2;
+
+  function makeXS1(x) {
+    var EnemyXS1 = function(x) {
+      this.x = x;
+      this.y =  - enemyXS1Config.height;
+      this.speed = enemyXS1Config.speed;
+      this.width = enemyXS1Config.width;
+      this.height = enemyXS1Config.height;
+    }
+
+    return new EnemyXS1(x);
+  }
+
+  for (var i = 0; i < xs1Total; i++) {
+    xs1Collection.push(makeXS1(waveIncrementX * i + offset));
+  }
+}
+
+exports.update = function() {
+  for (var i = 0; i < xs1Collection.length; i++) {
+    if (xs1Collection[i].y < conf.canvasHeight) {
+      xs1Collection[i].y += 3;
+    } else if (xs1Collection[i].y > conf.canvasHeight - 1) {
+      xs1Collection[i].y = -45;
+    }
+  }
+}
+
+exports.draw = function() {
+  for (var i = 0; i < xs1Collection.length; i++) {
+    conf.ctx.drawImage(xs1model, xs1Collection[i].x, xs1Collection[i].y);
+  }
+}
+
+},{"./canvasconf":2}],4:[function(require,module,exports){
 var conf = require('./canvasconf'),
     background = require('./background'),
-    player = require('./player');
+    player = require('./player'),
+    enemies = require('./enemies');
 
 exports.update = function() {
   background.update();
   player.update();
+  enemies.update();
 }
 
 exports.draw = function() {
   conf.ctx.clearRect(0, 0, conf.canvasWidth, conf.canvasHeight);
   background.draw();
+  enemies.draw();
   player.draw();
 }
-},{"./background":1,"./canvasconf":2,"./player":6}],4:[function(require,module,exports){
+},{"./background":1,"./canvasconf":2,"./enemies":3,"./player":7}],5:[function(require,module,exports){
 var conf = require('./canvasconf'),
     game = require('./game');
 
@@ -129,7 +183,7 @@ function gameLoop() {
   requestAnimationFrame(gameLoop, conf.canvas);
 }
 
-},{"./canvasconf":2,"./game":3}],5:[function(require,module,exports){
+},{"./canvasconf":2,"./game":4}],6:[function(require,module,exports){
 var conf = require('./canvasconf');
 
 var inputs = {
@@ -177,7 +231,7 @@ function keyup(e) {
 }
 
 module.exports = inputs;
-},{"./canvasconf":2}],6:[function(require,module,exports){
+},{"./canvasconf":2}],7:[function(require,module,exports){
 var conf = require('./canvasconf');
 var inputs = require('./input');
 
@@ -208,8 +262,8 @@ exports.draw = function() {
   conf.ctx.drawImage(model, player.x, player.y);
 };
 
-},{"./canvasconf":2,"./input":5}],7:[function(require,module,exports){
+},{"./canvasconf":2,"./input":6}],8:[function(require,module,exports){
 exports.getRandom = function(min, max) {
   return Math.random() * (max - min) + min;
 }
-},{}]},{},[4]);
+},{}]},{},[5]);
