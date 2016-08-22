@@ -1,6 +1,7 @@
 // Dependencies
-var conf = require('./canvasconf');
+var canvas = require('./canvas');
 var utils = require('./utils');
+var resources = require('./resources');
 
 // Global speed
 var speed = new SpeedFactor(0.5);
@@ -21,12 +22,11 @@ var bigstars = {
   speed: speed.fast
 }
 
-foreground = new Image();
-foreground.src = bigstars.src;
-foreground.onload = function() {
+resources.onReady(function() {
+  foreground = resources.get('assets/images/bigstars.png');
   bigstars.h = foreground.naturalHeight;
   bigstars.y2 = - bigstars.h;
-}
+});
 
 var smallstars = {
   x: 0,
@@ -50,7 +50,7 @@ var nebula = {
   src: 'assets/images/nebula.png',
   h: 0,
   speed: speed.slow,
-  limit: utils.getRandom(conf.canvasHeight, conf.canvasHeight * 5)
+  limit: utils.getRandom(canvas.height, canvas.height * 5)
 }
 
 background = new Image();
@@ -65,14 +65,14 @@ exports.update = function() {
   // Background
   if (nebula.y > nebula.limit) {
     nebula.y = - nebula.h;
-    nebula.limit = utils.getRandom(conf.canvasHeight, conf.canvasHeight * 5);
+    nebula.limit = utils.getRandom(canvas.height, canvas.height * 5);
   } 
   nebula.y += nebula.speed;
 
 
   // Middleground
-  if (smallstars.y > conf.canvasHeight) smallstars.y = (-smallstars.h) - smallstars.speed;
-  if (smallstars.y2 > conf.canvasHeight) smallstars.y2 = (-smallstars.h) - smallstars.speed;
+  if (smallstars.y > canvas.height) smallstars.y = (-smallstars.h) - smallstars.speed;
+  if (smallstars.y2 > canvas.height) smallstars.y2 = (-smallstars.h) - smallstars.speed;
   smallstars.y += smallstars.speed;
   smallstars.y2 += smallstars.speed;
 
@@ -85,11 +85,11 @@ exports.update = function() {
 
 // Draw
 exports.draw = function () {
-  conf.ctx.drawImage(background, nebula.x, nebula.y);
+  canvas.ctx.drawImage(background, nebula.x, nebula.y);
 
-  conf.ctx.drawImage(middleground, smallstars.x, smallstars.y);
-  conf.ctx.drawImage(middleground, smallstars.x, smallstars.y2);
+  canvas.ctx.drawImage(middleground, smallstars.x, smallstars.y);
+  canvas.ctx.drawImage(middleground, smallstars.x, smallstars.y2);
 
-  conf.ctx.drawImage(foreground, bigstars.x, bigstars.y);
-  conf.ctx.drawImage(foreground, bigstars.x, bigstars.y2);
+  canvas.ctx.drawImage(foreground, bigstars.x, bigstars.y);
+  canvas.ctx.drawImage(foreground, bigstars.x, bigstars.y2);
 };

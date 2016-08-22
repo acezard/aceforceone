@@ -1,4 +1,4 @@
-var conf = require('./canvasconf');
+var canvas = require('./canvas');
 
 var xs1Total = 7;
 var xs1Collection = [];
@@ -13,8 +13,8 @@ xs1model.onload = function() {
     width: xs1model.naturalWidth
   }
 
-  var waveIncrementX = conf.canvasWidth / xs1Total;
-  var offset = (conf.canvasWidth - ((xs1Total - 1) * waveIncrementX + enemyXS1Config.width)) / 2;
+  var waveIncrementX = canvas.width / xs1Total;
+  var offset = (canvas.width - ((xs1Total - 1) * waveIncrementX + enemyXS1Config.width)) / 2;
 
   function makeXS1(x) {
     var EnemyXS1 = function(x) {
@@ -35,9 +35,9 @@ xs1model.onload = function() {
 
 exports.update = function() {
   for (var i = 0; i < xs1Collection.length; i++) {
-    if (xs1Collection[i].y < conf.canvasHeight) {
+    if (xs1Collection[i].y < canvas.height) {
       xs1Collection[i].y += 3;
-    } else if (xs1Collection[i].y > conf.canvasHeight - 1) {
+    } else if (xs1Collection[i].y > canvas.height - 1) {
       xs1Collection[i].y = -45;
     }
   }
@@ -45,6 +45,6 @@ exports.update = function() {
 
 exports.draw = function() {
   for (var i = 0; i < xs1Collection.length; i++) {
-    conf.ctx.drawImage(xs1model, xs1Collection[i].x, xs1Collection[i].y);
+    canvas.ctx.drawImage(xs1model, xs1Collection[i].x, xs1Collection[i].y);
   }
 }
