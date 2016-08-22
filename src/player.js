@@ -10,8 +10,6 @@ var player = {
     speed: 400
 };
 
-
-
 resources.onReady(function() {
   player.sprite.size[0] = resources.get('assets/images/player.png').naturalWidth;
   player.sprite.size[1] = resources.get('assets/images/player.png').naturalHeight;

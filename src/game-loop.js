@@ -10,7 +10,8 @@ resources.load([
   src + 'bigstars.png',
   src + 'smallstars.png',
   src + 'nebula.png',
-  src + 'player.png'
+  src + 'player.png',
+  src + 'bullet_blue8.png'
 ]);
 
 resources.onReady(play);
@@ -32,17 +33,3 @@ function gameLoop() {
   lastTime = now;
   requestAnimationFrame(gameLoop, canvas.canvas);
 }
-
-// Game state
-var state = {
-  bullets: [],
-  enemies: [],
-  explosions: [],
-  lastFire: Date.now(),
-  gameTime: 0,
-  isGameOver: false,
-  score: 0,
-  scoreEl: document.getElementById('score')
-}
-
-module.exports = state;
