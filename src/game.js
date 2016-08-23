@@ -64,6 +64,8 @@ function fireWeapons() {
     var dir = 'up';
 
     state.bullets.push(new Bullet(x, y, dir));
+    state.bullets.push(new Bullet(x, y, 'left'));
+    state.bullets.push(new Bullet(x, y, 'right'));
 
     state.lastFire = Date.now();
   }
@@ -76,7 +78,8 @@ function updateEntities(dt) {
 
     switch(bullet.dir) {
     case 'up': bullet.pos[1] -= bullet.speed * dt; break;
-    case 'down': bullet.pos[1] += bullet.speed * dt; break;
+    case 'left': bullet.pos[0] += bullet.speed * dt; bullet.pos[1] += - bullet.speed * dt; break;
+    case 'right': bullet.pos[0] += - bullet.speed * dt; bullet.pos[1] += - bullet.speed * dt; break;
     default:
         bullet.pos[0] += bullet.speed * dt;
     }
