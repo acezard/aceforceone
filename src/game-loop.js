@@ -11,7 +11,9 @@ resources.load([
   src + 'smallstars.png',
   src + 'nebula.png',
   src + 'player.png',
-  src + 'bullet_blue8.png'
+  src + 'bullet_blue8.png',
+  src + 'enemy-xs-1.png',
+  src + 'explosion.png'
 ]);
 
 resources.onReady(play);

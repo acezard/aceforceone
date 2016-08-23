@@ -4,7 +4,10 @@ var canvas = require('./canvas'),
     Bullet = require('./weapons'),
     enemies = require('./enemies'),
     state = require('./state'),
-    inputs = require('./input');
+    inputs = require('./input'),
+    Sprite = require('./sprite'),
+    utils = require('./utils'),
+    collisions = require('./collisions');
 
 var gameTime = 0;
 
@@ -15,14 +18,25 @@ exports.update = function(dt) {
   fireWeapons();
   updateEntities(dt);
   handleInput(dt);
-  enemies.update();
+console.log(gameTime);
+  if(Math.random() < 0.05) {
+      state.enemies.push({
+          pos: [utils.getRandom(0, canvas.width - 75),
+                - 53],
+          speed: 100,
+          sprite: new Sprite('assets/images/enemy-xs-1.png', [0, 0], [75, 53])
+      });
+  }
+
+  collisions(state.enemies, state.bullets, state.explosions);
 }
 
 exports.render = function() {
   canvas.ctx.clearRect(0, 0, canvas.width, canvas.height);
   background.draw();
   renderEntities(state.bullets);
-  enemies.draw();
+  renderEntities(state.enemies);
+  renderEntities(state.explosions);
 
   if(!state.isGameOver) {
       renderEntity(player);
@@ -91,4 +105,26 @@ function updateEntities(dt) {
       i--;
     }
   }
+
+    for(var i=0; i < state.enemies.length; i++) {
+        state.enemies[i].pos[1] += state.enemies[i].speed * dt;
+        state.enemies[i].sprite.update(dt);
+
+        // Remove if offscreen
+        if(state.enemies[i].pos[1] + state.enemies[i].sprite.size[0] < 0) {
+            state.enemies.splice(i, 1);
+            i--;
+        }
+    }
+
+    // Update all the explosions
+    for(var i=0; i<state.explosions.length; i++) {
+        state.explosions[i].sprite.update(dt);
+
+        // Remove if animation is done
+        if(state.explosions[i].sprite.done) {
+            state.explosions.splice(i, 1);
+            i--;
+        }
+    }
 }
