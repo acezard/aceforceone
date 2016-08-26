@@ -1,4 +1,4 @@
-var canvas = require('./canvas');
+var canvas = require('../canvas');
 
 var inputs = {
   up: false,

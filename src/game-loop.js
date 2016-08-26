@@ -1,6 +1,6 @@
 var canvas = require('./canvas'),
-    game = require('./game'),
-    resources = require('./resources');
+    game = require('./systems/game'),
+    resources = require('./utils/resources');
 
 var src = 'assets/images/';
 var lastTime;

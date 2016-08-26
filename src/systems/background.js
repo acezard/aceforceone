@@ -1,7 +1,7 @@
 // Dependencies
-var canvas = require('./canvas');
-var utils = require('./utils');
-var resources = require('./resources');
+var canvas = require('../canvas');
+var utils = require('../utils/utils');
+var resources = require('../utils/resources');
 
 // Global speed
 var speed = new SpeedFactor(0.5);
