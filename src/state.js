@@ -1,6 +1,7 @@
 // Game state
 var state = {
   bullets: [],
+  ebullets: [],
   enemies: [],
   explosions: [],
   lastFire: Date.now(),

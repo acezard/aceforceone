@@ -1,6 +1,6 @@
 var canvas = require('./canvas'),
-    game = require('./game'),
-    resources = require('./resources');
+    game = require('./systems/game'),
+    resources = require('./utils/resources');
 
 var src = 'assets/images/';
 var lastTime;
@@ -13,7 +13,10 @@ resources.load([
   src + 'player.png',
   src + 'bullet_blue8.png',
   src + 'enemy-xs-1.png',
-  src + 'explosion.png'
+  src + 'explosion.png',
+  src + 'enemy-lg-1.png',
+  src + 'hitred.png',
+  src + 'bullet_red2.png'
 ]);
 
 resources.onReady(play);
