@@ -1,7 +1,7 @@
 var canvas = require('./canvas'),
     background = require('./background'),
     player = require('./player'),
-    Bullet = require('./weapons'),
+    weapons = require('./weapons'),
     enemies = require('./enemies'),
     state = require('./state'),
     inputs = require('./input'),
@@ -10,6 +10,7 @@ var canvas = require('./canvas'),
     collisions = require('./collisions');
 
 var gameTime = 0;
+var spawn = 0;
 
 exports.update = function(dt) {
   gameTime += dt;
@@ -18,14 +19,17 @@ exports.update = function(dt) {
   fireWeapons();
   updateEntities(dt);
   handleInput(dt);
-console.log(gameTime);
-  if(Math.random() < 0.05) {
+
+  if(Math.random() < dt) {
       state.enemies.push({
-          pos: [utils.getRandom(0, canvas.width - 75),
+          pos: [utils.getRandom(0, canvas.width),
                 - 53],
-          speed: 100,
+          speed: 100, 
+          hitpoints: 2,
+          lastFire: Date.now(),
           sprite: new Sprite('assets/images/enemy-xs-1.png', [0, 0], [75, 53])
       });
+      spawn++;
   }
 
   collisions(state.enemies, state.bullets, state.explosions);
@@ -37,6 +41,7 @@ exports.render = function() {
   renderEntities(state.bullets);
   renderEntities(state.enemies);
   renderEntities(state.explosions);
+  renderEntities(state.ebullets);
 
   if(!state.isGameOver) {
       renderEntity(player);
@@ -72,16 +77,30 @@ function handleInput(dt) {
 }
 
 function fireWeapons() {
+  //player
   if(!state.isGameOver && Date.now() - state.lastFire > 300) {
     var x = player.pos[0] + player.sprite.size[0] / 2;
     var y = player.pos[1] + player.sprite.size[1] / 2;
     var dir = 'up';
 
-    state.bullets.push(new Bullet(x, y, dir));
-    state.bullets.push(new Bullet(x, y, 'left'));
-    state.bullets.push(new Bullet(x, y, 'right'));
+    state.bullets.push(new weapons.Bullet(x, y, dir));
+    state.bullets.push(new weapons.Bullet(x, y, 'left'));
+    state.bullets.push(new weapons.Bullet(x, y, 'right'));
 
     state.lastFire = Date.now();
+  }
+
+  // enemies
+  for (var i = 0; i < state.enemies.length; i++) {
+    var enemy = state.enemies[i];
+
+    if (Date.now() - enemy.lastFire > 1000) {
+      var x = enemy.pos[0] + enemy.sprite.size[0] / 2;
+      var y = enemy.pos[1] + enemy.sprite.size[1] / 2;
+
+      state.ebullets.push(new weapons.RedLaser(x, y, 'down'));
+      enemy.lastFire = Date.now();
+    }
   }
 }
 
@@ -106,6 +125,24 @@ function updateEntities(dt) {
     }
   }
 
+  for(var i=0; i<state.ebullets.length; i++) {
+    var bullet = state.ebullets[i];
+
+    switch(bullet.dir) {
+    case 'down': bullet.pos[1] += bullet.speed * dt; break;
+    default:
+        bullet.pos[1] += bullet.speed * dt;
+    }
+
+    // Remove the bullet if it goes offscreen
+    if(bullet.pos[1] < 0 || bullet.pos[1] > canvas.height ||
+      bullet.pos[0] > canvas.width) {
+      state.ebullets.splice(i, 1);
+      i--;
+    }
+  }
+
+  // foes
     for(var i=0; i < state.enemies.length; i++) {
         state.enemies[i].pos[1] += state.enemies[i].speed * dt;
         state.enemies[i].sprite.update(dt);
