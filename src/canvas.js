@@ -4,12 +4,14 @@ var ctx = canvas.getContext("2d");
 var gameWrapper = document.getElementById('game-wrapper');
 var scoreEl = document.getElementById('scoreEl');
 var hp = document.getElementById('hp');
-var sh = document.getElementById('sh');
+var powerPoints = document.getElementById('sh');
+var uiWrap = document.getElementById('ui-wrapper');
+var gameOverWrap = document.getElementById('game-over-wrapper');
 var width = 800;
 var height = 800;
 
 hp.style.height = '100%';
-sh.style.height = '100%';
+powerPoints.style.height = '0%';
 
 canvas.width = 800;
 canvas.height = 800;
@@ -24,4 +26,9 @@ module.exports = {
   ctx: ctx,
   width: width,
   height: height,
+  el: canvas,
+  powerPoints: powerPoints,
+  hitPoints: hp,
+  ui: uiWrap,
+  gameOver: gameOverWrap
 };

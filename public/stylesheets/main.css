@@ -50,6 +50,14 @@ body {
   left: 7px;
 }
 
+#hp,
+#sh {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  transition: 400ms height ease;
+}
+
 #hp {
   background: #fd5842;
 }
@@ -65,4 +73,35 @@ body {
   background-image: url('../assets/images/hpmeter.png');
   width: 40px;
   height: 150px;
+}
+
+canvas {
+  cursor: none;
+}
+
+.hide {
+  opacity: 0;
+  transition: opacity 2000ms ease;
+}
+
+#game-over-wrapper {
+  background: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'quango';
+  font-size: 5rem;
+  color: #fff;
+}
+
+.show {
+  opacity: 1 !important;
+  transition: opacity 2000ms ease;
 }

@@ -1,6 +1,7 @@
 var Sprite = require('../utils/sprite');
 var explosion = require('../entities/explosions');
 var state = require('../state');
+var player = require('../entities/player');
 
 function collides(x, y, r, b, x2, y2, r2, b2) {
   return !(r <= x2 || x > r2 || b <= y2 || y > b2);
@@ -10,7 +11,26 @@ function boxCollides(pos, size, pos2, size2) {
   return collides(pos[0], pos[1], pos[0] + size[0], pos[1] + size[1], pos2[0], pos2[1], pos2[0] + size2[0], pos2[1] + size2[1]);
 }
 
-module.exports = function(enemies, bullets, explosions) {
+module.exports = function(enemies, bullets, explosions, ebullets) {
+  for (var i = 0; i < ebullets.length; i++) {
+    var bullet = ebullets[i];
+
+    if (boxCollides(player.pos, player.sprite.size, bullet.pos, bullet.sprite.size)) {
+      player.hitPoints-=10;
+
+      if (player.hitPoints - 10 < 0) {
+        explosions.push(new explosion.Explosion(player.pos[0], player.pos[1]));
+        return;
+      }
+
+      // Add a hit marker
+      explosions.push(new explosion.HitRed(player.pos[0], player.pos[1]));
+
+      // Remove the bullet
+      ebullets.splice(i, 1);
+    }
+  }
+
   // Run collision detection for all enemies and bullets
   for (var i = 0; i < enemies.length; i++) {
     var pos = enemies[i].pos;
@@ -28,6 +48,7 @@ module.exports = function(enemies, bullets, explosions) {
 
         // Update score
         state.score += 50;
+        player.powerPoints += 0.5;
 
         // Add an explosion
         explosions.push(new explosion.Explosion(pos[0], pos[1]));
