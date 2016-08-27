@@ -8,12 +8,13 @@ var Sprite = require('../utils/sprite');
 var Bullet = function(x, y, dir) {
   this.pos = [x, y];
   this.dir = dir;
-  this.speed = 1000;
+  this.speed = 600;
   this.sprite = new Sprite('assets/images/bullet_blue8.png', [0, 0], [7, 16]);
   this.active = true;
   this.render = function() {
     canvas.ctx.save();
     canvas.ctx.translate(this.pos[0], this.pos[1]);
+    canvas.ctx.rotate(90 * Math.PI/2.0);
     this.sprite.render(canvas.ctx);
     canvas.ctx.restore();
   };

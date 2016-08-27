@@ -4,6 +4,7 @@ var canvas = require('./canvas'),
 
 var src = 'assets/images/';
 var lastTime;
+var distance = 0;
 
 // Loading game first
 resources.load([
@@ -31,6 +32,7 @@ function play() {
 function gameLoop() {
   var now = Date.now();
   var dt = (now - lastTime) / 1e3;
+  distance ++;
 
   game.update(dt);
   game.render();
