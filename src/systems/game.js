@@ -41,12 +41,11 @@ exports.update = function(dt) {
 exports.render = function() {
   canvas.clear();
 
-  background.draw();
-
   if(state.explosions.length > 0) {
     preShake();
   }
-  
+
+  background.draw();
 
   if(!state.isGameOver) {
     renderList(state.bullets);
@@ -78,8 +77,8 @@ function renderList(list) {
 
 function preShake() {
   canvas.ctx.save();
-  var dx = Math.random()*10;
-  var dy = Math.random()*10;
+  var dx = Math.random()*5;
+  var dy = Math.random()*5;
   canvas.ctx.translate(dx, dy);  
 }
 
