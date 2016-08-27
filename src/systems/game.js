@@ -4,7 +4,9 @@ var canvas = require('../canvas'),
     weapons = require('../entities/weapons'),
     enemies = require('../entities/enemies'),
     state = require('../state'),
-    collisions = require('./collisions');
+    collisions = require('./collisions')
+    utils = require('../utils/utils')
+    explosions = require('../entities/explosions');
 
 var gameTime = 0;
 var spawn = 0;
@@ -22,8 +24,8 @@ exports.update = function(dt) {
     state.enemies[i].shoot();
   }
 
-  if(Math.random() < dt) {
-    state.enemies.push(new enemies.RedXS(dt));
+  if(Math.random() < dt * 4) {
+    state.enemies.push(new enemies.RedXS(utils.getRandom(70, 110)));
   }
 
   updateList(state.bullets, dt);
@@ -33,27 +35,34 @@ exports.update = function(dt) {
 
   player.handleInput(dt);
 
-  collisions(state.enemies, state.bullets, state.explosions);
+  if(!state.isGameOver) {
+    collisions(state.enemies, state.bullets, state.explosions, state.ebullets);
+  }
   
+  player.updatePowerPoints(state.score);
+  player.updateHitPoints();
   canvas.scoreEl.innerHTML = state.score;
 }
 
 exports.render = function() {
   canvas.clear();
 
-  if(state.explosions.length > 0) {
+  if(state.explosions.some(function(elem) {
+    return elem instanceof explosions.Explosion
+  })) {
     preShake();
   }
 
   background.draw();
 
-  if(!state.isGameOver) {
+  
     renderList(state.bullets);
     renderList(state.enemies);
+    if(!state.isGameOver) {
+      player.render();
+    }
     renderList(state.ebullets);
     renderList(state.explosions);
-    player.render();
-  }
 
   postShake();
 }

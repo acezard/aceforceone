@@ -1,3 +1,5 @@
+var canvas = require('./canvas');
+
 // Game state
 var state = {
   bullets: [],
@@ -8,7 +10,12 @@ var state = {
   gameTime: 0,
   isGameOver: false,
   score: 0,
-  scoreEl: document.getElementById('score')
+  scoreEl: document.getElementById('score'),
+  gameOver: function() {
+    this.isGameOver = true;
+    canvas.ui.setAttribute('class', 'hide');
+    canvas.gameOver.setAttribute('class', 'show');
+  }
 };
 
 module.exports = state;
