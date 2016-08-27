@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'quango';
+  src: url('quango.woff') format('woff');
+}
+
 html {
   background-color: #111;
   background-image: url('../assets/images/pagebg.png');
@@ -12,8 +17,52 @@ body {
   text-align: center;
 }
 
-canvas {
+#game-wrapper {
+  position: relative;
   display: inline-block;
   box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.5);
   background-color: #0d1125;
+}
+
+#scoreEl {
+  position: absolute;
+  bottom: 1%;
+  right : 1%;
+  font-family: 'quango';
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+#hpEl {
+  position: absolute;
+  bottom: 1%;
+  left: 1%;
+  background-image: url('../assets/images/hpmeter.png');
+  width: 40px;
+  height: 150px;
+}
+
+.wrapper {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  bottom: 7px;
+  left: 7px;
+}
+
+#hp {
+  background: #fd5842;
+}
+
+#sh {
+  background: #42a3fd;
+}
+
+#shEl {
+  position: absolute;
+  bottom: 1%;
+  left: calc(2% + 40px);
+  background-image: url('../assets/images/hpmeter.png');
+  width: 40px;
+  height: 150px;
 }

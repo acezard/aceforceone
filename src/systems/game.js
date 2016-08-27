@@ -14,7 +14,7 @@ exports.update = function(dt) {
   
   background.update();
 
-  if(!state.isGameOver && Date.now() - state.lastFire > 300) {
+  if(!state.isGameOver && Date.now() - state.lastFire > 100) {
     player.shoot();
   }
 
@@ -34,12 +34,19 @@ exports.update = function(dt) {
   player.handleInput(dt);
 
   collisions(state.enemies, state.bullets, state.explosions);
+  
+  canvas.scoreEl.innerHTML = state.score;
 }
 
 exports.render = function() {
   canvas.clear();
 
   background.draw();
+
+  if(state.explosions.length > 0) {
+    preShake();
+  }
+  
 
   if(!state.isGameOver) {
     renderList(state.bullets);
@@ -48,6 +55,8 @@ exports.render = function() {
     renderList(state.explosions);
     player.render();
   }
+
+  postShake();
 }
 
 function updateList(list, dt) {
@@ -65,4 +74,15 @@ function renderList(list) {
   for(var i=0; i < list.length; i++) {
     list[i].render();
   }
+}
+
+function preShake() {
+  canvas.ctx.save();
+  var dx = Math.random()*10;
+  var dy = Math.random()*10;
+  canvas.ctx.translate(dx, dy);  
+}
+
+function postShake() {
+  canvas.ctx.restore();
 }

@@ -10,6 +10,8 @@ var player = {
   pos: [0, 0],
   sprite: new Sprite('assets/images/player.png', [0, 0], [0, 0], 16, [0, 1]),
   speed: 400,
+  hitPoints: 10,
+  shieldPoints: 10,
   shoot: function() {
     var x = player.pos[0] + player.sprite.size[0] / 2;
     var y = player.pos[1] + player.sprite.size[1] / 2;
@@ -24,6 +26,7 @@ var player = {
   render: function() {
     canvas.ctx.save();
     canvas.ctx.translate(this.pos[0], this.pos[1]);
+    /*canvas.ctx.rotate(67 * (Math.PI / 180))*/
     this.sprite.render(canvas.ctx);
     canvas.ctx.restore();
   },

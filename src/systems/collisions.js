@@ -1,5 +1,6 @@
 var Sprite = require('../utils/sprite');
 var explosion = require('../entities/explosions');
+var state = require('../state');
 
 function collides(x, y, r, b, x2, y2, r2, b2) {
   return !(r <= x2 || x > r2 || b <= y2 || y > b2);
@@ -25,6 +26,9 @@ module.exports = function(enemies, bullets, explosions) {
         enemies.splice(i, 1);
         i--;
 
+        // Update score
+        state.score += 50;
+
         // Add an explosion
         explosions.push(new explosion.Explosion(pos[0], pos[1]));
 
@@ -35,6 +39,9 @@ module.exports = function(enemies, bullets, explosions) {
 
       if (boxCollides(pos, size, pos2, size2)) {
         enemies[i].hitpoints--;
+
+        // Update score
+        state.score += 50;
 
         // Add a hit marker
         explosions.push(new explosion.HitRed(pos[0], pos[1]));

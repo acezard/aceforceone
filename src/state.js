@@ -9,6 +9,6 @@ var state = {
   isGameOver: false,
   score: 0,
   scoreEl: document.getElementById('score')
-}
+};
 
 module.exports = state;

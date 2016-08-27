@@ -14,6 +14,7 @@ var Bullet = function(x, y, dir) {
   this.render = function() {
     canvas.ctx.save();
     canvas.ctx.translate(this.pos[0], this.pos[1]);
+    canvas.ctx.rotate(90 * Math.PI/2.0);
     this.sprite.render(canvas.ctx);
     canvas.ctx.restore();
   };
