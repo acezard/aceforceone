@@ -54,8 +54,6 @@ exports.render = function() {
   }
 
   background.draw();
-
-  
     renderList(state.bullets);
     renderList(state.enemies);
     if(!state.isGameOver) {

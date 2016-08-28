@@ -15,8 +15,9 @@ module.exports = function(enemies, bullets, explosions, ebullets) {
   for (var i = 0; i < ebullets.length; i++) {
     var bullet = ebullets[i];
 
-    if (boxCollides(player.pos, player.sprite.size, bullet.pos, bullet.sprite.size) && !player.invulnerable) {
+    if (boxCollides(player.hitboxXY, player.hitbox, bullet.pos, bullet.sprite.size) && !player.invulnerable) {
       player.hitPoints-=10;
+      
 
       if (player.hitPoints - 10 < 0) {
         explosions.push(new explosion.Explosion(player.pos[0], player.pos[1]));

@@ -73,6 +73,8 @@ var player = {
   
     player.pos[0] += (dX / 10);
     player.pos[1] += (dY / 10);
+
+    player.hitboxXY = [player.pos[0] + player.hitbox[0], player.pos[1] + player.hitbox[1]];
   }
 };
 
@@ -80,6 +82,7 @@ resources.onReady(function() {
   player.sprite.size[0] = resources.get('assets/images/player2.png').naturalWidth;
   player.sprite.size[1] = resources.get('assets/images/player2.png').naturalHeight;
   player.pos = [canvas.width / 2 - player.sprite.size[0] / 2, canvas.height];
+  player.hitbox = [player.sprite.size[0] / 3, player.sprite.size[1] / 3];
 })
 
 module.exports = player;
