@@ -2,11 +2,12 @@
 var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
 var gameWrapper = document.getElementById('game-wrapper');
-var scoreEl = document.getElementById('scoreEl');
+var scoreEl = document.getElementById('scoreVal');
 var hp = document.getElementById('hp');
 var powerPoints = document.getElementById('sh');
 var uiWrap = document.getElementById('ui-wrapper');
 var gameOverWrap = document.getElementById('game-over-wrapper');
+var lifesEl = document.getElementById('lifeEl');
 var width = 800;
 var height = 800;
 

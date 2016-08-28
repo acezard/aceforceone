@@ -24,13 +24,46 @@ body {
   background-color: #0d1125;
 }
 
-#scoreEl {
+#bonus-ui {
   position: absolute;
-  bottom: 1%;
-  right : 1%;
+  top: 0;
+  left: 50%;
+  width: 300px;
+  height: 30px;
+  transform: translateX(-50%);
+  background: url('../assets/images/bonus-ui.png');
+  background-size: cover;
+  background-position: center;
+}
+
+#scoreEl,
+#lifeEl {
+  position: absolute;
+  right : 0;
   font-family: 'quango';
-  color: #fff;
+  color: #a6f9ff;
   font-size: 1.5rem;
+  background: url('../assets/images/scoreui.png');
+  width: 215px;
+  height: 44px;
+  line-height: 2;
+}
+
+#scoreEl {
+  bottom: 1%;
+}
+
+#lifeEl {
+ bottom: calc(1% + 44px + 1%);
+}
+
+#scoreVal {
+  padding-right: 50px;
+}
+
+.life-wrapper {
+  text-align: center;
+  padding-right: 50px;
 }
 
 #hpEl {
