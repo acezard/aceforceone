@@ -12,6 +12,16 @@ var player = {
   speed: 400,
   hitPoints: 100,
   powerPoints: 0,
+  invulnerable: false,
+  makeInvulnerable: function() {
+    player.invulnerable = true;
+    window.setTimeout(function() {
+      player.resetInvulnerable();
+    }, 2000);
+  },
+  resetInvulnerable: function() {
+    this.invulnerable = false;
+  },
   updatePowerPoints: function(score) {
     if (this.powerPoints <= 100) {
       canvas.powerPoints.style.height = this.powerPoints + '%';
@@ -36,11 +46,13 @@ var player = {
     state.lastFire = Date.now();
   },
   render: function() {
-    canvas.ctx.save();
-    canvas.ctx.translate(this.pos[0], this.pos[1]);
-    /*canvas.ctx.rotate(67 * (Math.PI / 180))*/
-    this.sprite.render(canvas.ctx);
-    canvas.ctx.restore();
+    var frequency = 100;
+    if (!this.invulnerable || Math.floor(Date.now() / frequency) % 2) {
+      canvas.ctx.save();
+      canvas.ctx.translate(this.pos[0], this.pos[1]);
+      this.sprite.render(canvas.ctx);
+      canvas.ctx.restore();
+    }
   },
   handleInput: function(dt) {
     var dX = 0;

@@ -15,7 +15,7 @@ module.exports = function(enemies, bullets, explosions, ebullets) {
   for (var i = 0; i < ebullets.length; i++) {
     var bullet = ebullets[i];
 
-    if (boxCollides(player.pos, player.sprite.size, bullet.pos, bullet.sprite.size)) {
+    if (boxCollides(player.pos, player.sprite.size, bullet.pos, bullet.sprite.size) && !player.invulnerable) {
       player.hitPoints-=10;
 
       if (player.hitPoints - 10 < 0) {
@@ -28,6 +28,9 @@ module.exports = function(enemies, bullets, explosions, ebullets) {
 
       // Remove the bullet
       ebullets.splice(i, 1);
+
+      // Make invulnerable
+      player.makeInvulnerable();
     }
   }
 
