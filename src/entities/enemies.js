@@ -19,7 +19,7 @@ var RedXS = function(angle) {
       var x = this.pos[0] + this.sprite.size[0] / 2;
       var y = this.pos[1] + this.sprite.size[1] / 2;
 
-      var steps = 8
+      var steps = 4
       var step = 360/steps;
       for (i=0; i < steps; i++) {
         state.ebullets.push(new weapons.RedLaser(x, y, step * i));
@@ -43,7 +43,7 @@ var RedXS = function(angle) {
     this.sprite.update(dt);
 
     // Remove if offscreen
-    if(this.pos[1] > canvas.height) {
+    if(this.pos[1] > canvas.height || this.pos[0] < 0 || this.pos[0] > canvas.width) {
       this.active = false;
     }
   };

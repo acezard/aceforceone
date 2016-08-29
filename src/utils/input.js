@@ -8,12 +8,24 @@ var inputs = {
   down: false,
   left: false,
   mouseX: 0,
-  mouseY: 0
+  mouseY: 0,
+  clicked: false
 }
 
 canvas.el.addEventListener('keydown', keydown);
 canvas.el.addEventListener('keyup', keyup);
 canvas.el.addEventListener('mousemove', setMousePosition, false);
+canvas.el.addEventListener('click', function() {
+  if(inputs.clicked) {
+    return;
+  }
+
+  inputs.clicked = true;
+
+  setTimeout(function() {
+    inputs.clicked = false;
+  }, 200);
+}, false);
 
 function keydown(e) {
   switch (event.key) {

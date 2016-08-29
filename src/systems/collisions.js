@@ -59,7 +59,9 @@ module.exports = function(enemies, bullets, explosions, ebullets) {
 
         // Update score
         state.score += 50;
-        player.powerPoints += 0.5;
+        if (player.ultiCount == 0 && player.powerPoints < 100) {
+            player.powerPoints += 5;
+        }
 
         // Add an explosion
         explosions.push(new explosion.Explosion(pos[0], pos[1]));
