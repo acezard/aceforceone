@@ -58,8 +58,45 @@ var HitBlue = function(x, y) {
   };
 };
 
+var Scored = function(x, y, text, effect) {
+
+  if (effect === 'good') {
+    this.strokeStyle = '253, 88, 66';
+    this.fillStyle = '253, 179, 30';
+  } else {
+    this.strokeStyle = '253, 88, 66';
+    this.fillStyle = '253, 88, 66';
+  }
+
+  this.pos = [x, y];
+  this.active = true;
+  this.text = text;
+  this.factor = 20;
+  this.size = this.factor;
+  this.opacity = 1;
+  this.update = function(dt) {
+    this.size++;
+    this.opacity-= 1 / this.factor;
+
+    if (this.size == this.factor) {
+      this.active = false;
+    }
+  };
+  this.render = function() {
+    canvas.ctx.save();
+    canvas.ctx.font = this.size + "px quango"
+    canvas.ctx.strokeStyle = 'rgba(' + this.strokeStyle + ',' + this.opacity +')';
+    canvas.ctx.lineWidth = 4;
+    canvas.ctx.strokeText(this.text, this.pos[0], this.pos[1]);
+    canvas.ctx.fillStyle = 'rgba(' + this.fillStyle + ', ' + this.opacity + ')';
+    canvas.ctx.fillText(this.text, this.pos[0], this.pos[1]);
+    canvas.ctx.restore();
+  };
+};
+
 module.exports = {
   Explosion: Explosion,
   HitRed: HitRed,
-  HitBlue: HitBlue
+  HitBlue: HitBlue,
+  Scored: Scored
 };
