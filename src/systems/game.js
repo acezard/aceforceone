@@ -10,21 +10,22 @@ var canvas = require('../canvas'),
 
 var gameTime = 0;
 var spawn = 0;
+var distance = 0;
 
 exports.update = function(dt) {
   gameTime += dt;
+  distance += 0.5;
   
   background.update();
 
-  if(!state.isGameOver && Date.now() - state.lastFire > 100) {
+    player.angryShoot();
     player.shoot();
-  }
 
   for (var i = 0; i < state.enemies.length; i++) {
     state.enemies[i].shoot();
   }
 
-  if(Math.random() < dt) {
+  if(Math.random() < dt * 7) {
     state.enemies.push(new enemies.RedXS(utils.getRandom(70, 110)));
   }
 
@@ -47,6 +48,10 @@ exports.update = function(dt) {
 
 exports.render = function() {
   canvas.clear();
+
+  if (distance % 5 == 0) {
+    console.log('ebullets ' + state.ebullets.length, '\nenemies ' + state.enemies.length + '\nexplosions ' + state.explosions.length + '\nbullets ' + state.bullets.length)
+  }
 
   if(state.explosions.some(function(elem) {
     return elem instanceof explosions.Explosion

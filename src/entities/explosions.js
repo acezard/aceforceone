@@ -78,7 +78,7 @@ var Scored = function(x, y, text, effect) {
     this.size++;
     this.opacity-= 1 / this.factor;
 
-    if (this.size == this.factor) {
+    if (this.size == this.factor * 2) {
       this.active = false;
     }
   };

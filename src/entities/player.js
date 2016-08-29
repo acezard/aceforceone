@@ -11,8 +11,37 @@ var player = {
   sprite: new Sprite('assets/images/player2.png', [0, 0], [0, 0], 16, [0, 1]),
   speed: 10,
   hitPoints: 100,
-  powerPoints: 0,
+  powerPoints: 100,
   invulnerable: false,
+  lastUlti: Date.now(),
+  ultiCount: 0,
+  angryShoot: function() {
+    // ugly
+    if(inputs.clicked && this.powerPoints >= 100 || this.ultiCount >= 1 && Date.now() - this.lastUlti > 500) {
+      var x = player.pos[0] + player.sprite.size[0] / 2;
+      var y = player.pos[1] + player.sprite.size[1] / 2;
+      var steps = 180;
+      var step = 360 / steps;
+
+      if (this.ultiCount == 0) {
+        this.powerPoints = 0;
+      }
+
+      this.ultiCount ++;
+      state.ebullets = [];
+
+      for (i = 0; i < steps; i++) {
+        state.bullets.push(new weapons.Bullet(x, y, step * i));
+      }
+
+      this.lastUlti = Date.now();
+
+      if (this.ultiCount == 4) {
+        this.ultiCount = 0;
+        this.angry = false;
+      }
+    }
+  },
   makeInvulnerable: function() {
     player.invulnerable = true;
 
@@ -36,15 +65,16 @@ var player = {
     }
   },
   shoot: function() {
-    var x = player.pos[0] + player.sprite.size[0] / 2;
-    var y = player.pos[1] + player.sprite.size[1] / 2;
-    var dir = 'up';
+    if(!state.isGameOver && Date.now() - state.lastFire > 100) {
+      var x = player.pos[0] + player.sprite.size[0] / 2;
+      var y = player.pos[1] + player.sprite.size[1] / 2;
 
-    state.bullets.push(new weapons.Bullet(x, y, 270));
-    state.bullets.push(new weapons.Bullet(x, y, 260));
-    state.bullets.push(new weapons.Bullet(x, y, 280));
+      state.bullets.push(new weapons.Bullet(x, y, 270));
+      state.bullets.push(new weapons.Bullet(x, y, 260));
+      state.bullets.push(new weapons.Bullet(x, y, 280));
 
-    state.lastFire = Date.now();
+      state.lastFire = Date.now();
+    }
   },
   render: function() {
     var frequency = 100;
