@@ -69,7 +69,7 @@ module.exports = function(enemies, bullets, explosions, ebullets) {
         state.score += 50;
 
         // Add a hit marker
-        explosions.push(new explosion.HitRed(pos[0], pos[1]));
+        explosions.push(new explosion.HitBlue(pos[0], pos[1]));
 
         // Remove the bullet
         bullets.splice(j, 1);

@@ -5,7 +5,7 @@ var state = require('../state');
 var weapons = require('./weapons');
 
 var RedXS = function(angle) {
-  this.pos = [utils.getRandom(0, canvas.width), - 53];
+  this.pos = [utils.getRandom(0, canvas.width), - 200];
   this.speed = 200;
   this.hitpoints = 5;
   this.lastFire = Date.now();
@@ -19,8 +19,11 @@ var RedXS = function(angle) {
       var x = this.pos[0] + this.sprite.size[0] / 2;
       var y = this.pos[1] + this.sprite.size[1] / 2;
 
+      state.ebullets.push(new weapons.RedLaser(x, y, 80));
       state.ebullets.push(new weapons.RedLaser(x, y, 85));
       state.ebullets.push(new weapons.RedLaser(x, y, 95));
+      state.ebullets.push(new weapons.RedLaser(x, y, 90));
+      state.ebullets.push(new weapons.RedLaser(x, y, 100));
       this.lastFire = Date.now();
     }
   };
@@ -30,7 +33,7 @@ var RedXS = function(angle) {
     this.sprite.update(dt);
 
     // Remove if offscreen
-    if(this.pos[1] + this.sprite.size[1] > canvas.height) {
+    if(this.pos[1] > canvas.height) {
       this.active = false;
     }
   };

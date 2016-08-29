@@ -24,7 +24,7 @@ exports.update = function(dt) {
     state.enemies[i].shoot();
   }
 
-  if(Math.random() < dt * 4) {
+  if(Math.random() < dt * 2) {
     state.enemies.push(new enemies.RedXS(utils.getRandom(70, 110)));
   }
 
