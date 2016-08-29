@@ -19,9 +19,14 @@ module.exports = function(enemies, bullets, explosions, ebullets) {
       player.hitPoints-=10;
       
 
-      if (player.hitPoints - 10 < 0) {
+      if (player.hitPoints - 10 < 0 && state.lives == 1) {
         explosions.push(new explosion.Explosion(player.pos[0], player.pos[1]));
+        state.gameOver();
         return;
+      } else if (player.hitPoints - 10 < 0 && state.lives > 1) {
+        state.lives--;
+        player.hitPoints = 100;
+        explosions.push(new explosion.Explosion(player.pos[0], player.pos[1]));
       }
 
       // Add a hit marker
