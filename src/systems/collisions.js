@@ -15,12 +15,18 @@ module.exports = function(enemies, bullets, explosions, ebullets) {
   for (var i = 0; i < ebullets.length; i++) {
     var bullet = ebullets[i];
 
-    if (boxCollides(player.pos, player.sprite.size, bullet.pos, bullet.sprite.size) && !player.invulnerable) {
+    if (boxCollides(player.hitboxXY, player.hitbox, bullet.pos, bullet.sprite.size) && !player.invulnerable) {
       player.hitPoints-=10;
+      
 
-      if (player.hitPoints - 10 < 0) {
+      if (player.hitPoints - 10 < 0 && state.lives == 1) {
         explosions.push(new explosion.Explosion(player.pos[0], player.pos[1]));
+        state.gameOver();
         return;
+      } else if (player.hitPoints - 10 < 0 && state.lives > 1) {
+        state.lives--;
+        player.hitPoints = 100;
+        explosions.push(new explosion.Explosion(player.pos[0], player.pos[1]));
       }
 
       // Add a hit marker
@@ -68,7 +74,7 @@ module.exports = function(enemies, bullets, explosions, ebullets) {
         state.score += 50;
 
         // Add a hit marker
-        explosions.push(new explosion.HitRed(pos[0], pos[1]));
+        explosions.push(new explosion.HitBlue(pos[0], pos[1]));
 
         // Remove the bullet
         bullets.splice(j, 1);

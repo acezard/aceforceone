@@ -17,7 +17,8 @@ resources.load([
   src + 'explosion.png',
   src + 'enemy-lg-1.png',
   src + 'hitred.png',
-  src + 'bullet_red2.png'
+  src + 'bullet_red2.png',
+  src + 'hitblue.png'
 ]);
 
 resources.onReady(play);
@@ -38,5 +39,5 @@ function gameLoop() {
   game.render();
 
   lastTime = now;
-  requestAnimationFrame(gameLoop, canvas.canvas);
+  requestAnimationFrame(gameLoop);
 }

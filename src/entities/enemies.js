@@ -5,8 +5,8 @@ var state = require('../state');
 var weapons = require('./weapons');
 
 var RedXS = function(angle) {
-  this.pos = [utils.getRandom(0, canvas.width), - 53];
-  this.speed = 200;
+  this.pos = [utils.getRandom(0, canvas.width), - 200];
+  this.speed = 100;
   this.hitpoints = 5;
   this.lastFire = Date.now();
   this.sprite = new Sprite('assets/images/enemy-xs-1.png', [0, 0], [75, 53]),
@@ -15,12 +15,25 @@ var RedXS = function(angle) {
   this.xVector = Math.cos(this.radians) * this.speed;
   this.yVector = Math.sin(this.radians) * this.speed;
   this.shoot = function() {
-    if (Date.now() - this.lastFire > 500) {
+    if (Date.now() - this.lastFire > 1000) {
       var x = this.pos[0] + this.sprite.size[0] / 2;
       var y = this.pos[1] + this.sprite.size[1] / 2;
 
-      state.ebullets.push(new weapons.RedLaser(x, y, 85));
-      state.ebullets.push(new weapons.RedLaser(x, y, 95));
+      var steps = 8
+      var step = 360/steps;
+      for (i=0; i < steps; i++) {
+        state.ebullets.push(new weapons.RedLaser(x, y, step * i));
+      }
+/*
+      state.ebullets.push(new weapons.RedLaser(x, y, 45));
+      state.ebullets.push(new weapons.RedLaser(x, y, 90));
+      state.ebullets.push(new weapons.RedLaser(x, y, 135));
+      state.ebullets.push(new weapons.RedLaser(x, y, 180));
+      state.ebullets.push(new weapons.RedLaser(x, y, 225));
+      state.ebullets.push(new weapons.RedLaser(x, y, 270));
+      state.ebullets.push(new weapons.RedLaser(x, y, 315));
+      state.ebullets.push(new weapons.RedLaser(x, y, 360));*/
+
       this.lastFire = Date.now();
     }
   };
@@ -30,7 +43,7 @@ var RedXS = function(angle) {
     this.sprite.update(dt);
 
     // Remove if offscreen
-    if(this.pos[1] + this.sprite.size[1] > canvas.height) {
+    if(this.pos[1] > canvas.height) {
       this.active = false;
     }
   };
