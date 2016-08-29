@@ -75,6 +75,26 @@ body {
   height: 150px;
 }
 
+#hpEl::before {
+  position: absolute;
+  top: calc(-40px - -1%);
+  background-image: url('../assets/images/hpicon.png');
+  width: 40px;
+  height: 40px;
+  content: '';
+  left: 0;
+}
+
+#shEl::before {
+  position: absolute;
+  top: calc(-40px - -1%);
+  background-image: url('../assets/images/powericon.png');
+  width: 40px;
+  height: 40px;
+  content: '';
+  left: 0;
+}
+
 .wrapper {
   position: absolute;
   top: 7px;
