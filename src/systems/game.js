@@ -24,7 +24,7 @@ exports.update = function(dt) {
     state.enemies[i].shoot();
   }
 
-  if(Math.random() < dt * 2) {
+  if(Math.random() < dt) {
     state.enemies.push(new enemies.RedXS(utils.getRandom(70, 110)));
   }
 
@@ -42,6 +42,7 @@ exports.update = function(dt) {
   player.updatePowerPoints(state.score);
   player.updateHitPoints();
   canvas.scoreEl.innerHTML = state.score;
+  canvas.lifesEl.innerHTML = state.lives;
 }
 
 exports.render = function() {
@@ -54,13 +55,23 @@ exports.render = function() {
   }
 
   background.draw();
-    renderList(state.bullets);
-    renderList(state.enemies);
-    if(!state.isGameOver) {
-      player.render();
-    }
-    renderList(state.ebullets);
-    renderList(state.explosions);
+  
+  canvas.ctx.fillStyle = 'red';
+  renderList(state.bullets);
+  renderList(state.enemies);
+  if(!state.isGameOver) {
+
+    player.render();
+    player.mouseRender();
+  }
+  renderList(state.ebullets);
+  renderList(state.explosions);
+
+/*  for (i= 0, len = state.ebullets.length; i < len; i ++) {
+    var bullet = state.ebullets[i];
+    canvas.ctx.fillRect(bullet.pos[0], bullet.pos[1], bullet.sprite.size[0], bullet.sprite.size[1])
+  }
+  canvas.ctx.fillRect(player.hitboxXY[0], player.hitboxXY[1], player.hitbox[0], player.hitbox[1])*/
 
   postShake();
 }

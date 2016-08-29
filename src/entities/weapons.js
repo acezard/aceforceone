@@ -33,7 +33,7 @@ var Bullet = function(x, y, angle) {
 
 var RedLaser = function(x, y, angle) {
   this.pos = [x, y];
-  this.speed = 300;
+  this.speed = 200;
   this.sprite = new Sprite('assets/images/bullet_red2.png', [0, 0], [12, 11]);
   this.active = true;
   this.radians = angle * Math.PI / 180;

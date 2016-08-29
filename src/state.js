@@ -11,7 +11,7 @@ var state = {
   isGameOver: false,
   score: 0,
   scoreEl: document.getElementById('score'),
-  lifes: 3,
+  lives: 3,
   gameOver: function() {
     this.isGameOver = true;
     canvas.ui.setAttribute('class', 'hide');
