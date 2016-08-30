@@ -49,9 +49,9 @@ exports.update = function(dt) {
 exports.render = function() {
   canvas.clear();
 
-/*  if (distance % 5 == 0) {
+  if (distance % 5 == 0) {
     console.log('ebullets ' + state.ebullets.length, '\nenemies ' + state.enemies.length + '\nexplosions ' + state.explosions.length + '\nbullets ' + state.bullets.length)
-  }*/
+  }
 
   if(state.explosions.some(function(elem) {
     return elem instanceof explosions.Explosion
