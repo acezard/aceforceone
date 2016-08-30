@@ -4,8 +4,8 @@ var utils = require('../utils/utils');
 var state = require('../state');
 var weapons = require('./weapons');
 
-var RedXS = function(angle) {
-  this.pos = [utils.getRandom(0, canvas.width), - 200];
+var RedXS = function(pos, angle) {
+  this.pos = pos;
   this.speed = 100;
   this.hitpoints = 10;
   this.lastFire = Date.now();

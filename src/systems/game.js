@@ -6,7 +6,8 @@ var canvas = require('../canvas'),
     state = require('../state'),
     collisions = require('./collisions')
     utils = require('../utils/utils')
-    explosions = require('../entities/explosions');
+    explosions = require('../entities/explosions'),
+    spawners = require('../entities/spawners');
 
 var gameTime = 0;
 var spawn = 0;
@@ -25,10 +26,15 @@ exports.update = function(dt) {
     state.enemies[i].shoot();
   }
 
-  if(Math.random() < dt * 3) {
+/*  if(Math.random() < dt * 3) {
     state.enemies.push(new enemies.RedXS(utils.getRandom(70, 110)));
+  }*/
+
+  if (distance == 5) {
+    state.spawners.push(new spawners.Spawner([-100, -100], 45, 1500, enemies.RedXS, 10));
   }
 
+  updateList(state.spawners);
   updateList(state.bullets, dt);
   updateList(state.enemies, dt);
   updateList(state.ebullets, dt);
