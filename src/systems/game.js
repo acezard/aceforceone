@@ -31,7 +31,11 @@ exports.update = function(dt) {
   }*/
 
   if (distance == 5) {
-    state.spawners.push(new spawners.Spawner([-100, -100], 45, 1500, enemies.RedXS, 10));
+    state.spawners.push(new spawners.Spawner([0, 200], 30, 1000, 'RedXS', 10));
+  }
+
+  if (distance == 6) {
+    state.spawners.push(new spawners.Spawner([canvas.width, 200], 190, 1000, 'RedXS', 10));
   }
 
   updateList(state.spawners);
@@ -55,9 +59,9 @@ exports.update = function(dt) {
 exports.render = function() {
   canvas.clear();
 
-  if (distance % 5 == 0) {
+/*  if (distance % 5 == 0) {
     console.log('ebullets ' + state.ebullets.length, '\nenemies ' + state.enemies.length + '\nexplosions ' + state.explosions.length + '\nbullets ' + state.bullets.length)
-  }
+  }*/
 
   if(state.explosions.some(function(elem) {
     return elem instanceof explosions.Explosion

@@ -6,7 +6,7 @@ var weapons = require('./weapons');
 
 var RedXS = function(pos, angle) {
   this.pos = pos;
-  this.speed = 100;
+  this.speed = 200;
   this.hitpoints = 10;
   this.lastFire = Date.now();
   this.sprite = new Sprite('assets/images/enemy-xs-1.png', [0, 0], [75, 53]),

@@ -1,8 +1,10 @@
 var state = require('../state');
 var enemies = require('./enemies');
 
+var lastTime = Date.now();
+
 function Spawner(pos, angle, delay, enemyType, size) {
-  this.pos = [pos[0], pos[1]];
+  this.pos = pos;
   this.angle = angle;
   this.delay = delay;
   this.enemyType = enemyType;
@@ -12,14 +14,17 @@ function Spawner(pos, angle, delay, enemyType, size) {
 };
 
 Spawner.prototype.update = function() {
+  var now = Date.now();
+
   if (this.size == 0) {
     this.active = false;
     return;
   }
 
-  if (this.size && Date.now() - this.lastTime > this.delay) {
-    state.enemies.push(new enemies.RedXS(this.pos, this.angle));
-    this.lastTime = Date.now();
+  if (this.size && now - lastTime > this.delay) {
+    state.enemies.push(new enemies.RedXS([this.pos[0], this.pos[1]], this.angle));
+
+    lastTime = now;
     this.size--;
   }
 };
