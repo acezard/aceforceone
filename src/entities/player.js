@@ -31,7 +31,7 @@ var player = {
       state.ebullets = [];
 
       for (i = 0; i < steps; i++) {
-        state.bullets.push(new weapons.Bullet(x, y, step * i));
+        state.bullets.push(weapons.blue.addMissile({x: x, y: y, angle: step * i}));
       }
 
       this.lastUlti = Date.now();
@@ -66,21 +66,21 @@ var player = {
   },
   shoot: function() {
     var now = Date.now();
-    var x = player.pos[0] + player.sprite.size[0] / 2;
-    var y = player.pos[1] + player.sprite.size[1] / 2;
+    var playerX = player.pos[0] + player.sprite.size[0] / 2;
+    var playerY = player.pos[1] + player.sprite.size[1] / 2;
 
     if(now - state.lastFire > 100) {
-      state.bullets.push(new weapons.Bullet(x, y, 270 - 20));
-      state.bullets.push(new weapons.Bullet(x, y, 270 - 25));
-      state.bullets.push(new weapons.Bullet(x, y, 270 + 20));
-      state.bullets.push(new weapons.Bullet(x, y, 270 + 25));
+      state.bullets.push(weapons.blue.addMissile({x: playerX, y: playerY, angle: 270 - 25}));
+      state.bullets.push(weapons.blue.addMissile({x: playerX, y: playerY, angle: 270 - 20}));
+      state.bullets.push(weapons.blue.addMissile({x: playerX, y: playerY, angle: 270 + 20}));
+      state.bullets.push(weapons.blue.addMissile({x: playerX, y: playerY, angle: 270 + 25}));
 
       state.lastFire = now;
     }
 
     if(now - weapons.conf.purpleDeath.lastFire > weapons.conf.purpleDeath.ROF) {
-      state.bullets.push(new weapons.BigBullet(x - 20, y, 270));
-      state.bullets.push(new weapons.BigBullet(x + 20, y, 270));
+      state.bullets.push(weapons.purple.addMissile({x: playerX - 20, y: playerY, angle: 270}));
+      state.bullets.push(weapons.purple.addMissile({x: playerX + 20, y: playerY, angle: 270}));
 
       weapons.conf.purpleDeath.lastFire = now;
     }
