@@ -23,7 +23,7 @@ var RedXS = function(angle) {
       var steps = 8;
       var step = 360/steps;
       for (i=0; i < steps; i++) {
-        state.ebullets.push(new weapons.RedLaser(x, y, step * i));
+        state.ebullets.push(weapons.red.addMissile({x: x, y: y, angle: step * i}));
       }
 /*
       state.ebullets.push(new weapons.RedLaser(x, y, 45));
