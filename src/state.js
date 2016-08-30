@@ -12,6 +12,7 @@ var state = {
   score: 0,
   scoreEl: document.getElementById('score'),
   lives: 3,
+  scoreMultiplier: 0.020,
   gameOver: function() {
     this.isGameOver = true;
     canvas.ui.setAttribute('class', 'hide');

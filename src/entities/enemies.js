@@ -7,19 +7,20 @@ var weapons = require('./weapons');
 var RedXS = function(angle) {
   this.pos = [utils.getRandom(0, canvas.width), - 200];
   this.speed = 100;
-  this.hitpoints = 5;
+  this.hitpoints = 10;
   this.lastFire = Date.now();
   this.sprite = new Sprite('assets/images/enemy-xs-1.png', [0, 0], [75, 53]),
   this.active = true;
   this.radians = angle * Math.PI / 180;
   this.xVector = Math.cos(this.radians) * this.speed;
   this.yVector = Math.sin(this.radians) * this.speed;
+  this.score = 50;
   this.shoot = function() {
     if (Date.now() - this.lastFire > 1000) {
       var x = this.pos[0] + this.sprite.size[0] / 2;
       var y = this.pos[1] + this.sprite.size[1] / 2;
 
-      var steps = 4
+      var steps = 8;
       var step = 360/steps;
       for (i=0; i < steps; i++) {
         state.ebullets.push(new weapons.RedLaser(x, y, step * i));

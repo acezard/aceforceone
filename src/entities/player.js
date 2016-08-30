@@ -65,15 +65,24 @@ var player = {
     }
   },
   shoot: function() {
-    if(!state.isGameOver && Date.now() - state.lastFire > 100) {
-      var x = player.pos[0] + player.sprite.size[0] / 2;
-      var y = player.pos[1] + player.sprite.size[1] / 2;
+    var now = Date.now();
+    var x = player.pos[0] + player.sprite.size[0] / 2;
+    var y = player.pos[1] + player.sprite.size[1] / 2;
 
-      state.bullets.push(new weapons.Bullet(x, y, 270));
-      state.bullets.push(new weapons.Bullet(x, y, 260));
-      state.bullets.push(new weapons.Bullet(x, y, 280));
+    if(now - state.lastFire > 100) {
+      state.bullets.push(new weapons.Bullet(x, y, 270 - 20));
+      state.bullets.push(new weapons.Bullet(x, y, 270 - 25));
+      state.bullets.push(new weapons.Bullet(x, y, 270 + 20));
+      state.bullets.push(new weapons.Bullet(x, y, 270 + 25));
 
-      state.lastFire = Date.now();
+      state.lastFire = now;
+    }
+
+    if(now - weapons.conf.purpleDeath.lastFire > weapons.conf.purpleDeath.ROF) {
+      state.bullets.push(new weapons.BigBullet(x - 20, y, 270));
+      state.bullets.push(new weapons.BigBullet(x + 20, y, 270));
+
+      weapons.conf.purpleDeath.lastFire = now;
     }
   },
   render: function() {
@@ -119,7 +128,7 @@ var player = {
   },
   mouseRender: function() {
     canvas.ctx.beginPath();
-    canvas.ctx.arc(inputs.mouseX, inputs.mouseY, 2.5, 0, 2 * Math.PI, false);
+    canvas.ctx.arc(inputs.mouseX, inputs.mouseY, 5, 0, 2 * Math.PI, false);
     canvas.ctx.fillStyle = 'rgba(231, 76, 60,0.8)';
     canvas.ctx.fill();
   },

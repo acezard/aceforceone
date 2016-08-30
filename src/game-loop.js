@@ -18,7 +18,9 @@ resources.load([
   src + 'enemy-lg-1.png',
   src + 'hitred.png',
   src + 'bullet_red2.png',
-  src + 'hitblue.png'
+  src + 'hitblue.png',
+  src + 'bigbullet.png',
+  src + 'hitpurple.png'
 ]);
 
 resources.onReady(play);
