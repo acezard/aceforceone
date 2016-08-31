@@ -12,10 +12,15 @@ var canvas = require('../canvas'),
 var gameTime = 0;
 var spawn = 0;
 var distance = 0;
+var wave = 0;
+
+var timer = 0;
 
 exports.update = function(dt) {
   gameTime += dt;
-  distance += 0.5;
+  distance++;
+  console.log('Game Time: ' + gameTime)
+  console.log('Timer : ' + timer)
   
   background.update();
 
@@ -26,17 +31,39 @@ exports.update = function(dt) {
     state.enemies[i].shoot();
   }
 
-/*  if(Math.random() < dt * 3) {
-    state.enemies.push(new enemies.RedXS(utils.getRandom(70, 110)));
+  if (gameTime > timer) {
+    console.log('FIRED')
+    state.spawners.push(new spawners.Spawner([0, 0], 90, 400, 'RedXS', 3, 'squadron'));
+    setTimeout(function() {
+      state.spawners.push(new spawners.Spawner([0, 0], 90, 400, 'RedXS', 5, 'squadron'));
+    }, 2000);
+    setTimeout(function() {
+      state.spawners.push(new spawners.Spawner([0, 0], 90, 400, 'RedXS', 7, 'squadron'));
+    }, 4000);
+    timer = gameTime + 10;
+  }
+
+
+/*  if (gameTime > 0 && wave == 0) {
+    state.spawners.push(new spawners.Spawner([canvas.width, 600], 210, 400, 'RedXS', 15, 'line'));
+    wave++;
+  }
+*/
+/*
+  if (gameTime > 10 && wave == 1) {
+    state.spawners.push(new spawners.Spawner([canvas.width, 200], 190, 700, 'RedXS', 10));
+    wave++;
+  }
+
+  if (gameTime > 15 && wave == 2) {
+    state.spawners.push(new spawners.Spawner([0, 100], 30, 700, 'RedXS', 10));
+    wave++;
+  }
+  
+  if (gameTime > 20 && wave == 3) {
+    state.spawners.push(new spawners.Spawner([canvas.width, 300], 190, 700, 'RedXS', 10));
+    wave++;
   }*/
-
-  if (distance == 5) {
-    state.spawners.push(new spawners.Spawner([0, 200], 30, 1000, 'RedXS', 10));
-  }
-
-  if (distance == 6) {
-    state.spawners.push(new spawners.Spawner([canvas.width, 200], 190, 1000, 'RedXS', 10));
-  }
 
   updateList(state.spawners);
   updateList(state.bullets, dt);

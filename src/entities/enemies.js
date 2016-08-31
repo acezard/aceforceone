@@ -6,7 +6,7 @@ var weapons = require('./weapons');
 
 var RedXS = function(pos, angle) {
   this.pos = pos;
-  this.speed = 200;
+  this.speed = 100;
   this.hitpoints = 10;
   this.lastFire = Date.now();
   this.sprite = new Sprite('assets/images/enemy-xs-1.png', [0, 0], [75, 53]),
@@ -20,8 +20,8 @@ var RedXS = function(pos, angle) {
       var x = this.pos[0] + this.sprite.size[0] / 2;
       var y = this.pos[1] + this.sprite.size[1] / 2;
 
-      var steps = 8;
-      var step = 360/steps;
+      var steps = 30;
+      var step = 180/steps;
       for (i=0; i < steps; i++) {
         state.ebullets.push(weapons.red.addMissile({x: x, y: y, angle: step * i}));
       }
