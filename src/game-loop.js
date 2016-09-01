@@ -20,7 +20,9 @@ resources.load([
   src + 'bullet_red2.png',
   src + 'hitblue.png',
   src + 'bigbullet.png',
-  src + 'hitpurple.png'
+  src + 'hitpurple.png',
+  src + 'base1.svg',
+  src + 'scout.png'
 ]);
 
 resources.onReady(play);

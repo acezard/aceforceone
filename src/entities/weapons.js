@@ -10,6 +10,7 @@ var player = require('./player');
 var game = require('../game-loop');
 var resources = require('../utils/resources');
 var Sprite = require('../utils/sprite');
+var utils = require('../utils/utils');
 
 // Shared config to handle global rate of fire
 var weaponsConfig = {
@@ -37,13 +38,17 @@ var WeaponEntity = function(damage, color, speed) {
 
 // Update method
 WeaponEntity.prototype.update = function(dt) {
-    this.pos[0] += this.xVector * dt;
-    this.pos[1] += this.yVector * dt;
+    this.pos[0] += this.vector[0] * dt;
+    this.pos[1] += this.vector[1] * dt;
 
     // Remove the bullet if it goes offscreen
-    if(this.pos[1] < 0 || this.pos[1] > canvas.height || this.pos[0] > canvas.width || this.pos[0] < 0) {
+    if(this.outOfBounds()) {
       this.active = false;
     }
+};
+
+WeaponEntity.prototype.outOfBounds = function() {
+  return this.pos[0] < 0 || this.pos[0] > canvas.width || this.pos[1] < 0 || this.pos[1] > canvas.height;
 };
 
 // Draw method
@@ -57,49 +62,41 @@ WeaponEntity.prototype.render = function() {
 // Weapon specifics
 // Blue Liberator
 var BlueLiberator = function(settings) {
+  WeaponEntity.call(this, 1, 'blue', 600);
+
   this.sprite = new Sprite('assets/images/bullet_blue8.png', [0, 0], [7, 16]);
   this.pos = [settings.x, settings.y];
   this.radians = settings.angle * Math.PI / 180;
-  this.xVector = Math.cos(this.radians) * this.speed;
-  this.yVector = Math.sin(this.radians) * this.speed;
+  this.vector = [Math.cos(this.radians) * this.speed, Math.sin(this.radians) * this.speed];
 }
-BlueLiberator.prototype = new WeaponEntity(1, 'blue', 600);
+BlueLiberator.prototype = Object.create(WeaponEntity.prototype);
 
 // Purple Death
 var PurpleDeath = function(settings) {
+  WeaponEntity.call(this, 5, 'purple', 1000);
+
   this.sprite = new Sprite('assets/images/bigbullet.png', [0, 0], [20, 38]);
   this.radians = settings.angle * Math.PI / 180;
   this.pos = [settings.x - this.sprite.size[0] * 0.5, settings.y - this.sprite.size[1] * 0.5];
-  this.xVector = Math.cos(this.radians) * this.speed;
-  this.yVector = Math.sin(this.radians) * this.speed;
+  this.vector = [Math.cos(this.radians) * this.speed, Math.sin(this.radians) * this.speed];
 }
-PurpleDeath.prototype = new WeaponEntity(5, 'purple', 1000);
+PurpleDeath.prototype = Object.create(WeaponEntity.prototype);
 
 // Red Foe
 var RedFoe = function(settings) {
+  WeaponEntity.call(this, 1, 'red', 200);
+
   this.sprite = new Sprite('assets/images/bullet_red2.png', [0, 0], [12, 11]);
   this.radians = settings.angle * Math.PI / 180;
   this.pos = [settings.x, settings.y];
-  this.xVector = Math.cos(this.radians) * this.speed;
-  this.yVector = Math.sin(this.radians) * this.speed;
+  this.vector = [Math.cos(this.radians) * this.speed, Math.sin(this.radians) * this.speed];
 }
-RedFoe.prototype = new WeaponEntity(1, 'red', 200);
+RedFoe.prototype = Object.create(WeaponEntity.prototype);
 
 // Factory function
 var WeaponsFactory = function() {};
-WeaponsFactory.prototype.addMissile = function(options) {
-  switch(options.type){
-    case "BlueLiberator":
-      this.type = BlueLiberator;
-      break;
-    case "PurpleDeath":
-      this.type = PurpleDeath;
-      break;
-    case "RedFoe":
-      this.type = RedFoe;
-      break;
-  }
- 
+
+WeaponsFactory.prototype.addMissile = function(options) { 
   return new this.type(options);
 }
 
@@ -118,11 +115,11 @@ RedFoeFactory.prototype.type = RedFoe;
 
 var blueFactory = new BlueLiberatorFactory();
 var purpleFactory = new PurpleDeathFactory();
-var redFoeFactory = new RedFoeFactory();
+var redFactory = new RedFoeFactory();
 
 module.exports = {
   conf: weaponsConfig,
   blue: blueFactory,
   purple: purpleFactory,
-  red: redFoeFactory
+  red: redFactory
 };

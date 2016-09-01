@@ -6,6 +6,7 @@ var state = {
   ebullets: [],
   enemies: [],
   explosions: [],
+  spawners: [],
   lastFire: Date.now(),
   gameTime: 0,
   isGameOver: false,
