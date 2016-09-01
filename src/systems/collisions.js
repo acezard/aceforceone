@@ -58,12 +58,15 @@ module.exports = function(enemies, bullets, explosions, ebullets) {
         var score = enemy.score;
 
         // If the enemy dies
-        if (boxCollides(pos, size, pos2, size2) && enemies[i].hitpoints - bullet.damage <= 0) {
+        if (boxCollides(pos, size, pos2, size2) && enemy.hitpoints - bullet.damage <= 0) {
+          var removed = enemy.hitpoints;
+
           // Remove the enemy
           enemy.active = false;
 
           // Update score
-          state.score += score;
+          state.score += score * 0.5 + (enemy.hitpoints * score * 0.05);
+
           if (player.ultiCount == 0 && player.powerPoints < 100) {
               player.powerPoints += score * state.scoreMultiplier;
           }
@@ -78,10 +81,12 @@ module.exports = function(enemies, bullets, explosions, ebullets) {
         }
 
         if (boxCollides(pos, size, pos2, size2)) {
-          enemies[i].hitpoints-= bullet.damage;
+          var removed = bullet.damage;
+
+          enemies[i].hitpoints -= bullet.damage;
 
           // Update score
-          state.score += score * 0.2;
+          state.score += removed * (score * 0.05);
 
           // Add a hit marker
           explosions.push(new explosion.Hit(pos[0], pos[1], bullet.hit));

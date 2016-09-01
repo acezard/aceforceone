@@ -9,13 +9,18 @@ var enemyConfig = {
   RedXS: {
     speed: 100,
     hitpoints: 10,
-    score: 40,
+    score: 100,
     burst: {
       amount: 3,
       delay: 1000,
       counter: 3
     },
     ROF: 100
+  },
+  Scout: {
+    speed: 500,
+    hitpoints: 5,
+    score: 50
   }
 }
 
@@ -26,15 +31,22 @@ var EnemyEntity = function(config) {
   this.hitpoints = config.hitpoints;
   this.lastFire = Date.now();
   this.score = config.score;
-  this.burst = {
-    amount: config.burst.amount,
-    delay: config.burst.delay,
-    counter: config.burst.counter
-  } || null;
-  this.ROF = config.ROF;
+  this.ROF = config.ROF || null;
+
+  if (config.burst) {
+    this.burst = {
+      amount: config.burst.amount,
+      delay: config.burst.delay,
+      counter: config.burst.counter
+    };
+  }
 };
 
 // Update method
+EnemyEntity.prototype.shoot = function() {
+};
+
+var ang = 0;
 EnemyEntity.prototype.update = function(dt) {
     this.pos[0] += this.vector[0] * dt;
     this.pos[1] += this.vector[1] * dt;
@@ -53,18 +65,25 @@ EnemyEntity.prototype.outOfBounds = function() {
 EnemyEntity.prototype.render = function() {
   canvas.ctx.save();
   canvas.ctx.translate(this.pos[0], this.pos[1]);
+
+  if (this.rotation) {
+    canvas.ctx.translate(this.sprite.size[0] / 2, this.sprite.size[1] / 2);
+    canvas.ctx.rotate(Math.PI / 180 * this.rotation);
+  }
+
   this.sprite.render(canvas.ctx);
   canvas.ctx.restore();
 };
 
 // Enemies specifics
-var RedXS = function(pos, angle) {
+var RedXS = function(pos, angle, rotation) {
   EnemyEntity.call(this, enemyConfig.RedXS);
 
   this.sprite = new Sprite('assets/images/enemy-xs-1.png', [0, 0], [75, 53]);
   this.pos = [pos[0], pos[1]];
   this.radians = angle * Math.PI / 180;
   this.vector = [Math.cos(this.radians) * this.speed, Math.sin(this.radians) * this.speed];
+  this.rotation = rotation || null;
 }
 
 RedXS.prototype = Object.create(EnemyEntity.prototype);
@@ -91,11 +110,23 @@ RedXS.prototype.shoot = function() {
   }
 }
 
+var Scout = function(pos, angle, rotation) {
+  EnemyEntity.call(this, enemyConfig.Scout);
+
+  this.sprite = new Sprite('assets/images/scout.png', [0, 0], [50, 44]);
+  this.pos = [pos[0], pos[1]];
+  this.radians = angle * Math.PI / 180;
+  this.vector = [Math.cos(this.radians) * this.speed, Math.sin(this.radians) * this.speed];
+  this.rotation = rotation || null;
+}
+
+Scout.prototype = Object.create(EnemyEntity.prototype);
+
 // Factory function
 var EnemyFactory = function() {};
 
-EnemyFactory.prototype.add = function(pos, angle) { 
-  return new this.type(pos, angle);
+EnemyFactory.prototype.add = function(pos, angle, rotation) { 
+  return new this.type(pos, angle, rotation);
 }
 
 // Specifics factory
@@ -103,10 +134,14 @@ function RedXSFactory () {};
 RedXSFactory.prototype = new EnemyFactory();
 RedXSFactory.prototype.type = RedXS;
 
-var RedXS = new RedXSFactory();
+function ScoutFactory () {};
+ScoutFactory.prototype = new EnemyFactory();
+ScoutFactory.prototype.type = Scout;
 
-var test = RedXS.add(10, 20, 52);
+var RedXS = new RedXSFactory();
+var Scout = new ScoutFactory();
 
 module.exports = {
-  RedXS: RedXS
+  RedXS: RedXS,
+  Scout: Scout
 };

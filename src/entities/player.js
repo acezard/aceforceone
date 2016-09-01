@@ -4,7 +4,7 @@ var Sprite = require('../utils/sprite');
 var resources = require('../utils/resources');
 var state = require('../state');
 var weapons = require('./weapons');
-
+var ang = 0;
 // Load player
 var player = {
   pos: [0, 0],
@@ -72,14 +72,14 @@ var player = {
     var playerX = player.pos[0] + player.sprite.size[0] / 2;
     var playerY = player.pos[1] + player.sprite.size[1] / 2;
 
-/*    if(now - state.lastFire > 100) {
+    if(now - state.lastFire > 100) {
       state.bullets.push(weapons.blue.addMissile({x: playerX, y: playerY, angle: 270 - 25}));
       state.bullets.push(weapons.blue.addMissile({x: playerX, y: playerY, angle: 270 - 20}));
       state.bullets.push(weapons.blue.addMissile({x: playerX, y: playerY, angle: 270 + 20}));
       state.bullets.push(weapons.blue.addMissile({x: playerX, y: playerY, angle: 270 + 25}));
 
       state.lastFire = now;
-    }*/
+    }
 
     if(now - weapons.conf.purpleDeath.lastFire > weapons.conf.purpleDeath.ROF) {
       state.bullets.push(weapons.purple.addMissile({x: playerX - 20, y: playerY, angle: 270}));
@@ -93,6 +93,8 @@ var player = {
     if (!this.invulnerable || Math.floor(Date.now() / frequency) % 2) {
       canvas.ctx.save();
       canvas.ctx.translate(this.pos[0], this.pos[1]);
+/*      canvas.ctx.translate(this.sprite.size[0] / 2, this.sprite.size[1] / 2);
+      canvas.ctx.rotate(Math.PI / 180 * (ang += 5));*/
       this.sprite.render(canvas.ctx);
       canvas.ctx.restore();
     }

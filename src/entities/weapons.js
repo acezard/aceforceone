@@ -73,7 +73,7 @@ BlueLiberator.prototype = Object.create(WeaponEntity.prototype);
 
 // Purple Death
 var PurpleDeath = function(settings) {
-  WeaponEntity.call(this, 3.5, 'purple', 1000);
+  WeaponEntity.call(this, 5, 'purple', 1000);
 
   this.sprite = new Sprite('assets/images/bigbullet.png', [0, 0], [20, 38]);
   this.radians = settings.angle * Math.PI / 180;

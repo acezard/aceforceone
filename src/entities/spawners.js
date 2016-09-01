@@ -12,6 +12,7 @@ function Spawner(options) {
   this.active = true;
   this.type = options.type;
   this.now;
+  this.enemyRotation = options.rotation || null;
 };
 
 Spawner.prototype.update = function() {
@@ -45,7 +46,7 @@ Spawner.prototype.squadron = function() {
       this.pos[1] -= 75;
     }
 
-    state.enemies.push(enemies.RedXS.add([this.pos[0], this.pos[1]], this.angle));
+    state.enemies.push(enemies[this.enemyType].add([this.pos[0], this.pos[1]], this.angle, this.enemyRotation));
     this.pos[0] += step;
   }
 
@@ -54,7 +55,7 @@ Spawner.prototype.squadron = function() {
 
 Spawner.prototype.line = function() {
   if (this.now - this.lastTime > this.delay) {
-    state.enemies.push(enemies.RedXS.add([this.pos[0], this.pos[1]], this.angle));
+    state.enemies.push(enemies[this.enemyType].add([this.pos[0], this.pos[1]], this.angle, this.enemyRotation));
 
     this.lastTime = this.now;
     this.size--;
