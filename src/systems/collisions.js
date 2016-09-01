@@ -105,7 +105,7 @@ module.exports = function(enemies, bullets, explosions, ebullets) {
       }
       if (player.pos[1] > (pos[1] + size[1] - 10) && !left)
       {
-        player.pos[1] = pos[1] + size[1] + 10;
+        player.pos[1] = pos[1] + size[1] + 1;
         return;
       }
       if (player.pos[0] < pos[0])

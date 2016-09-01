@@ -8,7 +8,8 @@ var canvas = require('../canvas'),
   utils = require('../utils/utils'),
   explosions = require('../entities/explosions'),
   spawners = require('../entities/spawners'),
-  statics = require('../entities/statics');
+  statics = require('../entities/statics'),
+  level = require('../levels/level');
 
 var gameTime = 0;
 var spawn = 0;
@@ -21,41 +22,22 @@ exports.update = function (dt) {
   gameTime += dt;
   distance++;
 
-
-  player.handleInput(dt);
-
   background.update();
 
+  player.handleInput(dt);
   player.angryShoot();
   player.shoot();
-
   for (var i = 0; i < state.enemies.length; i++) {
     state.enemies[i].shoot();
   }
 
-  if (gameTime == 0) {
-    state.enemies.push(new statics.BigBlock(0));
-  }
-
-  /*  if (gameTime > timer) {
-      console.log('FIRED')
-      state.spawners.push(new spawners.Spawner([0, 0], 90, 400, 'RedXS', 3, 'squadron'));
-      setTimeout(function() {
-        state.spawners.push(new spawners.Spawner([0, 0], 90, 400, 'RedXS', 5, 'squadron'));
-      }, 2000);
-      setTimeout(function() {
-        state.spawners.push(new spawners.Spawner([0, 0], 90, 400, 'RedXS', 7, 'squadron'));
-      }, 4000);
-      timer = gameTime + 10;
-    }*/
+  level(gameTime);
 
   updateList(state.spawners);
   updateList(state.bullets, dt);
   updateList(state.enemies, dt);
   updateList(state.ebullets, dt);
   updateList(state.explosions, dt);
-
-
 
   if (!state.isGameOver) {
     collisions(state.enemies, state.bullets, state.explosions, state.ebullets);

@@ -16,7 +16,7 @@ var RedXS = function(pos, angle) {
   this.yVector = Math.sin(this.radians) * this.speed;
   this.score = 50;
   this.shoot = function() {
-    if (Date.now() - this.lastFire > 1000) {
+/*    if (Date.now() - this.lastFire > 1000) {
       var x = this.pos[0] + this.sprite.size[0] / 2;
       var y = this.pos[1] + this.sprite.size[1] / 2;
 
@@ -27,7 +27,7 @@ var RedXS = function(pos, angle) {
       }
 
       this.lastFire = Date.now();
-    }
+    }*/
   };
   this.update = function(dt) {
     this.pos[0] += this.xVector * dt;

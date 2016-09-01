@@ -4,11 +4,11 @@ var utils = require('../utils/utils');
 var state = require('../state');
 var weapons = require('./weapons');
 
-var STATIC_SPEED = 200;
+var STATIC_SPEED = 50;
 
 var BigBlock = function(posX) {
   this.ratio = 3;
-  this.sprite = new Sprite('assets/images/base1.svg', [0, 0], [260, 110]);
+  this.sprite = new Sprite('assets/images/base1.svg', [0, 0], [260, 112]);
   this.sprite.ratio = this.ratio;
   this.pos = [posX, 0 - this.sprite.size[1]];
   this.invulnerable = true;

@@ -8,6 +8,7 @@ function Sprite(url, pos, size, speed, frames, dir, once) {
   this._index = 0;
   this.url = url;
   this.dir = dir || 'horizontal';
+  this.once = once;
   this.ratio = 1;
 };
 

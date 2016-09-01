@@ -72,14 +72,14 @@ var player = {
     var playerX = player.pos[0] + player.sprite.size[0] / 2;
     var playerY = player.pos[1] + player.sprite.size[1] / 2;
 
-    if(now - state.lastFire > 100) {
+/*    if(now - state.lastFire > 100) {
       state.bullets.push(weapons.blue.addMissile({x: playerX, y: playerY, angle: 270 - 25}));
       state.bullets.push(weapons.blue.addMissile({x: playerX, y: playerY, angle: 270 - 20}));
       state.bullets.push(weapons.blue.addMissile({x: playerX, y: playerY, angle: 270 + 20}));
       state.bullets.push(weapons.blue.addMissile({x: playerX, y: playerY, angle: 270 + 25}));
 
       state.lastFire = now;
-    }
+    }*/
 
     if(now - weapons.conf.purpleDeath.lastFire > weapons.conf.purpleDeath.ROF) {
       state.bullets.push(weapons.purple.addMissile({x: playerX - 20, y: playerY, angle: 270}));

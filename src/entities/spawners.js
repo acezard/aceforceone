@@ -2,15 +2,15 @@ var state = require('../state');
 var enemies = require('./enemies');
 var canvas = require('../canvas');
 
-function Spawner(pos, angle, delay, enemyType, size, type) {
-  this.pos = pos;
-  this.angle = angle;
-  this.delay = delay;
-  this.enemyType = enemyType;
-  this.size = size;
+function Spawner(options) {
+  this.pos = options.position;
+  this.angle = options.angle || 90;
+  this.delay = options.delay || 0;
+  this.enemyType = options.enemyType;
+  this.size = options.enemyNumbers;
   this.lastTime = Date.now();
   this.active = true;
-  this.type = type;
+  this.type = options.type;
   this.now;
 };
 
