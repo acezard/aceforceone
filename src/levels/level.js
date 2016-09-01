@@ -18,6 +18,7 @@ var level = {
   0: {
     position: [0, 0],
     enemy: 'RedXS',
+    leader: 'RogueLeader',
     enemyNumbers: 3,
     type: 'squadron'
   },
@@ -25,6 +26,7 @@ var level = {
   3: {
     position: [0, 0],
     enemy: 'RedXS',
+    leader: 'RogueLeader',
     enemyNumbers: 5,
     type: 'squadron'
   },
@@ -32,6 +34,7 @@ var level = {
   6: {
     position: [0, 0],
     enemy: 'RedXS',
+    leader: 'RogueLeader',
     enemyNumbers: 7,
     type: 'squadron'
   },

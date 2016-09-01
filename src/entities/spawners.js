@@ -45,7 +45,7 @@ Spawner.prototype.squadron = function() {
       this.pos[1] -= 75;
     }
 
-    state.enemies.push(new enemies.RedXS([this.pos[0], this.pos[1]], this.angle));
+    state.enemies.push(enemies.RedXS.add([this.pos[0], this.pos[1]], this.angle));
     this.pos[0] += step;
   }
 
@@ -54,7 +54,7 @@ Spawner.prototype.squadron = function() {
 
 Spawner.prototype.line = function() {
   if (this.now - this.lastTime > this.delay) {
-    state.enemies.push(new enemies.RedXS([this.pos[0], this.pos[1]], this.angle));
+    state.enemies.push(enemies.RedXS.add([this.pos[0], this.pos[1]], this.angle));
 
     this.lastTime = this.now;
     this.size--;
