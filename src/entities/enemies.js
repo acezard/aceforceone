@@ -25,15 +25,6 @@ var RedXS = function(pos, angle) {
       for (i=0; i < steps; i++) {
         state.ebullets.push(weapons.red.addMissile({x: x, y: y, angle: step * i}));
       }
-/*
-      state.ebullets.push(new weapons.RedLaser(x, y, 45));
-      state.ebullets.push(new weapons.RedLaser(x, y, 90));
-      state.ebullets.push(new weapons.RedLaser(x, y, 135));
-      state.ebullets.push(new weapons.RedLaser(x, y, 180));
-      state.ebullets.push(new weapons.RedLaser(x, y, 225));
-      state.ebullets.push(new weapons.RedLaser(x, y, 270));
-      state.ebullets.push(new weapons.RedLaser(x, y, 315));
-      state.ebullets.push(new weapons.RedLaser(x, y, 360));*/
 
       this.lastFire = Date.now();
     }

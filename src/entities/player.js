@@ -15,6 +15,9 @@ var player = {
   invulnerable: false,
   lastUlti: Date.now(),
   ultiCount: 0,
+  dX: 0,
+  dY: 0,
+  crushed: false,
   angryShoot: function() {
     // ugly
     if(inputs.clicked && this.powerPoints >= 100 || this.ultiCount >= 1 && Date.now() - this.lastUlti > 500) {
@@ -95,8 +98,6 @@ var player = {
     }
   },
   handleInput: function(dt) {
-    var dX = 0;
-    var dY = 0;
     var easingAmount = 1;
 
 /*    if (inputs.up) player.pos[1] -= player.speed * dt;
@@ -107,21 +108,21 @@ var player = {
     if (player.pos[0] <= 0) player.pos[0] = 0;
     if (player.pos[1] <= 0) player.pos[1] = 0;
     if (player.pos[0] + player.sprite.size[0] >= canvas.width) player.pos[0] = canvas.width - player.sprite.size[0];
-    if (player.pos[1] + player.sprite.size[1] >= canvas.height) player.pos[1] = canvas.height - player.sprite.size[1];
+    if (player.pos[1] + player.sprite.size[1] >= canvas.height && !player.crushed) player.pos[1] = canvas.height - player.sprite.size[1];
 
-    dX = inputs.mouseX - player.pos[0] - player.sprite.size[0] / 2;
-    dY = inputs.mouseY - player.pos[1] - player.sprite.size[1] / 2;
+    this.dX = inputs.mouseX - player.pos[0] - player.sprite.size[0] / 2;
+    this.dY = inputs.mouseY - player.pos[1] - player.sprite.size[1] / 2;
   
-    var distance = Math.sqrt(dX * dX + dY * dY);
+    var distance = Math.sqrt(this.dX * this.dX + this.dY * this.dY);
 
     if (distance > this.speed) {
-       dX = dX * this.speed / distance;
-       dY = dY * this.speed / distance;
+       this.dX = this.dX * this.speed / distance;
+       this.dY = this.dY * this.speed / distance;
        this.mouseRender();
     }
     if (distance > 1) {
-        player.pos[0] += dX * easingAmount;
-        player.pos[1] += dY * easingAmount;
+        player.pos[0] += this.dX * easingAmount;
+        player.pos[1] += this.dY * easingAmount;
     }
 
     player.hitboxXY = [player.pos[0] + player.hitbox[0] * 1.5, player.pos[1] + player.hitbox[1] * 1.5];

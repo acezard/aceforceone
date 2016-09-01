@@ -8,7 +8,7 @@ function Sprite(url, pos, size, speed, frames, dir, once) {
   this._index = 0;
   this.url = url;
   this.dir = dir || 'horizontal';
-  this.once = once;
+  this.ratio = 1;
 };
 
 Sprite.prototype = {
@@ -43,7 +43,7 @@ Sprite.prototype = {
 
     ctx.drawImage(resources.get(this.url),
       x, y,
-      this.size[0], this.size[1],
+      this.size[0] * this.ratio, this.size[1] * this.ratio,
       0, 0,
       this.size[0], this.size[1]);
   }

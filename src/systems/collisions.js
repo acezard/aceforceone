@@ -49,44 +49,74 @@ module.exports = function(enemies, bullets, explosions, ebullets) {
     var size = enemy.sprite.size;
     var hp = enemy.hitpoints;
 
-    for (var j = 0; j < bullets.length; j++) {
-      var bullet = bullets[j];
-      var pos2 = bullet.pos;
-      var size2 = bullet.sprite.size;
-      var damage = bullet.damage;
-      var score = enemy.score;
+    if (!enemy.invulnerable) {
+      for (var j = 0; j < bullets.length; j++) {
+        var bullet = bullets[j];
+        var pos2 = bullet.pos;
+        var size2 = bullet.sprite.size;
+        var damage = bullet.damage;
+        var score = enemy.score;
 
-      // If the enemy dies
-      if (boxCollides(pos, size, pos2, size2) && enemies[i].hitpoints - bullet.damage <= 0) {
-        // Remove the enemy
-        enemy.active = false;
+        // If the enemy dies
+        if (boxCollides(pos, size, pos2, size2) && enemies[i].hitpoints - bullet.damage <= 0) {
+          // Remove the enemy
+          enemy.active = false;
 
-        // Update score
-        state.score += score;
-        if (player.ultiCount == 0 && player.powerPoints < 100) {
-            player.powerPoints += score * state.scoreMultiplier;
+          // Update score
+          state.score += score;
+          if (player.ultiCount == 0 && player.powerPoints < 100) {
+              player.powerPoints += score * state.scoreMultiplier;
+          }
+
+          // Add an explosion
+          explosions.push(new explosion.Explosion(pos[0], pos[1]));
+          explosions.push(new explosion.Scored(pos[0] + size[0] / 3, pos[1], '50', 'good'));
+
+          // Remove the bullet and stop this iteration
+          bullet.active = false;
+          break;
         }
 
-        // Add an explosion
-        explosions.push(new explosion.Explosion(pos[0], pos[1]));
-        explosions.push(new explosion.Scored(pos[0] + size[0] / 3, pos[1], '50', 'good'));
+        if (boxCollides(pos, size, pos2, size2)) {
+          enemies[i].hitpoints-= bullet.damage;
 
-        // Remove the bullet and stop this iteration
-        bullet.active = false;
-        break;
+          // Update score
+          state.score += score * 0.2;
+
+          // Add a hit marker
+          explosions.push(new explosion.Hit(pos[0], pos[1], bullet.hit));
+
+          // Remove the bullet
+          bullet.active = false;;
+        }
       }
+    } else if(boxCollides(pos, size, player.pos, player.sprite.size)) {
 
-      if (boxCollides(pos, size, pos2, size2)) {
-        enemies[i].hitpoints-= bullet.damage;
+      player.crushed = true;
 
-        // Update score
-        state.score += score * 0.2;
+      // UGLY MESS
+      var left = player.pos[0] + player.sprite.size[0] - 10 < pos[0];
+      var bottom = player.pos[1] > pos[1] + (size[1] - 10);
 
-        // Add a hit marker
-        explosions.push(new explosion.Hit(pos[0], pos[1], bullet.hit));
-
-        // Remove the bullet
-        bullet.active = false;;
+      if (player.pos[1] + player.sprite.size[1] - 10 < pos[1])
+      {
+        player.pos[1] = pos[1] - player.sprite.size[1] - 1;
+        return;
+      }
+      if (player.pos[1] > (pos[1] + size[1] - 10) && !left)
+      {
+        player.pos[1] = pos[1] + size[1] + 10;
+        return;
+      }
+      if (player.pos[0] < pos[0])
+      {
+        player.pos[0] = pos[0] - player.sprite.size[0];
+        return;
+      }
+      if (player.pos[0] > pos[0] && !bottom)
+      {
+        player.pos[0] = pos[0] + size[0];
+        return;
       }
     }
   }
