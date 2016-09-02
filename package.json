@@ -11,7 +11,8 @@
     "postinstall": "npm run build",
     "watch": "watchify src/game-loop.js -o public/main.js",
     "start": "node index.js",
-    "dev": "run-p build watch start"
+    "dev": "run-p build watch start",
+    "test": ""
   },
   "devDependencies": {
     "npm-run-all": "^3.0.0",

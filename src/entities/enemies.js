@@ -32,6 +32,7 @@ var EnemyEntity = function(config) {
   this.lastFire = Date.now();
   this.score = config.score;
   this.ROF = config.ROF || null;
+  this.maxHitpoints = config.hitpoints;
 
   if (config.burst) {
     this.burst = {
