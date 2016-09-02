@@ -23,9 +23,8 @@ var enemyConfig = {
     score: 50
   },
   RotatingPlat: {
-    speed: 75,
+    speed: 30,
     hitpoints: 100,
-/*    rotating: 1,*/
     ROF: 200,
     score: 250,
     burst: {
@@ -34,7 +33,7 @@ var enemyConfig = {
       counter: 10
     },
   }
-}
+};
 
 // Base enemy prototype
 var EnemyEntity = function(config) {
@@ -86,11 +85,6 @@ EnemyEntity.prototype.render = function() {
     canvas.ctx.rotate(Math.PI / 180 * this.rotation);
   }
 
-  if (this.rotating) {
-    canvas.ctx.translate(this.sprite.size[0] / 2, this.sprite.size[1] / 2);
-    canvas.ctx.rotate(Math.PI / 180 * (this.ang += this.rotating));
-  }
-
   this.sprite.render(canvas.ctx);
   canvas.ctx.restore();
 };
@@ -99,7 +93,11 @@ EnemyEntity.prototype.render = function() {
 var RedXS = function(pos, angle, rotation) {
   EnemyEntity.call(this, enemyConfig.RedXS);
 
-  this.sprite = new Sprite('assets/images/enemy-xs-1.png', [0, 0], [75, 53]);
+  this.sprite = new Sprite({
+    url: 'assets/images/enemy-xs-1.png',
+    pos: [0, 0],
+    size: [75, 53]
+  });
   this.pos = [pos[0], pos[1]];
   this.radians = angle * Math.PI / 180;
   this.vector = [Math.cos(this.radians) * this.speed, Math.sin(this.radians) * this.speed];
@@ -133,7 +131,11 @@ RedXS.prototype.shoot = function() {
 var Scout = function(pos, angle, rotation) {
   EnemyEntity.call(this, enemyConfig.Scout);
 
-  this.sprite = new Sprite('assets/images/scout.png', [0, 0], [50, 44]);
+  this.sprite = new Sprite({
+    url: 'assets/images/scout.png',
+    pos: [0, 0],
+    size: [50, 44]
+  });
   this.pos = [pos[0], pos[1]];
   this.radians = angle * Math.PI / 180;
   this.vector = [Math.cos(this.radians) * this.speed, Math.sin(this.radians) * this.speed];
@@ -145,7 +147,12 @@ Scout.prototype = Object.create(EnemyEntity.prototype);
 var RotatingPlat = function(pos, angle, rotation) {
   EnemyEntity.call(this, enemyConfig.RotatingPlat);
 
-  this.sprite = new Sprite('assets/images/rotatingPlat.png', [0, 0], [150, 150]);
+  this.sprite = new Sprite({
+    url: 'assets/images/platpart.png',
+    pos: [0, 0],
+    size: [150, 44],
+    rotated: true
+  });
   this.pos = [pos[0], pos[1]];
   this.radians = angle * Math.PI / 180;
   this.vector = [Math.cos(this.radians) * this.speed, Math.sin(this.radians) * this.speed];
@@ -163,12 +170,11 @@ RotatingPlat.prototype.shoot = function() {
     var y = this.pos[1];
 
     state.ebullets.push(weapons.red.addMissile({x: x + 75, y: y + 105, angle: this.ang + 30}));
-    state.ebullets.push(weapons.red.addMissile({x: x + 35, y: y + 75, angle: this.ang + 90+30}));
+/*    state.ebullets.push(weapons.red.addMissile({x: x + 35, y: y + 75, angle: this.ang + 90+30}));
     state.ebullets.push(weapons.red.addMissile({x: x + 75, y: y + 35, angle: this.ang + 180+30}));
-    state.ebullets.push(weapons.red.addMissile({x: x + 105, y: y + 75, angle: this.ang + 270+30}));
+    state.ebullets.push(weapons.red.addMissile({x: x + 105, y: y + 75, angle: this.ang + 270+30}));*/
 
     this.ang +=5;
-    console.log(this.ang)
 
     this.burst.counter--;
     this.lastFire = now;
@@ -201,6 +207,21 @@ RotatingPlatFactory.prototype.type = RotatingPlat;
 var RedXS = new RedXSFactory();
 var Scout = new ScoutFactory();
 var RotatingPlat = new RotatingPlatFactory();
+
+var Plat = function(pos) {
+  var x = pos[0];
+  var y = pos[1];
+
+  // 50 = w/3
+  state.enemies.push(RotatingPlat.add([x, y], 90, 360));
+  state.enemies.push(RotatingPlat.add([x - 65, y + 65], 90, 90));
+  state.enemies.push(RotatingPlat.add([x - 65 - 65, y], 90, 180));
+  state.enemies.push(RotatingPlat.add([x - 65 , y - 65], 90, 270));
+  console.log(state.enemies)
+}
+
+Plat([300, 0]);
+Plat([600, -200]);
 
 module.exports = {
   RedXS: RedXS,

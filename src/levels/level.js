@@ -45,14 +45,14 @@ var level = [
     rotation: 45 + 90
   },
 
-  {
+/*  {
     spawnTime: 5,
     position: [0, 0],
     enemyType: 'RedXS',
     leader: 'RogueLeader',
     enemyNumbers: 7,
     type: 'squadron'
-  },
+  },*/
 
   {
     spawnTime: 0,
@@ -66,6 +66,28 @@ var level = [
   },
 
   {
+    spawnTime: 5,
+    position: [canvas.width, canvas.height / 2],
+    enemyType: 'Scout',
+    enemyNumbers: 10,
+    type: 'line',
+    angle: 180,
+    delay: 500,
+    rotation: 180 + 90
+  },
+
+  {
+    spawnTime: 4,
+    position: [canvas.width, canvas.height / 2],
+    enemyType: 'Scout',
+    enemyNumbers: 10,
+    type: 'line',
+    angle: 150,
+    delay: 500,
+    rotation: 150 + 90
+  },
+
+  {
     spawnTime: 0,
     position: [0, canvas.height],
     enemyType: 'Scout',
@@ -76,7 +98,7 @@ var level = [
     rotation: 300 + 90
   },
 
-  {
+/*  {
     spawnTime: 0,
     position: [400,-150],
     enemyType: 'RotatingPlat',
@@ -84,6 +106,7 @@ var level = [
     type: 'line',
     delay: 3000
   },
+
   {
     spawnTime: 1,
     position: [50,-150],
@@ -92,6 +115,7 @@ var level = [
     type: 'line',
     delay: 3000
   },
+
   {
     spawnTime: 2,
     position: [600,-150],
@@ -100,6 +124,24 @@ var level = [
     type: 'line',
     delay: 3000
   },
+
+  {
+    spawnTime: 2,
+    position: [600,-150],
+    enemyType: 'RotatingPlat',
+    enemyNumbers: 3,
+    type: 'line',
+    delay: 3000
+  },
+
+  {
+    spawnTime: 2,
+    position: [600,-150],
+    enemyType: 'RotatingPlat',
+    enemyNumbers: 3,
+    type: 'line',
+    delay: 3000
+  },*/
 ];
 
 // The level function which contains every spawn

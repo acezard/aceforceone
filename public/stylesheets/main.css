@@ -3,6 +3,10 @@
   src: url('quango.woff') format('woff');
 }
 
+/*canvas {
+  max-height: 600px;
+}*/
+
 html {
   background-color: #111;
   background-image: url('../assets/images/pagebg.png');

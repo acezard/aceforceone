@@ -3,7 +3,14 @@ var Sprite = require('../utils/sprite');
 
 var Explosion = function(x, y) {
   this.pos = [x, y];
-  this.sprite = new Sprite('assets/images/explosion.png', [0, 0], [90, 90], 24, [0, 1, 2, 3, 4, 5, 6, 7, 8], null, true);
+  this.sprite = new Sprite({
+    url:'assets/images/explosion.png',
+    pos: [0, 0],
+    size: [90, 90],
+    speed: 24,
+    frames: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+    once: true
+  });
   this.active = true;
   this.update = function(dt) {
     this.sprite.update(dt);
@@ -22,7 +29,14 @@ var Explosion = function(x, y) {
 
 var Hit = function(x, y, color) {
   this.pos = [x, y];
-  this.sprite = new Sprite('assets/images/hit' + color + '.png', [0, 0], [90, 90], 24, [0, 1, 2, 3, 4, 5, 6, 7, 8], null, true);
+  this.sprite = new Sprite({
+    url:'assets/images/hit' + color + '.png',
+    pos: [0, 0],
+    size: [90, 90],
+    speed: 24,
+    frames: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+    once: true
+  });
   this.active = true;
   this.update = function(dt) {
     this.sprite.update(dt);

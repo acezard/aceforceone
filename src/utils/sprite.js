@@ -1,15 +1,16 @@
 var resources = require('./resources');
 
-function Sprite(url, pos, size, speed, frames, dir, once) {
-  this.pos = pos;
-  this.size = size;
-  this.speed = typeof speed === 'number' ? speed : 0;
-  this.frames = frames;
+function Sprite(config) {
+  this.pos = [config.pos[0], config.pos[1]];
+  this.size = config.size;
+  this.speed = typeof config.speed === 'number' ? config.speed : 0;
+  this.frames = config.frames;
   this._index = 0;
-  this.url = url;
-  this.dir = dir || 'horizontal';
+  this.url = config.url;
+  this.dir = config.dir || 'horizontal';
   this.ratio = 1;
-  this.once = once
+  this.once = config.once
+  this.rotated = config.rotated;
 };
 
 Sprite.prototype = {
@@ -45,7 +46,7 @@ Sprite.prototype = {
       x += frame * this.size[0];
     }
 
-    if (this.rotating) {
+    if (this.rotated) {
       dx = - this.size[0] / 2;
       dy = - this.size[1] / 2;
     }
@@ -55,8 +56,8 @@ Sprite.prototype = {
       this.size[0] * this.ratio, this.size[1] * this.ratio,
       dx, dy,
       this.size[0], this.size[1]);
-/*
-      ctx.fillRect(dx, dy, this.size[0] * this.ratio, this.size[1] * this.ratio)*/
+
+/*      ctx.fillRect(dx, dy, this.size[0] * this.ratio, this.size[1] * this.ratio) */ 
   }
 };
 

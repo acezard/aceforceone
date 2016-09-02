@@ -70,7 +70,7 @@ WeaponEntity.prototype.render = function() {
 var BlueLiberator = function(settings) {
   WeaponEntity.call(this, 1, 'blue', 600);
 
-  this.sprite = new Sprite('assets/images/bullet_blue8.png', [0, 0], [7, 16]);
+  this.sprite = new Sprite({url: 'assets/images/bullet_blue8.png', pos: [0, 0], size: [7, 16]});
   this.pos = [settings.x, settings.y];
   this.radians = settings.angle * Math.PI / 180;
   this.vector = [Math.cos(this.radians) * this.speed, Math.sin(this.radians) * this.speed];
@@ -81,7 +81,7 @@ BlueLiberator.prototype = Object.create(WeaponEntity.prototype);
 var PurpleDeath = function(settings) {
   WeaponEntity.call(this, 5, 'purple', 1000);
 
-  this.sprite = new Sprite('assets/images/bigbullet.png', [0, 0], [20, 38]);
+  this.sprite = new Sprite({url: 'assets/images/bigbullet.png', pos: [0, 0], size: [20, 38]});
   this.radians = settings.angle * Math.PI / 180;
   this.pos = [settings.x - this.sprite.size[0] * 0.5, settings.y - this.sprite.size[1] * 0.5];
   this.vector = [Math.cos(this.radians) * this.speed, Math.sin(this.radians) * this.speed];
@@ -92,7 +92,7 @@ PurpleDeath.prototype = Object.create(WeaponEntity.prototype);
 var RedFoe = function(settings) {
   WeaponEntity.call(this, 1, 'red', 200);
 
-  this.sprite = new Sprite('assets/images/bullet_red2.png', [0, 0], [12, 11]);
+  this.sprite = new Sprite({url: 'assets/images/bullet_red2.png', pos: [0, 0], size: [12, 11]});
   this.radians = settings.angle * Math.PI / 180;
   this.pos = [settings.x, settings.y];
   this.vector = [Math.cos(this.radians) * this.speed, Math.sin(this.radians) * this.speed];

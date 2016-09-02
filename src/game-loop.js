@@ -23,7 +23,7 @@ resources.load([
   src + 'hitpurple.png',
   src + 'base1.svg',
   src + 'scout.png',
-  src + 'rotatingPlat.png'
+  src + 'platpart.png'
 ]);
 
 resources.onReady(play);
