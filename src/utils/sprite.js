@@ -36,17 +36,27 @@ Sprite.prototype = {
     var x = this.pos[0];
     var y = this.pos[1];
 
+    var dx = 0;
+    var dy = 0;
+
     if (this.dir == 'vertical') {
       y += frame * this.size[1];
     } else {
       x += frame * this.size[0];
     }
 
+    if (this.rotating) {
+      dx = - this.size[0] / 2;
+      dy = - this.size[1] / 2;
+    }
+
     ctx.drawImage(resources.get(this.url),
       x, y,
       this.size[0] * this.ratio, this.size[1] * this.ratio,
-      0, 0,
+      dx, dy,
       this.size[0], this.size[1]);
+/*
+      ctx.fillRect(dx, dy, this.size[0] * this.ratio, this.size[1] * this.ratio)*/
   }
 };
 

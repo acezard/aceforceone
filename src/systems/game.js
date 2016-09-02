@@ -45,7 +45,7 @@ exports.update = function (dt) {
 
   player.updatePowerPoints(state.score);
   player.updateHitPoints();
-  canvas.scoreEl.innerHTML = state.score;
+  canvas.scoreEl.innerHTML = Math.round(state.score);
   canvas.lifesEl.innerHTML = state.lives;
 }
 

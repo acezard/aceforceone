@@ -21,6 +21,18 @@ var enemyConfig = {
     speed: 500,
     hitpoints: 5,
     score: 50
+  },
+  RotatingPlat: {
+    speed: 75,
+    hitpoints: 100,
+/*    rotating: 1,*/
+    ROF: 200,
+    score: 250,
+    burst: {
+      amount: 10,
+      delay: 1000,
+      counter: 10
+    },
   }
 }
 
@@ -33,6 +45,8 @@ var EnemyEntity = function(config) {
   this.score = config.score;
   this.ROF = config.ROF || null;
   this.maxHitpoints = config.hitpoints;
+  this.rotating = config.rotating || null;
+  this.ang = 0;
 
   if (config.burst) {
     this.burst = {
@@ -70,6 +84,11 @@ EnemyEntity.prototype.render = function() {
   if (this.rotation) {
     canvas.ctx.translate(this.sprite.size[0] / 2, this.sprite.size[1] / 2);
     canvas.ctx.rotate(Math.PI / 180 * this.rotation);
+  }
+
+  if (this.rotating) {
+    canvas.ctx.translate(this.sprite.size[0] / 2, this.sprite.size[1] / 2);
+    canvas.ctx.rotate(Math.PI / 180 * (this.ang += this.rotating));
   }
 
   this.sprite.render(canvas.ctx);
@@ -123,6 +142,42 @@ var Scout = function(pos, angle, rotation) {
 
 Scout.prototype = Object.create(EnemyEntity.prototype);
 
+var RotatingPlat = function(pos, angle, rotation) {
+  EnemyEntity.call(this, enemyConfig.RotatingPlat);
+
+  this.sprite = new Sprite('assets/images/rotatingPlat.png', [0, 0], [150, 150]);
+  this.pos = [pos[0], pos[1]];
+  this.radians = angle * Math.PI / 180;
+  this.vector = [Math.cos(this.radians) * this.speed, Math.sin(this.radians) * this.speed];
+  this.rotation = rotation || null;
+}
+
+RotatingPlat.prototype = Object.create(EnemyEntity.prototype);
+
+RotatingPlat.prototype.shoot = function() {
+  var now = Date.now();
+
+  // If the enemy can shoot
+  if (this.pos[1] > 0 && this.burst.counter && now - this.lastFire > this.ROF) {
+    var x = this.pos[0];
+    var y = this.pos[1];
+
+    state.ebullets.push(weapons.red.addMissile({x: x + 75, y: y + 105, angle: this.ang + 30}));
+    state.ebullets.push(weapons.red.addMissile({x: x + 35, y: y + 75, angle: this.ang + 90+30}));
+    state.ebullets.push(weapons.red.addMissile({x: x + 75, y: y + 35, angle: this.ang + 180+30}));
+    state.ebullets.push(weapons.red.addMissile({x: x + 105, y: y + 75, angle: this.ang + 270+30}));
+
+    this.ang +=5;
+    console.log(this.ang)
+
+    this.burst.counter--;
+    this.lastFire = now;
+    return;
+  }  if (!this.burst.counter && now - this.lastFire > this.burst.delay) {
+    this.burst.counter = this.burst.amount;
+  }
+}
+
 // Factory function
 var EnemyFactory = function() {};
 
@@ -139,10 +194,16 @@ function ScoutFactory () {};
 ScoutFactory.prototype = new EnemyFactory();
 ScoutFactory.prototype.type = Scout;
 
+function RotatingPlatFactory () {};
+RotatingPlatFactory.prototype = new EnemyFactory();
+RotatingPlatFactory.prototype.type = RotatingPlat;
+
 var RedXS = new RedXSFactory();
 var Scout = new ScoutFactory();
+var RotatingPlat = new RotatingPlatFactory();
 
 module.exports = {
   RedXS: RedXS,
-  Scout: Scout
+  Scout: Scout,
+  RotatingPlat: RotatingPlat
 };

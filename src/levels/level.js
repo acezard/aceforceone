@@ -75,6 +75,31 @@ var level = [
     delay: 500,
     rotation: 300 + 90
   },
+
+  {
+    spawnTime: 0,
+    position: [400,-150],
+    enemyType: 'RotatingPlat',
+    enemyNumbers: 3,
+    type: 'line',
+    delay: 3000
+  },
+  {
+    spawnTime: 1,
+    position: [50,-150],
+    enemyType: 'RotatingPlat',
+    enemyNumbers: 3,
+    type: 'line',
+    delay: 3000
+  },
+  {
+    spawnTime: 2,
+    position: [600,-150],
+    enemyType: 'RotatingPlat',
+    enemyNumbers: 3,
+    type: 'line',
+    delay: 3000
+  },
 ];
 
 // The level function which contains every spawn

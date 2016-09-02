@@ -92,7 +92,7 @@ module.exports = function(enemies, bullets, explosions, ebullets) {
           state.score += removed * pointPerHp;
 
           // Add a hit marker
-          explosions.push(new explosion.Hit(pos[0], pos[1], bullet.hit));
+          explosions.push(new explosion.Hit(pos[0] + (enemy.sprite.size[0] / 2) -45, pos[1] + (enemy.sprite.size[1] / 2)-45, bullet.hit));
 
           // Remove the bullet
           bullet.active = false;;

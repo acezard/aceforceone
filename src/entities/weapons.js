@@ -34,6 +34,8 @@ var WeaponEntity = function(damage, color, speed) {
   this.damage = damage;
   this.hit = color;
   this.speed = speed;
+  this.ang = 0;
+  this.rotating = 1;
 };
 
 // Update method
@@ -55,6 +57,10 @@ WeaponEntity.prototype.outOfBounds = function() {
 WeaponEntity.prototype.render = function() {
   canvas.ctx.save();
   canvas.ctx.translate(this.pos[0], this.pos[1]);
+/*  if (this.rotating=true) {
+    canvas.ctx.translate(75, 75);
+    canvas.ctx.rotate(Math.PI / 180 * (this.ang += this.rotating));
+  }*/
   this.sprite.render(canvas.ctx);
   canvas.ctx.restore();
 };
