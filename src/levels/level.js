@@ -45,14 +45,14 @@ var level = [
     rotation: 45 + 90
   },
 
-/*  {
+  {
     spawnTime: 5,
     position: [0, 0],
     enemyType: 'RedXS',
     leader: 'RogueLeader',
     enemyNumbers: 7,
     type: 'squadron'
-  },*/
+  },
 
   {
     spawnTime: 0,
@@ -98,50 +98,6 @@ var level = [
     rotation: 300 + 90
   },
 
-/*  {
-    spawnTime: 0,
-    position: [400,-150],
-    enemyType: 'RotatingPlat',
-    enemyNumbers: 3,
-    type: 'line',
-    delay: 3000
-  },
-
-  {
-    spawnTime: 1,
-    position: [50,-150],
-    enemyType: 'RotatingPlat',
-    enemyNumbers: 3,
-    type: 'line',
-    delay: 3000
-  },
-
-  {
-    spawnTime: 2,
-    position: [600,-150],
-    enemyType: 'RotatingPlat',
-    enemyNumbers: 3,
-    type: 'line',
-    delay: 3000
-  },
-
-  {
-    spawnTime: 2,
-    position: [600,-150],
-    enemyType: 'RotatingPlat',
-    enemyNumbers: 3,
-    type: 'line',
-    delay: 3000
-  },
-
-  {
-    spawnTime: 2,
-    position: [600,-150],
-    enemyType: 'RotatingPlat',
-    enemyNumbers: 3,
-    type: 'line',
-    delay: 3000
-  },*/
 ];
 
 // The level function which contains every spawn

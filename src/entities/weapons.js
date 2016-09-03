@@ -25,6 +25,14 @@ var weaponsConfig = {
   redFoe: {
     lastFire: Date.now(),
     ROF: 1000
+  },
+  redRay: {
+    lastFire: Date.now(),
+    ROF: 500
+  },
+  redPulse: {
+    lastFire: Date.now(),
+    ROF: 500
   }
 };
 
@@ -57,10 +65,10 @@ WeaponEntity.prototype.outOfBounds = function() {
 WeaponEntity.prototype.render = function() {
   canvas.ctx.save();
   canvas.ctx.translate(this.pos[0], this.pos[1]);
-/*  if (this.rotating=true) {
-    canvas.ctx.translate(75, 75);
-    canvas.ctx.rotate(Math.PI / 180 * (this.ang += this.rotating));
-  }*/
+  if (this.rotation) {
+    canvas.ctx.translate(this.sprite.size[0] / 2, this.sprite.size[1] / 2);
+    canvas.ctx.rotate(Math.PI / 180 * this.rotation);
+  }
   this.sprite.render(canvas.ctx);
   canvas.ctx.restore();
 };
@@ -86,6 +94,7 @@ var PurpleDeath = function(settings) {
   this.pos = [settings.x - this.sprite.size[0] * 0.5, settings.y - this.sprite.size[1] * 0.5];
   this.vector = [Math.cos(this.radians) * this.speed, Math.sin(this.radians) * this.speed];
 }
+
 PurpleDeath.prototype = Object.create(WeaponEntity.prototype);
 
 // Red Foe
@@ -97,7 +106,34 @@ var RedFoe = function(settings) {
   this.pos = [settings.x, settings.y];
   this.vector = [Math.cos(this.radians) * this.speed, Math.sin(this.radians) * this.speed];
 }
+
 RedFoe.prototype = Object.create(WeaponEntity.prototype);
+
+// Red Ray
+var RedRay = function(settings) {
+  WeaponEntity.call(this, 1, 'red', 200);
+
+  this.sprite = new Sprite({url: 'assets/images/ray_red.png', pos: [0, 0], size: [5, 61]});
+  this.radians = settings.angle * Math.PI / 180;
+  this.pos = [settings.x, settings.y];
+  this.vector = [Math.cos(this.radians) * this.speed, Math.sin(this.radians) * this.speed];
+  this.rotation = settings.rotation || null;
+}
+
+RedRay.prototype = Object.create(WeaponEntity.prototype);
+
+// Red Pulse
+var RedPulse = function(settings) {
+  WeaponEntity.call(this, 1, 'red', 200);
+
+  this.sprite = new Sprite({url: 'assets/images/redpulse.png', pos: [0, 0], size: [15, 10]});
+  this.radians = settings.angle * Math.PI / 180;
+  this.pos = [settings.x, settings.y];
+  this.vector = [Math.cos(this.radians) * this.speed, Math.sin(this.radians) * this.speed];
+  this.rotation = settings.rotation || null;
+}
+
+RedPulse.prototype = Object.create(WeaponEntity.prototype);
 
 // Factory function
 var WeaponsFactory = function() {};
@@ -119,13 +155,26 @@ function RedFoeFactory () {};
 RedFoeFactory.prototype = new WeaponsFactory();
 RedFoeFactory.prototype.type = RedFoe;
 
+function RedRayFactory () {};
+RedRayFactory.prototype = new WeaponsFactory();
+RedRayFactory.prototype.type = RedRay;
+
+function RedPulseFactory () {};
+RedPulseFactory.prototype = new WeaponsFactory();
+RedPulseFactory.prototype.type = RedPulse;
+
+
 var blueFactory = new BlueLiberatorFactory();
 var purpleFactory = new PurpleDeathFactory();
 var redFactory = new RedFoeFactory();
+var redRayFactory = new RedRayFactory();
+var redPulseFactory = new RedPulseFactory();
 
 module.exports = {
   conf: weaponsConfig,
   blue: blueFactory,
   purple: purpleFactory,
-  red: redFactory
+  red: redFactory,
+  redRay: redRayFactory,
+  redPulse: redPulseFactory
 };

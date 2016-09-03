@@ -28,9 +28,9 @@ var enemyConfig = {
     ROF: 200,
     score: 250,
     burst: {
-      amount: 10,
+      amount: 1000,
       delay: 1000,
-      counter: 10
+      counter: 1000
     },
   }
 };
@@ -169,12 +169,17 @@ RotatingPlat.prototype.shoot = function() {
     var x = this.pos[0];
     var y = this.pos[1];
 
-    state.ebullets.push(weapons.red.addMissile({x: x + 75, y: y + 105, angle: this.ang + 30}));
-/*    state.ebullets.push(weapons.red.addMissile({x: x + 35, y: y + 75, angle: this.ang + 90+30}));
-    state.ebullets.push(weapons.red.addMissile({x: x + 75, y: y + 35, angle: this.ang + 180+30}));
-    state.ebullets.push(weapons.red.addMissile({x: x + 105, y: y + 75, angle: this.ang + 270+30}));*/
+    if (this.rotation == 360 || this.rotation == 180) {
+      state.ebullets.push(weapons.redPulse.addMissile({x: x + this.sprite.size[0] / 2, y: y + 10, angle: this.ang + 90, rotation: this.ang + 180}));
+      state.ebullets.push(weapons.redPulse.addMissile({x: x + this.sprite.size[0] / 2, y: y + 10, angle: this.ang + 270, rotation: this.ang + 0}));
+    }
 
-    this.ang +=5;
+    if (this.rotation == 90 || this.rotation == 270) {
+      state.ebullets.push(weapons.redPulse.addMissile({x: x+ this.sprite.size[0] / 2, y: y + 10, angle: this.ang + 0, rotation: this.ang + 90}));
+      state.ebullets.push(weapons.redPulse.addMissile({x: x+ this.sprite.size[0] / 2, y: y + 10, angle: this.ang + 180, rotation: this.ang + 270}));
+    }
+
+    this.ang +=10;
 
     this.burst.counter--;
     this.lastFire = now;
@@ -214,10 +219,9 @@ var Plat = function(pos) {
 
   // 50 = w/3
   state.enemies.push(RotatingPlat.add([x, y], 90, 360));
-  state.enemies.push(RotatingPlat.add([x - 65, y + 65], 90, 90));
   state.enemies.push(RotatingPlat.add([x - 65 - 65, y], 90, 180));
+  state.enemies.push(RotatingPlat.add([x - 65, y + 65], 90, 90));
   state.enemies.push(RotatingPlat.add([x - 65 , y - 65], 90, 270));
-  console.log(state.enemies)
 }
 
 Plat([300, 0]);

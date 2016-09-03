@@ -23,7 +23,9 @@ resources.load([
   src + 'hitpurple.png',
   src + 'base1.svg',
   src + 'scout.png',
-  src + 'platpart.png'
+  src + 'platpart.png',
+  src + 'ray_red.png',
+  src + 'redpulse.png'
 ]);
 
 resources.onReady(play);
