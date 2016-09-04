@@ -49,7 +49,7 @@ Spawner.prototype.squadron = function() {
     }
 
     if (i == half && this.leaderType) {
-      state.enemies.push(enemies[this.leaderType].add([this.pos[0], this.pos[1]], this.angle, rotation));
+      state.enemies.push(enemies[this.leaderType].add([this.pos[0] - 50, this.pos[1]], this.angle, rotation));
     } else {
       state.enemies.push(enemies[this.enemyType].add([this.pos[0], this.pos[1]], this.angle, rotation));
     }
