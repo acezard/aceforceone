@@ -51,13 +51,18 @@ Sprite.prototype = {
       dy = - this.size[1] / 2;
     }
 
-    ctx.drawImage(resources.get(this.url),
+    if (this.once) {
+      ctx.drawImage(resources.get(this.url),
       x, y,
       this.size[0] * this.ratio, this.size[1] * this.ratio,
       dx, dy,
       this.size[0], this.size[1]);
+    } else {
+      ctx.drawImage(resources.get(this.url),
+      dx, dy,
+      this.size[0], this.size[1]);
+    }
 
-/*      ctx.fillRect(dx, dy, this.size[0] * this.ratio, this.size[1] * this.ratio) */ 
   }
 };
 

@@ -51,6 +51,8 @@ WeaponEntity.prototype.update = function(dt) {
     this.pos[0] += this.vector[0] * dt;
     this.pos[1] += this.vector[1] * dt;
 
+    this.boundingCircle = {radius: this.sprite.size[0] / 2, x: this.pos[0] + this.sprite.size[0] / 2, y: this.pos[1] + this.sprite.size[1] / 2};
+
     // Remove the bullet if it goes offscreen
     if(this.outOfBounds()) {
       this.active = false;
@@ -111,7 +113,7 @@ RedFoe.prototype = Object.create(WeaponEntity.prototype);
 
 // Red Ray
 var RedRay = function(settings) {
-  WeaponEntity.call(this, 1, 'red', 200);
+  WeaponEntity.call(this, 1, 'red', 500);
 
   this.sprite = new Sprite({url: 'assets/images/ray_red.png', pos: [0, 0], size: [5, 61]});
   this.radians = settings.angle * Math.PI / 180;
