@@ -16,25 +16,35 @@ function spawn(gameTime, time, counter, spawner) {
 };
 
 var level = [
-  {
+  // 1: Easy first zone
+/*  {
     spawnTime: 0,
     position: [0, 0],
     enemyType: 'RedXS',
     leader: 'RogueLeader',
-    enemyNumbers: 3,
+    enemyNumbers: 5,
     type: 'squadron'
-  },
+  }, 
 
   {
+    spawnTime: 3,
+    position: [0, 0],
+    enemyType: 'RogueLeader',
+    enemyNumbers: 5,
+    type: 'squadron'
+  }, 
+*/
+
+/*  {
     spawnTime: 3,
     position: [0, 0],
     enemyType: 'RedXS',
     leader: 'RogueLeader',
     enemyNumbers: 5,
     type: 'squadron'
-  },
+  },*/
 
-  {
+/*  {
     spawnTime: 0,
     position: [0, 0],
     enemyType: 'Scout',
@@ -43,60 +53,23 @@ var level = [
     angle: 45,
     delay: 500,
     rotation: 45 + 90
-  },
+  },*/
 
-  {
-    spawnTime: 5,
-    position: [0, 0],
-    enemyType: 'RedXS',
-    leader: 'RogueLeader',
-    enemyNumbers: 7,
-    type: 'squadron'
-  },
+  // 2: Base maze
 
-  {
-    spawnTime: 0,
-    position: [canvas.width, canvas.height / 2],
-    enemyType: 'Scout',
-    enemyNumbers: 10,
-    type: 'line',
-    angle: 180,
-    delay: 500,
-    rotation: 180 + 90
-  },
+  // 3: Out in the open, killzone
 
-  {
-    spawnTime: 5,
-    position: [canvas.width, canvas.height / 2],
-    enemyType: 'Scout',
-    enemyNumbers: 10,
-    type: 'line',
-    angle: 180,
-    delay: 500,
-    rotation: 180 + 90
-  },
+  // 4: Rise of the platforms
 
-  {
-    spawnTime: 4,
-    position: [canvas.width, canvas.height / 2],
-    enemyType: 'Scout',
-    enemyNumbers: 10,
-    type: 'line',
-    angle: 150,
-    delay: 500,
-    rotation: 150 + 90
-  },
+  // 5: Second base maze
 
-  {
-    spawnTime: 0,
-    position: [0, canvas.height],
-    enemyType: 'Scout',
-    enemyNumbers: 10,
-    type: 'line',
-    angle: 300,
-    delay: 500,
-    rotation: 300 + 90
-  },
+  // 6: MiniBoss
+
+  // 7: Second killzone, bigger than the first one
+
+  // 8: Small interlude
+
+  // 9: Boss fight
 
 ];
 
