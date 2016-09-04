@@ -25,7 +25,8 @@ resources.load([
   src + 'scout.png',
   src + 'platpart.png',
   src + 'ray_red.png',
-  src + 'redpulse.png'
+  src + 'redpulse.png',
+  src + 'rogueleader.svg'
 ]);
 
 resources.onReady(play);
