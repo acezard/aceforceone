@@ -1,15 +1,16 @@
 var resources = require('./resources');
 
-function Sprite(url, pos, size, speed, frames, dir, once) {
-  this.pos = pos;
-  this.size = size;
-  this.speed = typeof speed === 'number' ? speed : 0;
-  this.frames = frames;
+function Sprite(config) {
+  this.pos = [config.pos[0], config.pos[1]];
+  this.size = config.size;
+  this.speed = typeof config.speed === 'number' ? config.speed : 0;
+  this.frames = config.frames;
   this._index = 0;
-  this.url = url;
-  this.dir = dir || 'horizontal';
+  this.url = config.url;
+  this.dir = config.dir || 'horizontal';
   this.ratio = 1;
-  this.once = once
+  this.once = config.once
+  this.rotated = config.rotated;
 };
 
 Sprite.prototype = {
@@ -36,17 +37,32 @@ Sprite.prototype = {
     var x = this.pos[0];
     var y = this.pos[1];
 
+    var dx = 0;
+    var dy = 0;
+
     if (this.dir == 'vertical') {
       y += frame * this.size[1];
     } else {
       x += frame * this.size[0];
     }
 
-    ctx.drawImage(resources.get(this.url),
+    if (this.rotated) {
+      dx = - this.size[0] / 2;
+      dy = - this.size[1] / 2;
+    }
+
+    if (this.once) {
+      ctx.drawImage(resources.get(this.url),
       x, y,
       this.size[0] * this.ratio, this.size[1] * this.ratio,
-      0, 0,
+      dx, dy,
       this.size[0], this.size[1]);
+    } else {
+      ctx.drawImage(resources.get(this.url),
+      dx, dy,
+      this.size[0], this.size[1]);
+    }
+
   }
 };
 

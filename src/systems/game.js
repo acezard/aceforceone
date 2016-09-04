@@ -9,7 +9,8 @@ var canvas = require('../canvas'),
   explosions = require('../entities/explosions'),
   spawners = require('../entities/spawners'),
   statics = require('../entities/statics'),
-  level = require('../levels/level');
+  level = require('../levels/level'),
+  Transform = require('../utils/transform');
 
 var gameTime = 0;
 var spawn = 0;
@@ -45,7 +46,7 @@ exports.update = function (dt) {
 
   player.updatePowerPoints(state.score);
   player.updateHitPoints();
-  canvas.scoreEl.innerHTML = state.score;
+  canvas.scoreEl.innerHTML = Math.round(state.score);
   canvas.lifesEl.innerHTML = state.lives;
 }
 
@@ -54,10 +55,16 @@ exports.render = function () {
 
   // If any explosion is occuring, shake screen
   if (state.explosions.some(function (elem) {return elem instanceof explosions.Explosion})) preShake();
-
-  background.draw();
+background.draw();
 
   renderList(state.enemies);
+
+/*  for (i= 0; i < state.enemies.length; i++) {
+    var enemy = state.enemies[i];
+
+    canvas.ctx.fillRect(enemy.pos[0], enemy.pos[1], enemy.sprite.size[0], enemy.sprite.size[1])
+  }
+*/
   if (!state.isGameOver) {
     renderList(state.bullets);
     player.render();
@@ -66,6 +73,7 @@ exports.render = function () {
   renderList(state.ebullets);
   renderList(state.explosions);
 
+  
   postShake();
 }
 

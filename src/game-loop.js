@@ -13,7 +13,7 @@ resources.load([
   src + 'nebula.png',
   src + 'player2.png',
   src + 'bullet_blue8.png',
-  src + 'enemy-xs-1.png',
+  src + 'enemy-xs-1.svg',
   src + 'explosion.png',
   src + 'enemy-lg-1.png',
   src + 'hitred.png',
@@ -22,7 +22,11 @@ resources.load([
   src + 'bigbullet.png',
   src + 'hitpurple.png',
   src + 'base1.svg',
-  src + 'scout.png'
+  src + 'scout.png',
+  src + 'platpart.png',
+  src + 'ray_red.png',
+  src + 'redpulse.png',
+  src + 'rogueleader.svg'
 ]);
 
 resources.onReady(play);

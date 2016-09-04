@@ -14,8 +14,8 @@ var height = 800;
 hp.style.height = '100%';
 powerPoints.style.height = '0%';
 
-canvas.width = 800;
-canvas.height = 800;
+canvas.width = width;
+canvas.height = height;
 
 gameWrapper.appendChild(canvas);
 

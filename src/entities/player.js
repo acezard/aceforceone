@@ -8,7 +8,7 @@ var ang = 0;
 // Load player
 var player = {
   pos: [0, 0],
-  sprite: new Sprite('assets/images/player2.png', [0, 0], [0, 0], 16, [0, 1]),
+  sprite: new Sprite({url: 'assets/images/player2.png', pos: [0, 0], size: [0, 0]}),
   speed: 10,
   hitPoints: 100,
   powerPoints: 100,
