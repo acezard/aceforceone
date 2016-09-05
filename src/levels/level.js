@@ -184,7 +184,7 @@ var level = [
   },
 
   {
-    spawnTime: 25,
+    spawnTime: 24,
     position: [0, canvas.height * 0.5],
     enemyType: 'Scout',
     enemyNumbers: 3,
@@ -206,7 +206,7 @@ var level = [
   },
 
   {
-    spawnTime: 27,
+    spawnTime: 28,
     position: [canvas.width, canvas.height * 0.4],
     enemyType: 'Scout',
     enemyNumbers: 3,
@@ -217,7 +217,7 @@ var level = [
   },
 
   {
-    spawnTime: 28,
+    spawnTime: 30,
     position: [canvas.width, canvas.height * 0.7],
     enemyType: 'Scout',
     enemyNumbers: 3,

@@ -14,6 +14,7 @@ function Spawner(options) {
   this.now;
   this.enemyRotation = options.rotation || null;
   this.leaderType = options.leader || null;
+  this.squadronOffset = options.squadronOffset || 35;
 };
 
 Spawner.prototype.update = function() {
@@ -37,15 +38,15 @@ Spawner.prototype.squadron = function() {
   this.pos[0] = step / size;
 
   // Calculating vertical offset
-  this.pos[1] = - 75 * this.size;
+  this.pos[1] = - this.squadronOffset * this.size;
 
   for (i = 0; i < size; i ++) {
     if (i <= half) {
-      this.pos[1] += 75;
+      this.pos[1] += this.squadronOffset;
     }
 
     if (i > half) {
-      this.pos[1] -= 75;
+      this.pos[1] -= this.squadronOffset;
     }
 
     if (i == half && this.leaderType) {

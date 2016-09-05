@@ -32,8 +32,6 @@ var BigBlock = function(posX) {
   this.render = function() {
     canvas.ctx.save();
     canvas.ctx.translate(this.pos[0], this.pos[1]);
-/*    canvas.ctx.fillStyle = 'blue';
-    canvas.ctx.fillRect(this.pos[0], this.pos[1], this.sprite.size[0], this.sprite.size[1]);*/
     this.sprite.render(canvas.ctx);
 
     canvas.ctx.restore();
