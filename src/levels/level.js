@@ -256,6 +256,15 @@ var level = [
     rotation: 180
   },
 
+  {
+    spawnTime: 50,
+    position: [canvas.width / 2 - 100, 0],
+    enemyType: 'battlePlatform',
+    enemyNumbers: 1,
+    type: 'statics',
+    rotation: 0
+  },
+
   // 3: Out in the open, killzone
 
   // 4: Rise of the platforms

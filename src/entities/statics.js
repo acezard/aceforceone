@@ -14,6 +14,12 @@ var staticSettings = {
     pos: [0, 0],
     size: [300, 130],
     rotation: 0
+  },
+  battlePlatform: {
+    url: 'assets/images/base2.svg',
+    pos: [0, 0],
+    size: [200, 690],
+    rotation: 0
   }
 };
 
@@ -29,7 +35,7 @@ var StaticEntity = function(settingsDefault, settingsActive) {
   this.active = true;
   this.rotation = settingsActive.rotation || settingsDefault.rotation;
 
-  this.pos = [settingsActive.posX, 0 - staticSettings.bigBlock.size[1]];
+  this.pos = [settingsActive.posX, 0 - settingsDefault.size[1]];
 };
 
 // Update method
@@ -60,13 +66,6 @@ StaticEntity.prototype.render = function() {
   canvas.ctx.restore();
 };
 
-// Enemies specifics
-var BigBlock = function(settings) {
-  StaticEntity.call(this, staticSettings.bigBlock, settings);
-};
-
-BigBlock.prototype = Object.create(StaticEntity.prototype);
-
 // Factory function
 var StaticFactory = function() {};
 
@@ -74,13 +73,32 @@ StaticFactory.prototype.add = function(settings) {
   return new this.type(settings);
 }
 
-// Specifics factory
+// Big Block
+var BigBlock = function(settings) {
+  StaticEntity.call(this, staticSettings.bigBlock, settings);
+};
+
+BigBlock.prototype = Object.create(StaticEntity.prototype);
+
 function BigBlockFactory () {};
 BigBlockFactory.prototype = new StaticFactory();
 BigBlockFactory.prototype.type = BigBlock;
-
 var bigBlock = new BigBlockFactory();
 
+// Battle Platform
+var BattlePlatform = function(settings) {
+  StaticEntity.call(this, staticSettings.battlePlatform, settings);
+};
+
+BattlePlatform.prototype = Object.create(StaticEntity.prototype);
+
+function BattlePlatformFactory () {};
+BattlePlatformFactory.prototype = new StaticFactory();
+BattlePlatformFactory.prototype.type = BattlePlatform;
+var battlePlatform = new BattlePlatformFactory();
+
+// Exports
 module.exports = {
-  bigBlock: bigBlock
+  bigBlock: bigBlock,
+  battlePlatform: battlePlatform
 };
