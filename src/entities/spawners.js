@@ -1,6 +1,7 @@
 var state = require('../state');
 var enemies = require('./enemies');
 var canvas = require('../canvas');
+var statics = require('./statics')
 
 function Spawner(options) {
   this.pos = options.position;
@@ -64,6 +65,15 @@ Spawner.prototype.squadron = function() {
 Spawner.prototype.line = function() {
   if (this.now - this.lastTime > this.delay) {
     state.enemies.push(enemies[this.enemyType].add([this.pos[0], this.pos[1]], this.angle, this.enemyRotation));
+
+    this.lastTime = this.now;
+    this.size--;
+  }
+};
+
+Spawner.prototype.statics = function() {
+  if (this.now - this.lastTime > this.delay) {
+    state.enemies.push(statics[this.enemyType].add({posX: this.pos[0], rotation: this.enemyRotation}));
 
     this.lastTime = this.now;
     this.size--;

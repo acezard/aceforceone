@@ -17,7 +17,6 @@ function spawn(gameTime, time, counter, spawner) {
 
 var level = [
   // 1: Easy first zone
-
   {
     spawnTime: 3,
     position: [0, 0],
@@ -236,37 +235,26 @@ var level = [
     type: 'squadron'
   },
 
-
-/*  {
-    spawnTime: 3,
-    position: [0, 0],
-    enemyType: 'RogueLeader',
-    enemyNumbers: 5,
-    type: 'squadron'
-  },
-*/
-
-/*  {
-    spawnTime: 3,
-    position: [0, 0],
-    enemyType: 'RedXS',
-    leader: 'RogueLeader',
-    enemyNumbers: 5,
-    type: 'squadron'
-  },*/
-
-/*  {
-    spawnTime: 0,
-    position: [0, 0],
-    enemyType: 'Scout',
-    enemyNumbers: 10,
-    type: 'line',
-    angle: 45,
-    delay: 500,
-    rotation: 45 + 90
-  },*/
-
   // 2: Base maze
+  {
+    spawnTime: 30,
+    position: [0, 0],
+    enemyType: 'bigBlock',
+    enemyNumbers: 5,
+    delay: 5000,
+    type: 'statics',
+    rotation: 0
+  },
+
+  {
+    spawnTime: 30,
+    position: [canvas.width - 300, 0],
+    enemyType: 'bigBlock',
+    enemyNumbers: 5,
+    delay: 5000,
+    type: 'statics',
+    rotation: 180
+  },
 
   // 3: Out in the open, killzone
 
@@ -286,7 +274,7 @@ var level = [
 
 // The level function which contains every spawn
 module.exports = function (gameTime) {
-  for (i = 0; i < level.length; i++) {
+  for (i = 22; i < level.length; i++) {
     var wave = level[i];
 
     if (gameTime > wave.spawnTime) {

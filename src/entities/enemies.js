@@ -69,7 +69,6 @@ var EnemyEntity = function(config) {
 EnemyEntity.prototype.shoot = function() {
 };
 
-var ang = 0;
 EnemyEntity.prototype.update = function(dt) {
     this.pos[0] += this.vector[0] * dt;
     this.pos[1] += this.vector[1] * dt;
