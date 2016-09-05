@@ -240,7 +240,7 @@ var level = [
     spawnTime: 30,
     position: [0, 0],
     enemyType: 'bigBlock',
-    enemyNumbers: 5,
+    enemyNumbers: 3,
     delay: 5000,
     type: 'statics',
     rotation: 0
@@ -250,7 +250,7 @@ var level = [
     spawnTime: 30,
     position: [canvas.width - 300, 0],
     enemyType: 'bigBlock',
-    enemyNumbers: 5,
+    enemyNumbers: 3,
     delay: 5000,
     type: 'statics',
     rotation: 180

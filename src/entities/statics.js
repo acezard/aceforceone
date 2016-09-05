@@ -3,6 +3,7 @@ var Sprite = require('../utils/sprite');
 var utils = require('../utils/utils');
 var state = require('../state');
 var weapons = require('./weapons');
+var enemies = require('./enemies');
 
 var STATIC_SPEED = 50;
 
@@ -37,7 +38,6 @@ StaticEntity.prototype.shoot = function() {
 
 StaticEntity.prototype.update = function(dt) {
   this.pos[1] += STATIC_SPEED * dt;
-
   this.sprite.update(dt);
 
   // Remove if offscreen
