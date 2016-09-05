@@ -265,6 +265,44 @@ var level = [
     rotation: 0
   },
 
+  {
+    spawnTime: 48,
+    position: [0, 0],
+    enemyType: 'smallPlatform',
+    enemyNumbers: 2,
+    type: 'statics',
+    rotation: 0,
+    delay: 5000
+  },
+
+  {
+    spawnTime: 48,
+    position: [canvas.width - 64, 0],
+    enemyType: 'smallPlatform',
+    enemyNumbers: 2,
+    type: 'statics',
+    rotation: 0,
+    delay: 5000
+  },
+
+  {
+    spawnTime: 67.5,
+    position: [0, 0],
+    enemyType: 'bigBlock',
+    enemyNumbers: 1,
+    type: 'statics',
+    rotation: 0
+  },
+
+  {
+    spawnTime: 67.5,
+    position: [canvas.width - 300, 0],
+    enemyType: 'bigBlock',
+    enemyNumbers: 1,
+    type: 'statics',
+    rotation: 180
+  },
+
   // 3: Out in the open, killzone
 
   // 4: Rise of the platforms

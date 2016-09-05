@@ -20,6 +20,12 @@ var staticSettings = {
     pos: [0, 0],
     size: [200, 690],
     rotation: 0
+  },
+  smallPlatform: {
+    url: 'assets/images/base3.svg',
+    pos: [0, 0],
+    size: [64, 129],
+    rotation: 0
   }
 };
 
@@ -97,8 +103,21 @@ BattlePlatformFactory.prototype = new StaticFactory();
 BattlePlatformFactory.prototype.type = BattlePlatform;
 var battlePlatform = new BattlePlatformFactory();
 
+// Small Platform
+var SmallPlatform = function(settings) {
+  StaticEntity.call(this, staticSettings.smallPlatform, settings);
+};
+
+SmallPlatform.prototype = Object.create(StaticEntity.prototype);
+
+function SmallPlatformFactory () {};
+SmallPlatformFactory.prototype = new StaticFactory();
+SmallPlatformFactory.prototype.type = SmallPlatform;
+var smallPlatform = new SmallPlatformFactory();
+
 // Exports
 module.exports = {
   bigBlock: bigBlock,
-  battlePlatform: battlePlatform
+  battlePlatform: battlePlatform,
+  smallPlatform: smallPlatform
 };
