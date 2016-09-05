@@ -28,7 +28,8 @@ resources.load([
   src + 'redpulse.png',
   src + 'rogueleader.svg',
   src + 'base2.svg',
-  src + 'base3.svg'
+  src + 'base3.svg',
+  src + 'drone.svg'
 ]);
 
 resources.onReady(play);

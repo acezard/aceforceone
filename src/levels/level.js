@@ -248,6 +248,17 @@ var level = [
 
   {
     spawnTime: 30,
+    position: [0, 400],
+    enemyType: 'drone',
+    enemyNumbers: 15,
+    type: 'pattern',
+    angle: 360,
+    delay: 500,
+    rotation: 0
+  },
+
+  {
+    spawnTime: 30,
     position: [canvas.width - 300, 0],
     enemyType: 'bigBlock',
     enemyNumbers: 3,

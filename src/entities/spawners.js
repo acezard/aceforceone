@@ -64,7 +64,8 @@ Spawner.prototype.squadron = function() {
 
 Spawner.prototype.line = function() {
   if (this.now - this.lastTime > this.delay) {
-    state.enemies.push(enemies[this.enemyType].add([this.pos[0], this.pos[1]], this.angle, this.enemyRotation));
+    console.log(this.pos);
+    state.enemies.push(enemies[this.enemyType].add({pos: [this.pos[0], this.pos[1]], angle: this.angle, rotation: this.enemyRotation}));
 
     this.lastTime = this.now;
     this.size--;
@@ -74,6 +75,27 @@ Spawner.prototype.line = function() {
 Spawner.prototype.statics = function() {
   if (this.now - this.lastTime > this.delay) {
     state.enemies.push(statics[this.enemyType].add({posX: this.pos[0], rotation: this.enemyRotation}));
+
+    this.lastTime = this.now;
+    this.size--;
+  }
+};
+
+Spawner.prototype.pattern = function() {
+  function newUpdate() {
+    this.pos[0] += this.vector[0] * dt;
+    this.pos[1] += this.vector[1] * dt;
+    this.boundingCircle = {radius: this.sprite.size[0] / 2, x: this.pos[0] + this.sprite.size[0] / 2, y: this.pos[1] + this.sprite.size[1] / 2};
+
+    // Remove the enemy if it goes offscreen
+    if(this.outOfBounds()) {
+      this.active = false;
+    }
+  };
+
+  if (this.now - this.lastTime > this.delay) {
+    console.log(this.pos);
+    state.enemies.push(enemies[this.enemyType].add({pos: [this.pos[0], this.pos[1]], angle: this.angle, rotation: this.enemyRotation}));
 
     this.lastTime = this.now;
     this.size--;
