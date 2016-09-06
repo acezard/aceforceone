@@ -61,6 +61,8 @@ module.exports = function(enemies, bullets, explosions, ebullets) {
     var score = enemy.score;
     var pointPerHp = score / 2 / enemy.maxHitpoints;
 
+    var boundingCircle = {radius: size[0] / 2, x: pos[0] + size[0] / 2, y: pos[1] + size[1] / 2};
+
     if (!enemy.invulnerable) {
       for (var j = 0; j < bullets.length; j++) {
         var bullet = bullets[j];
@@ -68,7 +70,7 @@ module.exports = function(enemies, bullets, explosions, ebullets) {
         var size2 = bullet.sprite.size;
         var damage = bullet.damage;
 
-        if (circleCollides(enemy.boundingCircle, bullet.boundingCircle)) {
+        if (circleCollides(boundingCircle, bullet.boundingCircle)) {
           var cx = enemy.pos[0] + enemy.sprite.size[0] / 2;
           var cy = enemy.pos[1] + enemy.sprite.size[1] / 2;
           var rotation = enemy.rotation;

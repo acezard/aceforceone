@@ -34,7 +34,7 @@ exports.update = function (dt) {
 
   level(gameTime);
 
-  updateList(state.spawners);
+  updateList(state.spawners, dt);
   updateList(state.bullets, dt);
   updateList(state.enemies, dt);
   updateList(state.ebullets, dt);

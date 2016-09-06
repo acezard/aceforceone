@@ -17,7 +17,6 @@ function spawn(gameTime, time, counter, spawner) {
 
 var level = [
   // 1: Easy first zone
-
   {
     spawnTime: 3,
     position: [0, 0],
@@ -184,7 +183,7 @@ var level = [
   },
 
   {
-    spawnTime: 25,
+    spawnTime: 24,
     position: [0, canvas.height * 0.5],
     enemyType: 'Scout',
     enemyNumbers: 3,
@@ -206,7 +205,7 @@ var level = [
   },
 
   {
-    spawnTime: 27,
+    spawnTime: 28,
     position: [canvas.width, canvas.height * 0.4],
     enemyType: 'Scout',
     enemyNumbers: 3,
@@ -217,7 +216,7 @@ var level = [
   },
 
   {
-    spawnTime: 28,
+    spawnTime: 30,
     position: [canvas.width, canvas.height * 0.7],
     enemyType: 'Scout',
     enemyNumbers: 3,
@@ -236,37 +235,145 @@ var level = [
     type: 'squadron'
   },
 
-
-/*  {
-    spawnTime: 3,
-    position: [0, 0],
-    enemyType: 'RogueLeader',
-    enemyNumbers: 5,
-    type: 'squadron'
-  },
-*/
-
-/*  {
-    spawnTime: 3,
-    position: [0, 0],
-    enemyType: 'RedXS',
-    leader: 'RogueLeader',
-    enemyNumbers: 5,
-    type: 'squadron'
-  },*/
-
-/*  {
-    spawnTime: 0,
-    position: [0, 0],
-    enemyType: 'Scout',
-    enemyNumbers: 10,
-    type: 'line',
-    angle: 45,
-    delay: 500,
-    rotation: 45 + 90
-  },*/
-
   // 2: Base maze
+  {
+    spawnTime: 30,
+    position: [0, 0],
+    enemyType: 'bigBlock',
+    enemyNumbers: 3,
+    delay: 5000,
+    type: 'statics',
+    rotation: 0
+  },
+
+  {
+    spawnTime: 30,
+    position: [canvas.width - 300, 0],
+    enemyType: 'bigBlock',
+    enemyNumbers: 3,
+    delay: 5000,
+    type: 'statics',
+    rotation: 180
+  },
+
+  {
+    spawnTime: 39,
+    position: [0, 0],
+    enemyType: 'drone',
+    enemyNumbers: 10,
+    type: 'pattern',
+    angle: 360,
+    delay: 500,
+    rotation: 90,
+    path: 'angular'
+  },
+
+  {
+    spawnTime: 39,
+    position: [canvas.width, 0],
+    enemyType: 'drone',
+    enemyNumbers: 10,
+    type: 'pattern',
+    angle: 180,
+    delay: 500,
+    rotation: 270,
+    path: 'angular'
+  },
+
+  {
+    spawnTime: 44,
+    position: [0, 0],
+    enemyType: 'drone',
+    enemyNumbers: 10,
+    type: 'pattern',
+    angle: 360,
+    delay: 500,
+    rotation: 90,
+    path: 'angular'
+  },
+
+  {
+    spawnTime: 44,
+    position: [canvas.width, 0],
+    enemyType: 'drone',
+    enemyNumbers: 10,
+    type: 'pattern',
+    angle: 180,
+    delay: 500,
+    rotation: 270,
+    path: 'angular'
+  },
+
+  {
+    spawnTime: 49,
+    position: [0, 0],
+    enemyType: 'drone',
+    enemyNumbers: 15,
+    type: 'pattern',
+    angle: 360,
+    delay: 500,
+    rotation: 90,
+    path: 'angular'
+  },
+
+  {
+    spawnTime: 49,
+    position: [canvas.width, 0],
+    enemyType: 'drone',
+    enemyNumbers: 15,
+    type: 'pattern',
+    angle: 180,
+    delay: 500,
+    rotation: 270,
+    path: 'angular'
+  },
+
+  {
+    spawnTime: 50,
+    position: [canvas.width / 2 - 100, 0],
+    enemyType: 'battlePlatform',
+    enemyNumbers: 1,
+    type: 'statics',
+    rotation: 0
+  },
+
+  {
+    spawnTime: 48,
+    position: [0, 0],
+    enemyType: 'smallPlatform',
+    enemyNumbers: 2,
+    type: 'statics',
+    rotation: 0,
+    delay: 5000
+  },
+
+  {
+    spawnTime: 48,
+    position: [canvas.width - 64, 0],
+    enemyType: 'smallPlatform',
+    enemyNumbers: 2,
+    type: 'statics',
+    rotation: 0,
+    delay: 5000
+  },
+
+  {
+    spawnTime: 67.5,
+    position: [0, 0],
+    enemyType: 'bigBlock',
+    enemyNumbers: 1,
+    type: 'statics',
+    rotation: 0
+  },
+
+  {
+    spawnTime: 67.5,
+    position: [canvas.width - 300, 0],
+    enemyType: 'bigBlock',
+    enemyNumbers: 1,
+    type: 'statics',
+    rotation: 180
+  },
 
   // 3: Out in the open, killzone
 

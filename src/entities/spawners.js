@@ -1,6 +1,7 @@
 var state = require('../state');
 var enemies = require('./enemies');
 var canvas = require('../canvas');
+var statics = require('./statics')
 
 function Spawner(options) {
   this.pos = options.position;
@@ -14,9 +15,15 @@ function Spawner(options) {
   this.now;
   this.enemyRotation = options.rotation || null;
   this.leaderType = options.leader || null;
+  this.squadronOffset = options.squadronOffset || 35;
+  this.path = options.path;
+
+  this.speedS = 50;
+  this.radiansS = 90 * (Math.PI / 180);
+  this.vectorS = [Math.cos(this.radiansS) * this.speedS, Math.sin(this.radiansS) * this.speedS];
 };
 
-Spawner.prototype.update = function() {
+Spawner.prototype.update = function(dt) {
   this.now = Date.now();
 
   if (this.size == 0) {
@@ -24,7 +31,7 @@ Spawner.prototype.update = function() {
     return;
   }
 
-  this[this.type]();
+  this[this.type](dt);
 };
 
 Spawner.prototype.squadron = function() {
@@ -37,21 +44,29 @@ Spawner.prototype.squadron = function() {
   this.pos[0] = step / size;
 
   // Calculating vertical offset
-  this.pos[1] = - 75 * this.size;
+  this.pos[1] = - this.squadronOffset * this.size;
 
   for (i = 0; i < size; i ++) {
     if (i <= half) {
-      this.pos[1] += 75;
+      this.pos[1] += this.squadronOffset;
     }
 
     if (i > half) {
-      this.pos[1] -= 75;
+      this.pos[1] -= this.squadronOffset;
     }
 
     if (i == half && this.leaderType) {
-      state.enemies.push(enemies[this.leaderType].add([this.pos[0] - 50, this.pos[1]], this.angle, rotation));
+      state.enemies.push(enemies[this.leaderType].add({
+        pos: [this.pos[0] - 50, this.pos[1]],
+        angle: this.angle,
+        rotation: rotation
+      }));
     } else {
-      state.enemies.push(enemies[this.enemyType].add([this.pos[0], this.pos[1]], this.angle, rotation));
+      state.enemies.push(enemies[this.enemyType].add({
+        pos: [this.pos[0], this.pos[1]],
+        angle: this.angle,
+        rotation: rotation
+      }));
     }
 
     this.pos[0] += step;
@@ -62,7 +77,41 @@ Spawner.prototype.squadron = function() {
 
 Spawner.prototype.line = function() {
   if (this.now - this.lastTime > this.delay) {
-    state.enemies.push(enemies[this.enemyType].add([this.pos[0], this.pos[1]], this.angle, this.enemyRotation));
+    state.enemies.push(enemies[this.enemyType].add({
+      pos: [this.pos[0], this.pos[1]],
+      angle: this.angle,
+      rotation: this.enemyRotation
+    }));
+
+    this.lastTime = this.now;
+    this.size--;
+  }
+};
+
+Spawner.prototype.statics = function() {
+  if (this.now - this.lastTime > this.delay) {
+    state.enemies.push(statics[this.enemyType].add({
+      posX: this.pos[0],
+      rotation: this.enemyRotation
+    }));
+
+    this.lastTime = this.now;
+    this.size--;
+  }
+};
+
+Spawner.prototype.pattern = function(dt) {
+
+  this.pos[1] += Math.sin(this.radiansS) * this.speedS * dt;
+
+  if (this.now - this.lastTime > this.delay) {
+    state.enemies.push(enemies[this.enemyType].add({
+      pos: [this.pos[0],
+      this.pos[1]],
+      angle: this.angle,
+      rotation: this.enemyRotation,
+      path: this.path
+    }));
 
     this.lastTime = this.now;
     this.size--;
