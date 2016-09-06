@@ -6,22 +6,22 @@ var weapons = require('./weapons');
 
 // Config Object
 var enemyConfig = {
-  RedXS: {
+  redBomber: {
     url: 'assets/images/enemy-xs-1.svg',
     pos: [0, 0],
     size: [75, 53],
     speed: 100,
     hitpoints: 10,
+    ROF: 100,
     score: 100,
     burst: {
       amount: 3,
       delay: 1000,
       counter: 3
     },
-    ROF: 100
   },
 
-  Scout: {
+  scout: {
     url: 'assets/images/scout.png',
     pos: [0, 0],
     size: [50, 44],
@@ -30,7 +30,10 @@ var enemyConfig = {
     score: 50
   },
 
-  RotatingPlat: {
+  rotatingPlat: {
+    url: 'assets/images/platpart.png',
+    pos: [0, 0],
+    size: [150, 44],
     speed: 30,
     hitpoints: 100,
     ROF: 200,
@@ -40,19 +43,16 @@ var enemyConfig = {
       delay: 1000,
       counter: 1000
     },
-    url: 'assets/images/platpart.png',
-    pos: [0, 0],
-    size: [150, 44],
   },
 
-  RogueLeader: {
+  rogueLeader: {
+    url: 'assets/images/rogueleader.svg',
+    pos: [0, 0],
+    size: [200, 89],
     speed: 100,
     hitpoints: 60,
     score: 300,
     ROF: 500,
-    url: 'assets/images/rogueleader.svg',
-    pos: [0, 0],
-    size: [200, 89],
   },
 
   drone: {
@@ -91,16 +91,12 @@ var EnemyEntity = function(settingsDefault, settingsActive) {
   this.vector = [Math.cos(this.radians) * this.speed, Math.sin(this.radians) * this.speed];
   this.rotation = settingsActive.rotation || 0;
   this.path = settingsActive.path || null;
-  console.log(this.burst)
 };
 
 // Update method
-EnemyEntity.prototype.shoot = function() {
-};
+EnemyEntity.prototype.shoot = function() {};
 
 EnemyEntity.prototype.update = function(dt) {
-  var self = this;
-
   if (this.outOfBounds()) {
     this.active = false;
     return;
@@ -122,26 +118,22 @@ EnemyEntity.prototype.outOfBounds = function() {
 EnemyEntity.prototype.render = function() {
     canvas.ctx.save();
     canvas.ctx.translate(this.pos[0], this.pos[1]);
-
-    if (this.rotation) {
-      canvas.ctx.translate(this.sprite.size[0] / 2, this.sprite.size[1] / 2);
-      canvas.ctx.rotate(Math.PI / 180 * this.rotation);
-    }
-
+    canvas.ctx.translate(this.sprite.size[0] / 2, this.sprite.size[1] / 2);
+    canvas.ctx.rotate(Math.PI / 180 * this.rotation);
     this.sprite.render(canvas.ctx);
     canvas.ctx.restore();
 };
 
-// Factory function
+// Factory constructor
 var EnemyFactory = function() {};
 
 EnemyFactory.prototype.add = function(pos, angle, rotation) { 
   return new this.type(pos, angle, rotation);
 }
 
-// Scout
+// Scout factory
 var Scout = function(settings) {
-  EnemyEntity.call(this, enemyConfig.Scout, settings);
+  EnemyEntity.call(this, enemyConfig.scout, settings);
 }
 
 Scout.prototype = Object.create(EnemyEntity.prototype);
@@ -150,9 +142,9 @@ function ScoutFactory () {};
 ScoutFactory.prototype = new EnemyFactory();
 ScoutFactory.prototype.type = Scout;
 
-var Scout = new ScoutFactory();
+var scout = new ScoutFactory();
 
-// Drone
+// Drone factory
 var Drone = function(settings) {
   EnemyEntity.call(this, enemyConfig.drone, settings);
 };
@@ -165,14 +157,14 @@ DroneFactory.prototype.type = Drone;
 
 var drone = new DroneFactory();
 
-// RedXS
-var RedXS = function(settings) {
-  EnemyEntity.call(this, enemyConfig.RedXS, settings);
+// RedBomber
+var RedBomber = function(settings) {
+  EnemyEntity.call(this, enemyConfig.redBomber, settings);
 };
 
-RedXS.prototype = Object.create(EnemyEntity.prototype);
+RedBomber.prototype = Object.create(EnemyEntity.prototype);
 
-RedXS.prototype.shoot = function() {
+RedBomber.prototype.shoot = function() {
   var now = Date.now();
 
   // If the enemy can shoot
@@ -194,15 +186,15 @@ RedXS.prototype.shoot = function() {
   }
 }
 
-function RedXSFactory () {};
-RedXSFactory.prototype = new EnemyFactory();
-RedXSFactory.prototype.type = RedXS;
+function RedBomberFactory () {};
+RedBomberFactory.prototype = new EnemyFactory();
+RedBomberFactory.prototype.type = RedBomber;
 
-var RedXS = new RedXSFactory();
+var redBomber = new RedBomberFactory();
 
 // Rogue Leader
 var RogueLeader = function(settings) {
-  EnemyEntity.call(this, enemyConfig.RogueLeader, settings);
+  EnemyEntity.call(this, enemyConfig.rogueLeader, settings);
 };
 
 RogueLeader.prototype = Object.create(EnemyEntity.prototype);
@@ -226,11 +218,11 @@ function RogueLeaderFactory () {};
 RogueLeaderFactory.prototype = new EnemyFactory();
 RogueLeaderFactory.prototype.type = RogueLeader;
 
-var RogueLeader = new RogueLeaderFactory();
+var rogueLeader = new RogueLeaderFactory();
 
 // Platform
 var RotatingPlat = function(settings) {
-  EnemyEntity.call(this, enemyConfig.RotatingPlat, settings);
+  EnemyEntity.call(this, enemyConfig.rotatingPlat, settings);
 };
 
 RotatingPlat.prototype = Object.create(EnemyEntity.prototype);
@@ -267,7 +259,7 @@ function RotatingPlatFactory () {};
 RotatingPlatFactory.prototype = new EnemyFactory();
 RotatingPlatFactory.prototype.type = RotatingPlat;
 
-var RotatingPlat = new RotatingPlatFactory();
+var rotatingPlat = new RotatingPlatFactory();
 
 var Plat = function(pos) {
   var x = pos[0];
@@ -309,9 +301,9 @@ var paths = {
 };
 
 module.exports = {
-  RedXS: RedXS,
-  Scout: Scout,
-  RotatingPlat: RotatingPlat,
-  RogueLeader: RogueLeader,
+  redBomber: redBomber,
+  scout: scout,
+  rotatingPlat: rotatingPlat,
+  rogueLeader: rogueLeader,
   drone: drone
 };
