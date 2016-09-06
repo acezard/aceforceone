@@ -76,7 +76,6 @@ var EnemyEntity = function(settingsDefault, settingsActive) {
   this.ROF = settingsDefault.ROF || null;
   this.maxHitpoints = settingsDefault.hitpoints;
   this.rotating = settingsDefault.rotating || null;
-  this.angle = settingsActive.angle;
   this.burst = settingsDefault.burst || null;
   this.sprite = new Sprite({
     url: settingsDefault.url,
@@ -86,6 +85,7 @@ var EnemyEntity = function(settingsDefault, settingsActive) {
   });
 
   // Active
+  this.angle = settingsActive.angle;
   this.pos = settingsActive.pos;
   this.radians = settingsActive.angle * Math.PI / 180;
   this.vector = [Math.cos(this.radians) * this.speed, Math.sin(this.radians) * this.speed];
@@ -127,14 +127,14 @@ EnemyEntity.prototype.render = function() {
 // Factory constructor
 var EnemyFactory = function() {};
 
-EnemyFactory.prototype.add = function(pos, angle, rotation) { 
-  return new this.type(pos, angle, rotation);
-}
+EnemyFactory.prototype.add = function(settings) { 
+  return new this.type(settings);
+};
 
 // Scout factory
 var Scout = function(settings) {
   EnemyEntity.call(this, enemyConfig.scout, settings);
-}
+};
 
 Scout.prototype = Object.create(EnemyEntity.prototype);
 
@@ -184,7 +184,7 @@ RedBomber.prototype.shoot = function() {
   if (!this.burst.counter && now - this.lastFire > this.burst.delay) {
     this.burst.counter = this.burst.amount;
   }
-}
+};
 
 function RedBomberFactory () {};
 RedBomberFactory.prototype = new EnemyFactory();
@@ -253,7 +253,7 @@ RotatingPlat.prototype.shoot = function() {
   }  if (!this.burst.counter && now - this.lastFire > this.burst.delay) {
     this.burst.counter = this.burst.amount;
   }
-}
+};
 
 function RotatingPlatFactory () {};
 RotatingPlatFactory.prototype = new EnemyFactory();
