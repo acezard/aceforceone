@@ -248,23 +248,84 @@ var level = [
 
   {
     spawnTime: 30,
-    position: [0, 400],
-    enemyType: 'drone',
-    enemyNumbers: 15,
-    type: 'pattern',
-    angle: 360,
-    delay: 500,
-    rotation: 0
-  },
-
-  {
-    spawnTime: 30,
     position: [canvas.width - 300, 0],
     enemyType: 'bigBlock',
     enemyNumbers: 3,
     delay: 5000,
     type: 'statics',
     rotation: 180
+  },
+
+  {
+    spawnTime: 39,
+    position: [0, 0],
+    enemyType: 'drone',
+    enemyNumbers: 10,
+    type: 'pattern',
+    angle: 360,
+    delay: 500,
+    rotation: 90,
+    path: 'angular'
+  },
+
+  {
+    spawnTime: 39,
+    position: [canvas.width, 0],
+    enemyType: 'drone',
+    enemyNumbers: 10,
+    type: 'pattern',
+    angle: 180,
+    delay: 500,
+    rotation: 270,
+    path: 'angular'
+  },
+
+  {
+    spawnTime: 44,
+    position: [0, 0],
+    enemyType: 'drone',
+    enemyNumbers: 10,
+    type: 'pattern',
+    angle: 360,
+    delay: 500,
+    rotation: 90,
+    path: 'angular'
+  },
+
+  {
+    spawnTime: 44,
+    position: [canvas.width, 0],
+    enemyType: 'drone',
+    enemyNumbers: 10,
+    type: 'pattern',
+    angle: 180,
+    delay: 500,
+    rotation: 270,
+    path: 'angular'
+  },
+
+  {
+    spawnTime: 49,
+    position: [0, 0],
+    enemyType: 'drone',
+    enemyNumbers: 15,
+    type: 'pattern',
+    angle: 360,
+    delay: 500,
+    rotation: 90,
+    path: 'angular'
+  },
+
+  {
+    spawnTime: 49,
+    position: [canvas.width, 0],
+    enemyType: 'drone',
+    enemyNumbers: 15,
+    type: 'pattern',
+    angle: 180,
+    delay: 500,
+    rotation: 270,
+    path: 'angular'
   },
 
   {
@@ -332,7 +393,7 @@ var level = [
 
 // The level function which contains every spawn
 module.exports = function (gameTime) {
-  for (i = 22; i < level.length; i++) {
+  for (i = 0; i < level.length; i++) {
     var wave = level[i];
 
     if (gameTime > wave.spawnTime) {

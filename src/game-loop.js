@@ -38,17 +38,16 @@ resources.onReady(play);
 function play() {
   lastTime = Date.now();
   gameLoop();
-}
+};
 
 // Main game loop
 function gameLoop() {
   var now = Date.now();
   var dt = (now - lastTime) / 1e3;
-  distance ++;
 
   game.update(dt);
   game.render();
 
   lastTime = now;
   requestAnimationFrame(gameLoop);
-}
+};

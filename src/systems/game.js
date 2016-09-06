@@ -12,7 +12,7 @@ var canvas = require('../canvas'),
   level = require('../levels/level'),
   Transform = require('../utils/transform');
 
-var gameTime = 30;
+var gameTime = 0;
 var spawn = 0;
 var distance = 0;
 var wave = 0;
@@ -34,7 +34,7 @@ exports.update = function (dt) {
 
   level(gameTime);
 
-  updateList(state.spawners);
+  updateList(state.spawners, dt);
   updateList(state.bullets, dt);
   updateList(state.enemies, dt);
   updateList(state.ebullets, dt);
