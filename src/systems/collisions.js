@@ -104,8 +104,6 @@ module.exports = function(enemies, bullets, explosions, ebullets) {
               // Remove the enemy
               enemy.active = false;
 
-              console.log("killed")
-
               // Update score
               state.score += (score * 0.5) + (enemy.hitpoints * pointPerHp);
 
