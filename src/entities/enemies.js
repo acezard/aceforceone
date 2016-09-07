@@ -76,7 +76,13 @@ var EnemyEntity = function(settingsDefault, settingsActive) {
   this.ROF = settingsDefault.ROF || null;
   this.maxHitpoints = settingsDefault.hitpoints;
   this.rotating = settingsDefault.rotating || null;
-  this.burst = settingsDefault.burst || null;
+  if (settingsDefault.burst) {
+    this.burst = {
+      amount: settingsDefault.burst.amount,
+      delay: settingsDefault.burst.delay,
+      counter: settingsDefault.burst.counter
+    };
+  }
   this.sprite = new Sprite({
     url: settingsDefault.url,
     pos: settingsDefault.pos,
