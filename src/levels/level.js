@@ -20,7 +20,7 @@ var level = [
   {
     spawnTime: 3,
     position: [0, 0],
-    enemyType: 'Scout',
+    enemyType: 'scout',
     enemyNumbers: 3,
     type: 'squadron'
   },
@@ -28,7 +28,7 @@ var level = [
   {
     spawnTime: 5,
     position: [0, 0],
-    enemyType: 'Scout',
+    enemyType: 'scout',
     enemyNumbers: 5,
     type: 'line',
     angle: 45,
@@ -39,7 +39,7 @@ var level = [
   {
     spawnTime: 8,
     position: [canvas.width, canvas.height * 0.7],
-    enemyType: 'Scout',
+    enemyType: 'scout',
     enemyNumbers: 5,
     type: 'line',
     angle: 220,
@@ -50,7 +50,7 @@ var level = [
   {
     spawnTime: 10,
     position: [0, 0],
-    enemyType: 'Scout',
+    enemyType: 'scout',
     enemyNumbers: 5,
     type: 'squadron'
   },
@@ -58,7 +58,7 @@ var level = [
   {
     spawnTime: 10,
     position: [0, 0],
-    enemyType: 'RedXS',
+    enemyType: 'redBomber',
     enemyNumbers: 3,
     type: 'squadron'
   },
@@ -66,7 +66,7 @@ var level = [
   {
     spawnTime: 12,
     position: [0, 0],
-    enemyType: 'Scout',
+    enemyType: 'scout',
     enemyNumbers: 7,
     type: 'squadron'
   },
@@ -74,7 +74,7 @@ var level = [
   {
     spawnTime: 14,
     position: [0, 0],
-    enemyType: 'Scout',
+    enemyType: 'scout',
     enemyNumbers: 9,
     type: 'squadron'
   },
@@ -82,7 +82,7 @@ var level = [
   {
     spawnTime: 16,
     position: [0, canvas.height * 0.7],
-    enemyType: 'Scout',
+    enemyType: 'scout',
     enemyNumbers: 10,
     type: 'line',
     angle: 350,
@@ -93,7 +93,7 @@ var level = [
   {
     spawnTime: 16,
     position: [0, 0],
-    enemyType: 'RedXS',
+    enemyType: 'redBomber',
     enemyNumbers: 5,
     type: 'squadron'
   },
@@ -101,7 +101,7 @@ var level = [
   {
     spawnTime: 18,
     position: [canvas.width, canvas.height * 0.5],
-    enemyType: 'Scout',
+    enemyType: 'scout',
     enemyNumbers: 10,
     type: 'line',
     angle: 180,
@@ -112,7 +112,7 @@ var level = [
   {
     spawnTime: 18,
     position: [0, canvas.height * 0.4],
-    enemyType: 'Scout',
+    enemyType: 'scout',
     enemyNumbers: 10,
     type: 'line',
     angle: 360,
@@ -123,8 +123,8 @@ var level = [
   {
     spawnTime: 20,
     position: [0, 0],
-    enemyType: 'RedXS',
-    leader: 'RogueLeader',
+    enemyType: 'redBomber',
+    leader: 'rogueLeader',
     enemyNumbers: 3,
     type: 'squadron'
   },
@@ -132,7 +132,7 @@ var level = [
   {
     spawnTime: 20,
     position: [0, 0],
-    enemyType: 'Scout',
+    enemyType: 'scout',
     enemyNumbers: 10,
     type: 'line',
     angle: 45,
@@ -143,7 +143,7 @@ var level = [
   {
     spawnTime: 21,
     position: [0, canvas.height],
-    enemyType: 'Scout',
+    enemyType: 'scout',
     enemyNumbers: 10,
     type: 'line',
     angle: 315,
@@ -154,7 +154,7 @@ var level = [
   {
     spawnTime: 22,
     position: [canvas.width, 0],
-    enemyType: 'Scout',
+    enemyType: 'scout',
     enemyNumbers: 10,
     type: 'line',
     angle: 135,
@@ -165,7 +165,7 @@ var level = [
   {
     spawnTime: 23,
     position: [canvas.width, canvas.height],
-    enemyType: 'Scout',
+    enemyType: 'scout',
     enemyNumbers: 10,
     type: 'line',
     angle: 225,
@@ -176,8 +176,8 @@ var level = [
   {
     spawnTime: 24,
     position: [0, 0],
-    enemyType: 'RedXS',
-    leader: 'RogueLeader',
+    enemyType: 'redBomber',
+    leader: 'rogueLeader',
     enemyNumbers: 5,
     type: 'squadron'
   },
@@ -185,7 +185,7 @@ var level = [
   {
     spawnTime: 24,
     position: [0, canvas.height * 0.5],
-    enemyType: 'Scout',
+    enemyType: 'scout',
     enemyNumbers: 3,
     type: 'line',
     angle: 360,
@@ -196,7 +196,7 @@ var level = [
   {
     spawnTime: 26,
     position: [0, canvas.height * 0.6],
-    enemyType: 'Scout',
+    enemyType: 'scout',
     enemyNumbers: 3,
     type: 'line',
     angle: 360,
@@ -207,7 +207,7 @@ var level = [
   {
     spawnTime: 28,
     position: [canvas.width, canvas.height * 0.4],
-    enemyType: 'Scout',
+    enemyType: 'scout',
     enemyNumbers: 3,
     type: 'line',
     angle: 180,
@@ -218,7 +218,7 @@ var level = [
   {
     spawnTime: 30,
     position: [canvas.width, canvas.height * 0.7],
-    enemyType: 'Scout',
+    enemyType: 'scout',
     enemyNumbers: 3,
     type: 'line',
     angle: 180,
@@ -229,8 +229,8 @@ var level = [
   {
     spawnTime: 30,
     position: [0, 0],
-    enemyType: 'RedXS',
-    leader: 'RogueLeader',
+    enemyType: 'redBomber',
+    leader: 'rogueLeader',
     enemyNumbers: 7,
     type: 'squadron'
   },
