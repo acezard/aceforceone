@@ -338,10 +338,10 @@ var level = [
   },
 
   {
-    spawnTime: 53,
+    spawnTime: 59,
     position: [100, - 50],
     enemyType: 'drone',
-    enemyNumbers: 10,
+    enemyNumbers: 5,
     type: 'line',
     angle: 90,
     delay: 1500,
@@ -349,10 +349,10 @@ var level = [
   },
 
   {
-    spawnTime: 54,
+    spawnTime: 59,
     position: [canvas.width - 150, - 50],
     enemyType: 'drone',
-    enemyNumbers: 10,
+    enemyNumbers: 5,
     type: 'line',
     angle: 90,
     delay: 1500,
