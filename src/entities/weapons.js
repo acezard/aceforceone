@@ -15,36 +15,77 @@ var utils = require('../utils/utils');
 // Shared config to handle global rate of fire
 var weaponsConfig = {
   purpleDeath: {
-    lastFire: Date.now(),
-    ROF: 350
+    damage: 5,
+    hitColor: 'purple',
+    speed: 1000,
+    url: 'assets/images/bigbullet.png',
+    pos: [0, 0],
+    size: [20, 38]
   },
   blueLiberator: {
-    lastFire: Date.now(),
-    ROF: 500
+    damage: 1,
+    hitColor: 'blue',
+    speed: 600,
+    url: 'assets/images/bullet_blue8.png',
+    pos: [0, 0],
+    size: [7, 16]
   },
   redFoe: {
-    lastFire: Date.now(),
-    ROF: 1000
+    damage: 1,
+    hitColor: 'red',
+    speed: 200,
+    url: 'assets/images/bullet_red2.png',
+    pos: [0, 0],
+    size: [12, 11]
   },
   redRay: {
-    lastFire: Date.now(),
-    ROF: 500
+    damage: 1,
+    hitColor: 'red',
+    speed: 500,
+    url: 'assets/images/ray_red.png',
+    pos: [0, 0],
+    size: [5, 61]
   },
   redPulse: {
-    lastFire: Date.now(),
-    ROF: 500
+    damage: 1,
+    hitColor: 'red',
+    speed: 200,
+    url: 'assets/images/redpulse.png',
+    pos: [0, 0],
+    size: [15, 10]
+  },
+  yellowBig: {
+    damage: 5,
+    hitColor: 'red',
+    speed: 200,
+    url: 'assets/images/bigyellow.png',
+    pos: [0, 0],
+    size: [23, 23]
   }
 };
 
 // Base weapon prototype
-var WeaponEntity = function(damage, color, speed) {
+var WeaponEntity = function(settingsDefault, settingsActive) {
+  // Default
   this.active = true;
-  this.damage = damage;
-  this.hit = color;
-  this.speed = speed;
-  this.ang = 0;
-  this.rotating = 1;
+  this.damage = settingsDefault.damage;
+  this.hit = settingsDefault.hitColor;
+  this.speed = settingsDefault.speed;
+  this.sprite = new Sprite({
+    url: settingsDefault.url,
+    pos: settingsDefault.pos,
+    size: settingsDefault.size,
+    rotated: settingsDefault.rotated
+  });
+
+  // Active
+  this.angle = settingsActive.angle;
+  this.pos = settingsActive.pos;
+  this.radians = this.angle * Math.PI / 180;
+  this.vector = [Math.cos(this.radians) * this.speed, Math.sin(this.radians) * this.speed];
+  this.rotation = settingsActive.rotation || null;
 };
+
 
 // Update method
 WeaponEntity.prototype.update = function(dt) {
@@ -78,92 +119,61 @@ WeaponEntity.prototype.render = function() {
 // Weapon specifics
 // Blue Liberator
 var BlueLiberator = function(settings) {
-  WeaponEntity.call(this, 1, 'blue', 600);
-
-  this.sprite = new Sprite({url: 'assets/images/bullet_blue8.png', pos: [0, 0], size: [7, 16]});
-  this.pos = [settings.x, settings.y];
-  this.radians = settings.angle * Math.PI / 180;
-  this.vector = [Math.cos(this.radians) * this.speed, Math.sin(this.radians) * this.speed];
-}
+  WeaponEntity.call(this, weaponsConfig.blueLiberator, settings);
+};
 BlueLiberator.prototype = Object.create(WeaponEntity.prototype);
-
 // Purple Death
 var PurpleDeath = function(settings) {
-  WeaponEntity.call(this, 5, 'purple', 1000);
-
-  this.sprite = new Sprite({url: 'assets/images/bigbullet.png', pos: [0, 0], size: [20, 38]});
-  this.radians = settings.angle * Math.PI / 180;
-  this.pos = [settings.x - this.sprite.size[0] * 0.5, settings.y - this.sprite.size[1] * 0.5];
-  this.vector = [Math.cos(this.radians) * this.speed, Math.sin(this.radians) * this.speed];
+  WeaponEntity.call(this, weaponsConfig.purpleDeath, settings);
 }
-
 PurpleDeath.prototype = Object.create(WeaponEntity.prototype);
-
 // Red Foe
 var RedFoe = function(settings) {
-  WeaponEntity.call(this, 1, 'red', 200);
-
-  this.sprite = new Sprite({url: 'assets/images/bullet_red2.png', pos: [0, 0], size: [12, 11]});
-  this.radians = settings.angle * Math.PI / 180;
-  this.pos = [settings.x, settings.y];
-  this.vector = [Math.cos(this.radians) * this.speed, Math.sin(this.radians) * this.speed];
+  WeaponEntity.call(this, weaponsConfig.redFoe, settings);
 }
-
 RedFoe.prototype = Object.create(WeaponEntity.prototype);
-
 // Red Ray
 var RedRay = function(settings) {
-  WeaponEntity.call(this, 1, 'red', 500);
-
-  this.sprite = new Sprite({url: 'assets/images/ray_red.png', pos: [0, 0], size: [5, 61]});
-  this.radians = settings.angle * Math.PI / 180;
-  this.pos = [settings.x, settings.y];
-  this.vector = [Math.cos(this.radians) * this.speed, Math.sin(this.radians) * this.speed];
-  this.rotation = settings.rotation || null;
+  WeaponEntity.call(this, weaponsConfig.redRay, settings);
 }
-
 RedRay.prototype = Object.create(WeaponEntity.prototype);
-
 // Red Pulse
 var RedPulse = function(settings) {
-  WeaponEntity.call(this, 1, 'red', 200);
-
-  this.sprite = new Sprite({url: 'assets/images/redpulse.png', pos: [0, 0], size: [15, 10]});
-  this.radians = settings.angle * Math.PI / 180;
-  this.pos = [settings.x, settings.y];
-  this.vector = [Math.cos(this.radians) * this.speed, Math.sin(this.radians) * this.speed];
-  this.rotation = settings.rotation || null;
+  WeaponEntity.call(this, weaponsConfig.redPulse, settings);
 }
-
 RedPulse.prototype = Object.create(WeaponEntity.prototype);
+// Yellow Big
+var YellowBig = function(settings) {
+  WeaponEntity.call(this, weaponsConfig.yellowBig, settings);
+}
+YellowBig.prototype = Object.create(WeaponEntity.prototype);
+
 
 // Factory function
 var WeaponsFactory = function() {};
-
 WeaponsFactory.prototype.addMissile = function(options) { 
   return new this.type(options);
-}
+};
 
 // Specifics factory
 function BlueLiberatorFactory () {};
 BlueLiberatorFactory.prototype = new WeaponsFactory();
 BlueLiberatorFactory.prototype.type = BlueLiberator;
-
 function PurpleDeathFactory () {};
 PurpleDeathFactory.prototype = new WeaponsFactory();
 PurpleDeathFactory.prototype.type = PurpleDeath;
-
 function RedFoeFactory () {};
 RedFoeFactory.prototype = new WeaponsFactory();
 RedFoeFactory.prototype.type = RedFoe;
-
 function RedRayFactory () {};
 RedRayFactory.prototype = new WeaponsFactory();
 RedRayFactory.prototype.type = RedRay;
-
 function RedPulseFactory () {};
 RedPulseFactory.prototype = new WeaponsFactory();
 RedPulseFactory.prototype.type = RedPulse;
+function YellowBigFactory () {};
+YellowBigFactory.prototype = new WeaponsFactory();
+YellowBigFactory.prototype.type = YellowBig;
 
 
 var blueFactory = new BlueLiberatorFactory();
@@ -171,6 +181,7 @@ var purpleFactory = new PurpleDeathFactory();
 var redFactory = new RedFoeFactory();
 var redRayFactory = new RedRayFactory();
 var redPulseFactory = new RedPulseFactory();
+var yellow = new YellowBigFactory();
 
 module.exports = {
   conf: weaponsConfig,
@@ -178,5 +189,6 @@ module.exports = {
   purple: purpleFactory,
   red: redFactory,
   redRay: redRayFactory,
-  redPulse: redPulseFactory
+  redPulse: redPulseFactory,
+  yellow: yellow
 };

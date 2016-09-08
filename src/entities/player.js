@@ -18,6 +18,7 @@ var player = {
   dX: 0,
   dY: 0,
   crushed: false,
+  lastPurpleFire: Date.now(),
   angryShoot: function() {
     // ugly
     if(inputs.clicked && this.powerPoints >= 100 || this.ultiCount >= 1 && Date.now() - this.lastUlti > 500) {
@@ -34,7 +35,7 @@ var player = {
       state.ebullets = [];
 
       for (i = 0; i < steps; i++) {
-        state.bullets.push(weapons.blue.addMissile({x: x, y: y, angle: step * i}));
+        state.bullets.push(weapons.blue.addMissile({pos: [x, y], angle: step * i}));
       }
 
       this.lastUlti = Date.now();
@@ -73,19 +74,19 @@ var player = {
     var playerY = player.pos[1] + player.sprite.size[1] / 2;
 
     if(now - state.lastFire > 100) {
-      state.bullets.push(weapons.blue.addMissile({x: playerX, y: playerY, angle: 270 - 25}));
-      state.bullets.push(weapons.blue.addMissile({x: playerX, y: playerY, angle: 270 - 20}));
-      state.bullets.push(weapons.blue.addMissile({x: playerX, y: playerY, angle: 270 + 20}));
-      state.bullets.push(weapons.blue.addMissile({x: playerX, y: playerY, angle: 270 + 25}));
+      state.bullets.push(weapons.blue.addMissile({pos: [playerX, playerY], angle: 270 - 25}));
+      state.bullets.push(weapons.blue.addMissile({pos: [playerX, playerY], angle: 270 - 20}));
+      state.bullets.push(weapons.blue.addMissile({pos: [playerX, playerY], angle: 270 + 20}));
+      state.bullets.push(weapons.blue.addMissile({pos: [playerX, playerY], angle: 270 + 25}));
 
       state.lastFire = now;
     }
 
-    if(now - weapons.conf.purpleDeath.lastFire > weapons.conf.purpleDeath.ROF) {
-      state.bullets.push(weapons.purple.addMissile({x: playerX - 20, y: playerY, angle: 270}));
-      state.bullets.push(weapons.purple.addMissile({x: playerX + 20, y: playerY, angle: 270}));
+    if(now - this.lastPurpleFire > 500) {
+      state.bullets.push(weapons.purple.addMissile({pos: [playerX - 30, playerY], angle: 270}));
+      state.bullets.push(weapons.purple.addMissile({pos: [playerX + 10, playerY], angle: 270}));
 
-      weapons.conf.purpleDeath.lastFire = now;
+      this.lastPurpleFire = now;
     }
   },
   render: function() {

@@ -55,7 +55,7 @@ exports.render = function () {
 
   // If any explosion is occuring, shake screen
   if (state.explosions.some(function (elem) {return elem instanceof explosions.Explosion})) preShake();
-background.draw();
+  background.draw();
 
   renderList(state.enemies);
 

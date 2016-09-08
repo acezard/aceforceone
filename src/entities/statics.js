@@ -16,7 +16,7 @@ var staticSettings = {
     rotation: 0
   },
   battlePlatform: {
-    url: 'assets/images/base2.svg',
+    url: 'assets/images/base2.png',
     pos: [0, 0],
     size: [200, 690],
     rotation: 0
@@ -39,6 +39,7 @@ var StaticEntity = function(settingsDefault, settingsActive) {
   });
   this.invulnerable = true;
   this.active = true;
+  this.enemiesSpawned = false;
   this.rotation = settingsActive.rotation || settingsDefault.rotation;
 
   this.pos = [settingsActive.posX, 0 - settingsDefault.size[1]];
@@ -48,7 +49,14 @@ var StaticEntity = function(settingsDefault, settingsActive) {
 StaticEntity.prototype.shoot = function() {
 };
 
+StaticEntity.prototype.spawnEnemies = function() {};
+
 StaticEntity.prototype.update = function(dt) {
+  if (!this.enemiesSpawned) {
+    this.spawnEnemies();
+    this.enemiesSpawned = true;
+  }
+
   this.pos[1] += STATIC_SPEED * dt;
   this.sprite.update(dt);
 
@@ -86,9 +94,38 @@ var BigBlock = function(settings) {
 
 BigBlock.prototype = Object.create(StaticEntity.prototype);
 
+BigBlock.prototype.spawnEnemies = function() {
+  if (this.rotation == 0) {
+    state.enemies.push(enemies.dockCannon.add({
+      pos: [this.pos[0] + 65, this.pos[1] + 45],
+      angle: 90,
+      rotation: 135
+    }));
+    state.enemies.push(enemies.dockCannon.add({
+      pos: [this.pos[0] + 150, this.pos[1] + 45],
+      angle: 90,
+      rotation: 135
+    }));
+  }
+
+  if (this.rotation == 180) {
+    state.enemies.push(enemies.dockCannon.add({
+      pos: [this.pos[0] + 120, this.pos[1] + 45],
+      angle: 90,
+      rotation: 225
+    }));
+    state.enemies.push(enemies.dockCannon.add({
+      pos: [this.pos[0] + 205, this.pos[1] + 45],
+      angle: 90,
+      rotation: 225
+    }));
+  }
+};
+
 function BigBlockFactory () {};
 BigBlockFactory.prototype = new StaticFactory();
 BigBlockFactory.prototype.type = BigBlock;
+
 var bigBlock = new BigBlockFactory();
 
 // Battle Platform
@@ -97,6 +134,33 @@ var BattlePlatform = function(settings) {
 };
 
 BattlePlatform.prototype = Object.create(StaticEntity.prototype);
+
+BattlePlatform.prototype.spawnEnemies = function() {
+  var x = this.pos[0] + this.sprite.size[0];
+  var x2 = this.pos[0] - 26;
+  var increment = 82;
+  var increment2 = 82;
+
+  for (i = 0; i < 6; i ++) {
+    state.enemies.push(enemies.bigPlatCannon.add({
+      pos: [x, this.pos[1] + increment],
+      angle: 90,
+      rotation: 0
+    }));
+
+    increment += 100;
+  }
+
+  for (i = 0; i < 6; i ++) {
+    state.enemies.push(enemies.bigPlatCannon.add({
+      pos: [x2, this.pos[1] + increment2],
+      angle: 90,
+      rotation: 180
+    }));
+
+    increment2 += 100;
+  }
+};
 
 function BattlePlatformFactory () {};
 BattlePlatformFactory.prototype = new StaticFactory();
@@ -109,6 +173,25 @@ var SmallPlatform = function(settings) {
 };
 
 SmallPlatform.prototype = Object.create(StaticEntity.prototype);
+
+SmallPlatform.prototype.spawnEnemies = function() {
+  var x = this.pos[0] + this.sprite.size[0] / 2 - 27 / 2;
+  var y = this.pos[1] + this.sprite.size[1] / 2 - 37 / 2;
+
+  state.enemies.push(enemies.circlePlatCannon.add({
+    pos: [x, y],
+    angle: 90,
+    rotation: 0,
+    unique: 'left'
+  }));
+
+  state.enemies.push(enemies.circlePlatCannon.add({
+    pos: [x, y],
+    angle: 90,
+    rotation: 180,
+    unique: 'right'
+  }));
+};
 
 function SmallPlatformFactory () {};
 SmallPlatformFactory.prototype = new StaticFactory();

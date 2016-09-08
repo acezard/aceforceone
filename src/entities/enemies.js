@@ -64,6 +64,37 @@ var enemyConfig = {
     hitpoints: 5,
     score: 75
   },
+
+  dockCannon: {
+    url: 'assets/images/dockcannon.png',
+    pos: [0, 0],
+    size: [31, 75],
+    speed: 50,
+    hitpoints: 10,
+    score: 100,
+    ROF: 1000
+  },
+
+  bigPlatCannon: {
+    url: 'assets/images/bigplatcannon.png',
+    pos: [0, 0],
+    size: [22, 26],
+    speed: 50,
+    hitpoints: 5,
+    score: 75,
+    ROF: 500
+  },
+
+  circlePlatCannon: {
+    url: 'assets/images/circlePlatCannon.png',
+    pos: [0, 0],
+    size: [27, 32],
+    speed: 50,
+    hitpoints: 15,
+    score: 150,
+    ROF: 2000
+  }
+  
 };
 
 // Base enemy prototype
@@ -98,6 +129,7 @@ var EnemyEntity = function(settingsDefault, settingsActive) {
   this.vector = [Math.cos(this.radians) * this.speed, Math.sin(this.radians) * this.speed];
   this.rotation = settingsActive.rotation || 0;
   this.path = settingsActive.path || null;
+  this.unique = settingsActive.unique || null;
 };
 
 // Update method
@@ -118,7 +150,7 @@ EnemyEntity.prototype.update = function(dt) {
 };
 
 EnemyEntity.prototype.outOfBounds = function() {
-  return this.pos[1] > canvas.height || this.pos[0] < 0 || this.pos[0] > canvas.width;
+  return this.pos[1] > canvas.height && this.vector[1] > 0 || this.pos[0] < 0 && this.vector[0] < 0 || this.pos[0] > canvas.width && this.vector[0] < 0 || this.pos[1] < 0 && this.vector[1] < 0;
 };
 
 // Draw method
@@ -179,9 +211,9 @@ RedBomber.prototype.shoot = function() {
     var x = this.pos[0] + this.sprite.size[0] / 2;
     var y = this.pos[1] + this.sprite.size[1] / 2;
 
-    state.ebullets.push(weapons.red.addMissile({x: x, y: y, angle: 90}));
-    state.ebullets.push(weapons.red.addMissile({x: x, y: y, angle: 80}));
-    state.ebullets.push(weapons.red.addMissile({x: x, y: y, angle: 100}));
+    state.ebullets.push(weapons.red.addMissile({pos: [x, y], angle: 90}));
+    state.ebullets.push(weapons.red.addMissile({pos: [x, y], angle: 80}));
+    state.ebullets.push(weapons.red.addMissile({pos: [x, y], angle: 100}));
 
     this.burst.counter--;
     this.lastFire = now;
@@ -214,8 +246,8 @@ RogueLeader.prototype.shoot = function() {
     var x = this.pos[0];
     var y = this.pos[1];
 
-    state.ebullets.push(weapons.redRay.addMissile({x: x + this.sprite.size[0] * 0.3, y: y + this.sprite.size[1] * 0.6, angle: this.rotation - 90}));
-    state.ebullets.push(weapons.redRay.addMissile({x: x + this.sprite.size[0] * 0.7, y: y + this.sprite.size[1] * 0.6, angle: this.rotation - 90}));
+    state.ebullets.push(weapons.redRay.addMissile({pos: [x + this.sprite.size[0] * 0.3, y + this.sprite.size[1] * 0.6], angle: this.rotation - 90}));
+    state.ebullets.push(weapons.redRay.addMissile({pos: [x + this.sprite.size[0] * 0.7, y + this.sprite.size[1] * 0.6], angle: this.rotation - 90}));
 
     this.lastFire = now;
   }
@@ -243,13 +275,13 @@ RotatingPlat.prototype.shoot = function() {
     var y = this.pos[1];
 
     if (this.rotation == 360 || this.rotation == 180) {
-      state.ebullets.push(weapons.redPulse.addMissile({x: x + this.sprite.size[0] / 2, y: y + 10, angle: this.ang + 90, rotation: this.ang + 180}));
-      state.ebullets.push(weapons.redPulse.addMissile({x: x + this.sprite.size[0] / 2, y: y + 10, angle: this.ang + 270, rotation: this.ang + 0}));
+      state.ebullets.push(weapons.redPulse.addMissile({pos: [x + this.sprite.size[0] / 2, y + 10], angle: this.ang + 90, rotation: this.ang + 180}));
+      state.ebullets.push(weapons.redPulse.addMissile({pos: [x + this.sprite.size[0] / 2, y + 10], angle: this.ang + 270, rotation: this.ang + 0}));
     }
 
     if (this.rotation == 90 || this.rotation == 270) {
-      state.ebullets.push(weapons.redPulse.addMissile({x: x+ this.sprite.size[0] / 2, y: y + 10, angle: this.ang + 0, rotation: this.ang + 90}));
-      state.ebullets.push(weapons.redPulse.addMissile({x: x+ this.sprite.size[0] / 2, y: y + 10, angle: this.ang + 180, rotation: this.ang + 270}));
+      state.ebullets.push(weapons.redPulse.addMissile({pos: [x + this.sprite.size[0] / 2, y + 10], angle: this.ang + 0, rotation: this.ang + 90}));
+      state.ebullets.push(weapons.redPulse.addMissile({pos: [x + this.sprite.size[0] / 2, y + 10], angle: this.ang + 180, rotation: this.ang + 270}));
     }
 
     this.ang +=10;
@@ -278,10 +310,127 @@ var Plat = function(pos) {
   state.enemies.push(RotatingPlat.add([x - 65 , y - 65], 90, 270));
 };
 
+// Dock cannon factory
+var DockCannon = function(settings) {
+  EnemyEntity.call(this, enemyConfig.dockCannon, settings);
+};
+
+DockCannon.prototype = Object.create(EnemyEntity.prototype);
+
+DockCannon.prototype.shoot = function() {
+  var now = Date.now();
+
+  // If the enemy can shoot
+  if (this.pos[1] > 0 && now - this.lastFire > this.ROF) {
+    var x = this.pos[0];
+    var y = this.pos[1];
+
+    state.ebullets.push(weapons.yellow.addMissile({pos: [x + this.sprite.size[0] * 0.3, y + this.sprite.size[1] * 0.6], angle: this.rotation - 90}));
+
+    this.lastFire = now;
+  }
+};
+
+DockCannon.prototype.update = function(dt) {
+  if (this.outOfBounds()) {
+    this.active = false;
+    return;
+  }
+
+  this.pos[0] += this.vector[0] * dt;
+  this.pos[1] += this.vector[1] * dt;
+};
+
+function DockCannonFactory () {};
+DockCannonFactory.prototype = new EnemyFactory();
+DockCannonFactory.prototype.type = DockCannon;
+
+var dockCannon = new DockCannonFactory();
+
+// Big Plat Cannon
+// Dock cannon factory
+var BigPlatCannon = function(settings) {
+  EnemyEntity.call(this, enemyConfig.bigPlatCannon, settings);
+};
+
+BigPlatCannon.prototype = Object.create(EnemyEntity.prototype);
+
+BigPlatCannon.prototype.shoot = function() {
+  var now = Date.now();
+
+  // If the enemy can shoot
+  if (this.pos[1] > 0 && now - this.lastFire > this.ROF) {
+    var x = this.pos[0];
+    var y = this.pos[1];
+
+    if (this.rotation == 0) {
+      state.ebullets.push(weapons.yellow.addMissile({pos: [x, y + this.sprite.size[1] * 0.1], angle: this.rotation + 15}));
+    }
+    
+    if (this.rotation == 180) {
+      state.ebullets.push(weapons.yellow.addMissile({pos: [x, y + this.sprite.size[1] * 0.1], angle: this.rotation - 15}));
+    }
+
+    this.lastFire = now;
+  }
+};
+
+function BigPlatCannonFactory () {};
+BigPlatCannonFactory.prototype = new EnemyFactory();
+BigPlatCannonFactory.prototype.type = BigPlatCannon;
+
+var bigPlatCannon = new BigPlatCannonFactory();
+
+// Circle Plat Cannon
+var CirclePlatCannon = function(settings) {
+  EnemyEntity.call(this, enemyConfig.circlePlatCannon, settings);
+};
+
+CirclePlatCannon.prototype = Object.create(EnemyEntity.prototype);
+
+CirclePlatCannon.prototype.shoot = function() {
+  var now = Date.now();
+
+  // If the enemy can shoot
+  if (this.pos[1] > 0 && now - this.lastFire > this.ROF) {
+    var x = this.pos[0] + this.sprite.size[0] / 2;
+    var y = this.pos[1] + this.sprite.size[1] / 2;
+
+    if (this.unique == 'left') {
+      var start = 50;
+
+      for (i = 0; i < 12; i ++) {
+        state.ebullets.push(weapons.red.addMissile({pos: [x, y], angle: start}));
+        start -= 10;
+      }
+    }
+    
+    if (this.unique == 'right') {
+      var start = 130;
+
+      for (i = 0; i < 12; i ++) {
+        state.ebullets.push(weapons.red.addMissile({pos: [x, y], angle: start}));
+        start += 10;
+      }
+    }
+
+    this.lastFire = now;
+  }
+};
+
+function CirclePlatCannonFactory () {};
+CirclePlatCannonFactory.prototype = new EnemyFactory();
+CirclePlatCannonFactory.prototype.type = CirclePlatCannon;
+
+var circlePlatCannon = new CirclePlatCannonFactory();
+
 module.exports = {
   redBomber: redBomber,
   scout: scout,
   rotatingPlat: rotatingPlat,
   rogueLeader: rogueLeader,
-  drone: drone
+  drone: drone,
+  dockCannon: dockCannon,
+  bigPlatCannon: bigPlatCannon,
+  circlePlatCannon: circlePlatCannon
 };

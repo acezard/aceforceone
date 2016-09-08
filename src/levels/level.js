@@ -258,7 +258,7 @@ var level = [
 
   {
     spawnTime: 39,
-    position: [0, 0],
+    position: [-50, 0],
     enemyType: 'drone',
     enemyNumbers: 10,
     type: 'pattern',
@@ -282,7 +282,7 @@ var level = [
 
   {
     spawnTime: 44,
-    position: [0, 0],
+    position: [-50, 0],
     enemyType: 'drone',
     enemyNumbers: 10,
     type: 'pattern',
@@ -306,7 +306,7 @@ var level = [
 
   {
     spawnTime: 49,
-    position: [0, 0],
+    position: [-50, 0],
     enemyType: 'drone',
     enemyNumbers: 15,
     type: 'pattern',
@@ -335,6 +335,28 @@ var level = [
     enemyNumbers: 1,
     type: 'statics',
     rotation: 0
+  },
+
+  {
+    spawnTime: 53,
+    position: [100, - 50],
+    enemyType: 'drone',
+    enemyNumbers: 10,
+    type: 'line',
+    angle: 90,
+    delay: 1500,
+    rotation: 180,
+  },
+
+  {
+    spawnTime: 54,
+    position: [canvas.width - 150, - 50],
+    enemyType: 'drone',
+    enemyNumbers: 10,
+    type: 'line',
+    angle: 90,
+    delay: 1500,
+    rotation: 180,
   },
 
   {
@@ -374,6 +396,7 @@ var level = [
     type: 'statics',
     rotation: 180
   },
+
 
   // 3: Out in the open, killzone
 

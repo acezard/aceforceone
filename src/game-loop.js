@@ -27,9 +27,13 @@ resources.load([
   src + 'ray_red.png',
   src + 'redpulse.png',
   src + 'rogueleader.svg',
-  src + 'base2.svg',
+  src + 'base2.png',
   src + 'base3.svg',
-  src + 'drone.svg'
+  src + 'drone.svg',
+  src + 'dockcannon.png',
+  src + 'bigyellow.png',
+  src + 'bigplatcannon.png',
+  src + 'circlePlatCannon.png'
 ]);
 
 resources.onReady(play);
