@@ -16,7 +16,7 @@ var staticSettings = {
     rotation: 0
   },
   battlePlatform: {
-    url: 'assets/images/base2.svg',
+    url: 'assets/images/base2.png',
     pos: [0, 0],
     size: [200, 690],
     rotation: 0
@@ -135,6 +135,33 @@ var BattlePlatform = function(settings) {
 
 BattlePlatform.prototype = Object.create(StaticEntity.prototype);
 
+BattlePlatform.prototype.spawnEnemies = function() {
+  var x = this.pos[0] + this.sprite.size[0];
+  var x2 = this.pos[0] - 26;
+  var increment = 82;
+  var increment2 = 82;
+
+  for (i = 0; i < 6; i ++) {
+    state.enemies.push(enemies.bigPlatCannon.add({
+      pos: [x, this.pos[1] + increment],
+      angle: 90,
+      rotation: 0
+    }));
+
+    increment += 100;
+  }
+
+  for (i = 0; i < 6; i ++) {
+    state.enemies.push(enemies.bigPlatCannon.add({
+      pos: [x2, this.pos[1] + increment2],
+      angle: 90,
+      rotation: 180
+    }));
+
+    increment2 += 100;
+  }
+};
+
 function BattlePlatformFactory () {};
 BattlePlatformFactory.prototype = new StaticFactory();
 BattlePlatformFactory.prototype.type = BattlePlatform;
@@ -146,6 +173,25 @@ var SmallPlatform = function(settings) {
 };
 
 SmallPlatform.prototype = Object.create(StaticEntity.prototype);
+
+SmallPlatform.prototype.spawnEnemies = function() {
+  var x = this.pos[0] + this.sprite.size[0] / 2 - 27 / 2;
+  var y = this.pos[1] + this.sprite.size[1] / 2 - 37 / 2;
+
+  state.enemies.push(enemies.circlePlatCannon.add({
+    pos: [x, y],
+    angle: 90,
+    rotation: 0,
+    unique: 'left'
+  }));
+
+  state.enemies.push(enemies.circlePlatCannon.add({
+    pos: [x, y],
+    angle: 90,
+    rotation: 180,
+    unique: 'right'
+  }));
+};
 
 function SmallPlatformFactory () {};
 SmallPlatformFactory.prototype = new StaticFactory();

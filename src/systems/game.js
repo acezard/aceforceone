@@ -12,7 +12,7 @@ var canvas = require('../canvas'),
   level = require('../levels/level'),
   Transform = require('../utils/transform');
 
-var gameTime = 30;
+var gameTime = 0;
 var spawn = 0;
 var distance = 0;
 var wave = 0;
@@ -55,7 +55,7 @@ exports.render = function () {
 
   // If any explosion is occuring, shake screen
   if (state.explosions.some(function (elem) {return elem instanceof explosions.Explosion})) preShake();
-background.draw();
+  background.draw();
 
   renderList(state.enemies);
 

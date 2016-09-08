@@ -338,6 +338,28 @@ var level = [
   },
 
   {
+    spawnTime: 53,
+    position: [100, - 50],
+    enemyType: 'drone',
+    enemyNumbers: 10,
+    type: 'line',
+    angle: 90,
+    delay: 1500,
+    rotation: 180,
+  },
+
+  {
+    spawnTime: 54,
+    position: [canvas.width - 150, - 50],
+    enemyType: 'drone',
+    enemyNumbers: 10,
+    type: 'line',
+    angle: 90,
+    delay: 1500,
+    rotation: 180,
+  },
+
+  {
     spawnTime: 48,
     position: [0, 0],
     enemyType: 'smallPlatform',
@@ -375,6 +397,7 @@ var level = [
     rotation: 180
   },
 
+
   // 3: Out in the open, killzone
 
   // 4: Rise of the platforms
@@ -393,7 +416,7 @@ var level = [
 
 // The level function which contains every spawn
 module.exports = function (gameTime) {
-  for (i = 22; i < level.length; i++) {
+  for (i = 0; i < level.length; i++) {
     var wave = level[i];
 
     if (gameTime > wave.spawnTime) {
