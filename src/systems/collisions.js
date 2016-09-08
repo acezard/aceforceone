@@ -71,6 +71,7 @@ module.exports = function(enemies, bullets, explosions, ebullets) {
         var damage = bullet.damage;
 
         if (circleCollides(boundingCircle, bullet.boundingCircle)) {
+          console.log('collide')
           var cx = enemy.pos[0] + enemy.sprite.size[0] / 2;
           var cy = enemy.pos[1] + enemy.sprite.size[1] / 2;
           var rotation = enemy.rotation;
@@ -138,7 +139,7 @@ module.exports = function(enemies, bullets, explosions, ebullets) {
         }
       }
        // If the enemy dies
-    } else if(boxCollides(pos, size, player.pos, player.sprite.size)) {
+    } else if(enemy.invulnerable && boxCollides(pos, size, player.pos, player.sprite.size)) {
 
       player.crushed = true;
 
@@ -153,7 +154,7 @@ module.exports = function(enemies, bullets, explosions, ebullets) {
       }
       if (player.pos[1] > (pos[1] + size[1] - 10) && !left)
       {
-        player.pos[1] = pos[1] + size[1] + 1;
+        player.pos[1] = pos[1] + size[1] + 5;
         return;
       }
       if (player.pos[0] < pos[0])

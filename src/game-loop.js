@@ -29,7 +29,8 @@ resources.load([
   src + 'rogueleader.svg',
   src + 'base2.svg',
   src + 'base3.svg',
-  src + 'drone.svg'
+  src + 'drone.svg',
+  src + 'dockcannon.png'
 ]);
 
 resources.onReady(play);

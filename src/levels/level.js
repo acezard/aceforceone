@@ -258,7 +258,7 @@ var level = [
 
   {
     spawnTime: 39,
-    position: [0, 0],
+    position: [-50, 0],
     enemyType: 'drone',
     enemyNumbers: 10,
     type: 'pattern',
@@ -282,7 +282,7 @@ var level = [
 
   {
     spawnTime: 44,
-    position: [0, 0],
+    position: [-50, 0],
     enemyType: 'drone',
     enemyNumbers: 10,
     type: 'pattern',
@@ -306,7 +306,7 @@ var level = [
 
   {
     spawnTime: 49,
-    position: [0, 0],
+    position: [-50, 0],
     enemyType: 'drone',
     enemyNumbers: 15,
     type: 'pattern',
@@ -393,7 +393,7 @@ var level = [
 
 // The level function which contains every spawn
 module.exports = function (gameTime) {
-  for (i = 0; i < level.length; i++) {
+  for (i = 22; i < level.length; i++) {
     var wave = level[i];
 
     if (gameTime > wave.spawnTime) {

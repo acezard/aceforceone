@@ -64,6 +64,17 @@ var enemyConfig = {
     hitpoints: 5,
     score: 75
   },
+
+  dockCannon: {
+    url: 'assets/images/dockcannon.png',
+    pos: [0, 0],
+    size: [31, 75],
+    speed: 50,
+    hitpoints: 10,
+    score: 100,
+    ROF: 1000
+  }
+  
 };
 
 // Base enemy prototype
@@ -118,7 +129,7 @@ EnemyEntity.prototype.update = function(dt) {
 };
 
 EnemyEntity.prototype.outOfBounds = function() {
-  return this.pos[1] > canvas.height || this.pos[0] < 0 || this.pos[0] > canvas.width;
+  return this.pos[1] > canvas.height && this.vector[1] > 0 || this.pos[0] < 0 && this.vector[0] < 0 || this.pos[0] > canvas.width && this.vector[0] < 0 || this.pos[1] < 0 && this.vector[1] < 0;
 };
 
 // Draw method
@@ -278,10 +289,48 @@ var Plat = function(pos) {
   state.enemies.push(RotatingPlat.add([x - 65 , y - 65], 90, 270));
 };
 
+// Dock cannon factory
+var DockCannon = function(settings) {
+  EnemyEntity.call(this, enemyConfig.dockCannon, settings);
+};
+
+DockCannon.prototype = Object.create(EnemyEntity.prototype);
+
+DockCannon.prototype.shoot = function() {
+  var now = Date.now();
+
+  // If the enemy can shoot
+  if (this.pos[1] > 0 && now - this.lastFire > this.ROF) {
+    var x = this.pos[0];
+    var y = this.pos[1];
+
+    state.ebullets.push(weapons.red.addMissile({x: x + this.sprite.size[0] * 0.3, y: y + this.sprite.size[1] * 0.6, angle: this.rotation - 90}));
+
+    this.lastFire = now;
+  }
+};
+
+DockCannon.prototype.update = function(dt) {
+  if (this.outOfBounds()) {
+    this.active = false;
+    return;
+  }
+
+  this.pos[0] += this.vector[0] * dt;
+  this.pos[1] += this.vector[1] * dt;
+};
+
+function DockCannonFactory () {};
+DockCannonFactory.prototype = new EnemyFactory();
+DockCannonFactory.prototype.type = DockCannon;
+
+var dockCannon = new DockCannonFactory();
+
 module.exports = {
   redBomber: redBomber,
   scout: scout,
   rotatingPlat: rotatingPlat,
   rogueLeader: rogueLeader,
-  drone: drone
+  drone: drone,
+  dockCannon: dockCannon
 };

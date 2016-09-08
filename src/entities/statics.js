@@ -39,6 +39,7 @@ var StaticEntity = function(settingsDefault, settingsActive) {
   });
   this.invulnerable = true;
   this.active = true;
+  this.enemiesSpawned = false;
   this.rotation = settingsActive.rotation || settingsDefault.rotation;
 
   this.pos = [settingsActive.posX, 0 - settingsDefault.size[1]];
@@ -48,7 +49,14 @@ var StaticEntity = function(settingsDefault, settingsActive) {
 StaticEntity.prototype.shoot = function() {
 };
 
+StaticEntity.prototype.spawnEnemies = function() {};
+
 StaticEntity.prototype.update = function(dt) {
+  if (!this.enemiesSpawned) {
+    this.spawnEnemies();
+    this.enemiesSpawned = true;
+  }
+
   this.pos[1] += STATIC_SPEED * dt;
   this.sprite.update(dt);
 
@@ -86,9 +94,38 @@ var BigBlock = function(settings) {
 
 BigBlock.prototype = Object.create(StaticEntity.prototype);
 
+BigBlock.prototype.spawnEnemies = function() {
+  if (this.rotation == 0) {
+    state.enemies.push(enemies.dockCannon.add({
+      pos: [this.pos[0] + 65, this.pos[1] + 45],
+      angle: 90,
+      rotation: 135
+    }));
+    state.enemies.push(enemies.dockCannon.add({
+      pos: [this.pos[0] + 150, this.pos[1] + 45],
+      angle: 90,
+      rotation: 135
+    }));
+  }
+
+  if (this.rotation == 180) {
+    state.enemies.push(enemies.dockCannon.add({
+      pos: [this.pos[0] + 120, this.pos[1] + 45],
+      angle: 90,
+      rotation: 225
+    }));
+    state.enemies.push(enemies.dockCannon.add({
+      pos: [this.pos[0] + 205, this.pos[1] + 45],
+      angle: 90,
+      rotation: 225
+    }));
+  }
+};
+
 function BigBlockFactory () {};
 BigBlockFactory.prototype = new StaticFactory();
 BigBlockFactory.prototype.type = BigBlock;
+
 var bigBlock = new BigBlockFactory();
 
 // Battle Platform
