@@ -157,6 +157,7 @@ var EnemyEntity = function(settingsDefault, settingsActive) {
   this.rotation = settingsActive.rotation || 0;
   this.path = settingsActive.path || null;
   this.unique = settingsActive.unique || null;
+  this.rotateAngle = settingsActive.rotateAngle >= 0 ? 0 : null;
 };
 
 // Update method
@@ -302,18 +303,18 @@ RotatingPlat.prototype.shoot = function() {
     var y = this.pos[1];
 
     if (this.rotation == 360 || this.rotation == 180) {
-      state.ebullets.push(weapons.redPulse.addMissile({pos: [x + this.sprite.size[0] / 2, y + 10], angle: this.ang + 90, rotation: this.ang + 180}));
-      state.ebullets.push(weapons.redPulse.addMissile({pos: [x + this.sprite.size[0] / 2, y + 10], angle: this.ang + 270, rotation: this.ang + 0}));
+      state.ebullets.push(weapons.redPulse.addMissile({pos: [x + this.sprite.size[0] / 2, y + 10], angle: this.rotateAngle + 90, rotation: this.rotateAngle + 180}));
+      state.ebullets.push(weapons.redPulse.addMissile({pos: [x + this.sprite.size[0] / 2, y + 10], angle: this.rotateAngle + 270, rotation: this.rotateAngle + 0}));
     }
 
     if (this.rotation == 90 || this.rotation == 270) {
-      state.ebullets.push(weapons.redPulse.addMissile({pos: [x + this.sprite.size[0] / 2, y + 10], angle: this.ang + 0, rotation: this.ang + 90}));
-      state.ebullets.push(weapons.redPulse.addMissile({pos: [x + this.sprite.size[0] / 2, y + 10], angle: this.ang + 180, rotation: this.ang + 270}));
+      state.ebullets.push(weapons.redPulse.addMissile({pos: [x + this.sprite.size[0] / 2, y + 10], angle: this.rotateAngle + 0, rotation: this.rotateAngle + 90}));
+      state.ebullets.push(weapons.redPulse.addMissile({pos: [x + this.sprite.size[0] / 2, y + 10], angle: this.rotateAngle + 180, rotation: this.rotateAngle + 270}));
     }
 
-    this.ang +=10;
+    this.rotateAngle += 10;
 
-    this.burst.counter--;
+    this.burst.counter --;
     this.lastFire = now;
     return;
   }  if (!this.burst.counter && now - this.lastFire > this.burst.delay) {
@@ -327,14 +328,14 @@ RotatingPlatFactory.prototype.type = RotatingPlat;
 
 var rotatingPlat = new RotatingPlatFactory();
 
-var Plat = function(pos) {
-  var x = pos[0];
-  var y = pos[1];
+var platformSpawner = function(settings) {
+  var x = settings.pos[0];
+  var y = settings.pos[1];
 
-  state.enemies.push(RotatingPlat.add([x, y], 90, 360));
-  state.enemies.push(RotatingPlat.add([x - 65 - 65, y], 90, 180));
-  state.enemies.push(RotatingPlat.add([x - 65, y + 65], 90, 90));
-  state.enemies.push(RotatingPlat.add([x - 65 , y - 65], 90, 270));
+  state.enemies.push(rotatingPlat.add({pos: [x, y], angle: 90, rotation: 360, rotateAngle: 0}));
+  state.enemies.push(rotatingPlat.add({pos: [x - 65 - 65, y], angle: 90, rotation: 180, rotateAngle: 0}));
+  state.enemies.push(rotatingPlat.add({pos: [x - 65, y + 65], angle: 90, rotation: 90, rotateAngle: 0}));
+  state.enemies.push(rotatingPlat.add({pos: [x - 65 , y - 65], angle: 90, rotation: 270, rotateAngle: 0}));
 };
 
 // Dock cannon factory
@@ -523,12 +524,12 @@ module.exports = {
   enemyConfig: enemyConfig,
   redBomber: redBomber,
   scout: scout,
-  rotatingPlat: rotatingPlat,
   rogueLeader: rogueLeader,
   drone: drone,
   dockCannon: dockCannon,
   bigPlatCannon: bigPlatCannon,
   circlePlatCannon: circlePlatCannon,
   yellowBomber: yellowBomber,
-  aggressor: aggressor
+  aggressor: aggressor,
+  platformSpawner: platformSpawner
 };

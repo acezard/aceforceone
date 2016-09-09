@@ -523,6 +523,164 @@ var level = [
   },
 
   // 4: Rise of the platforms
+  {
+    spawnTime: 130,
+    position: [150, - 200],
+    enemyType: 'platformSpawner',
+    enemyNumbers: 1,
+    type: 'customSpawner'
+  },
+
+  {
+    spawnTime: 135,
+    position: [650, - 200],
+    enemyType: 'platformSpawner',
+    enemyNumbers: 1,
+    type: 'customSpawner'
+  },
+
+  {
+    spawnTime: 145,
+    position: [300, - 200],
+    enemyType: 'platformSpawner',
+    enemyNumbers: 1,
+    type: 'customSpawner'
+  },
+
+  {
+    spawnTime: 155,
+    position: [500, - 200],
+    enemyType: 'platformSpawner',
+    enemyNumbers: 1,
+    type: 'customSpawner'
+  },
+
+  {
+    spawnTime: 133,
+    position: [canvas.width * 0.4, -50],
+    enemyType: 'drone',
+    enemyNumbers: 3,
+    angle: 90,
+    rotation: 90 + 90,
+    type: 'line',
+    delay: 250
+  },
+
+  {
+    spawnTime: 137,
+    position: [canvas.width, canvas.height * 0.4],
+    enemyType: 'drone',
+    enemyNumbers: 3,
+    angle: 180,
+    rotation: 180 + 90,
+    type: 'line',
+    delay: 250
+  },
+
+  {
+    spawnTime: 141,
+    position: [- 50, canvas.height * 0.7],
+    enemyType: 'drone',
+    enemyNumbers: 3,
+    angle: 360,
+    rotation: 360 + 90,
+    type: 'line',
+    delay: 250
+  },
+
+  {
+    spawnTime: 145,
+    position: [canvas.width * 0.6, canvas.height],
+    enemyType: 'drone',
+    enemyNumbers: 3,
+    angle: 270,
+    rotation: 270 + 90,
+    type: 'line',
+    delay: 250
+  },
+
+  {
+    spawnTime: 149,
+    position: [- 50, canvas.height * 0.1],
+    enemyType: 'drone',
+    enemyNumbers: 3,
+    angle: 45,
+    rotation: 45 + 90,
+    type: 'line',
+    delay: 250
+  },
+
+  {
+    spawnTime: 153,
+    position: [- 50, canvas.height * 0.8],
+    enemyType: 'drone',
+    enemyNumbers: 3,
+    angle: 320,
+    rotation: 320 + 90,
+    type: 'line',
+    delay: 250
+  },
+
+  {
+    spawnTime: 157,
+    position: [canvas.width * 1, canvas.height * 0.8],
+    enemyType: 'drone',
+    enemyNumbers: 3,
+    angle: 250,
+    rotation: 250 + 90,
+    type: 'line',
+    delay: 250
+  },
+
+  {
+    spawnTime: 161,
+    position: [0, 0],
+    enemyType: 'drone',
+    enemyNumbers: 5,
+    type: 'squadron',
+  },
+
+  {
+    spawnTime: 163,
+    position: [0, 0],
+    enemyType: 'yellowBomber',
+    enemyNumbers: 3,
+    type: 'squadron',
+  },
+
+  {
+    spawnTime: 169,
+    position: [0, 0],
+    enemyType: 'drone',
+    enemyNumbers: 5,
+    type: 'squadron',
+  },
+
+  {
+    spawnTime: 172,
+    position: [0, 0],
+    enemyType: 'yellowBomber',
+    enemyNumbers: 3,
+    type: 'squadron',
+  },
+
+  {
+    spawnTime: 178,
+    position: [0, 0],
+    enemyType: 'drone',
+    enemyNumbers: 5,
+    type: 'squadron',
+  },
+
+  {
+    spawnTime: 181,
+    position: [0, 0],
+    enemyType: 'yellowBomber',
+    enemyNumbers: 3,
+    type: 'squadron',
+  },
+
+
 
   // 5: Second base maze
 
@@ -538,7 +696,7 @@ var level = [
 
 // The level function which contains every spawn
 module.exports = function (gameTime) {
-  for (i = 0; i < level.length; i++) {
+  for (i = 51; i < level.length; i++) {
     var wave = level[i];
 
     if (gameTime > wave.spawnTime) {

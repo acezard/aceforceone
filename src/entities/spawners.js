@@ -86,6 +86,14 @@ Spawner.prototype.squadron = function() {
   this.size = 0;
 };
 
+Spawner.prototype.customSpawner = function() {
+  enemies[this.enemyType]({
+    pos: this.pos
+  });
+
+  this.size--;
+};
+
 Spawner.prototype.line = function() {
   if (this.now - this.lastTime > this.firstSpawn) {
     state.enemies.push(enemies[this.enemyType].add({

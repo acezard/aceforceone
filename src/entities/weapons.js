@@ -60,7 +60,8 @@ var weaponsConfig = {
     speed: 200,
     url: 'assets/images/redpulse.png',
     pos: [0, 0],
-    size: [15, 10]
+    size: [15, 10],
+    rotated: true
   },
   yellowBig: {
     damage: 5,
@@ -97,15 +98,16 @@ var WeaponEntity = function(settingsDefault, settingsActive) {
 
 // Update method
 WeaponEntity.prototype.update = function(dt) {
-    this.pos[0] += this.vector[0] * dt;
-    this.pos[1] += this.vector[1] * dt;
+  this.pos[0] += this.vector[0] * dt;
+  this.pos[1] += this.vector[1] * dt;
 
-    this.boundingCircle = {radius: this.sprite.size[0] / 2, x: this.pos[0] + this.sprite.size[0] / 2, y: this.pos[1] + this.sprite.size[1] / 2};
+  
+  this.boundingCircle = {radius: this.sprite.size[0] / 2, x: this.pos[0] + this.sprite.size[0] / 2, y: this.pos[1] + this.sprite.size[1] / 2};
 
-    // Remove the bullet if it goes offscreen
-    if(this.outOfBounds()) {
-      this.active = false;
-    }
+  // Remove the bullet if it goes offscreen
+  if(this.outOfBounds()) {
+    this.active = false;
+  }
 };
 
 WeaponEntity.prototype.outOfBounds = function() {
