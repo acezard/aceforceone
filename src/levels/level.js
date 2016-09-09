@@ -681,7 +681,6 @@ var level = [
   },
 
 
-
   // 5: Second base maze
 
   // 6: MiniBoss
@@ -696,7 +695,7 @@ var level = [
 
 // The level function which contains every spawn
 module.exports = function (gameTime) {
-  for (i = 51; i < level.length; i++) {
+  for (i = 0; i < level.length; i++) {
     var wave = level[i];
 
     if (gameTime > wave.spawnTime) {
