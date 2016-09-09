@@ -27,6 +27,32 @@ var Explosion = function(x, y) {
   };
 };
 
+var GreenX2 = function(x, y) {
+  this.pos = [x, y];
+  this.sprite = new Sprite({
+    url:'assets/images/greenx2.png',
+    pos: [0, 0],
+    size: [180, 180],
+    speed: 24,
+    frames: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+    once: true
+  });
+  this.active = true;
+  this.update = function(dt) {
+    this.sprite.update(dt);
+
+    if(this.sprite.done) {
+        this.active = false;
+    }
+  };
+  this.render = function() {
+    canvas.ctx.save();
+    canvas.ctx.translate(this.pos[0], this.pos[1]);
+    this.sprite.render(canvas.ctx);
+    canvas.ctx.restore();
+  };
+};
+
 var Hit = function(x, y, color) {
   this.pos = [x, y];
   this.sprite = new Sprite({
@@ -92,5 +118,6 @@ var Scored = function(x, y, text, effect) {
 module.exports = {
   Explosion: Explosion,
   Hit: Hit,
-  Scored: Scored
+  Scored: Scored,
+  GreenX2: GreenX2
 };

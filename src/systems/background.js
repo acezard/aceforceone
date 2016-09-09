@@ -4,7 +4,7 @@ var utils = require('../utils/utils');
 var resources = require('../utils/resources');
 
 // Global speed
-var speed = new SpeedFactor(2.5);
+var speed = new SpeedFactor(1.5);
 
 function SpeedFactor(number) {
   this.fast = number * 2;

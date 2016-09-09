@@ -33,7 +33,11 @@ resources.load([
   src + 'dockcannon.png',
   src + 'bigyellow.png',
   src + 'bigplatcannon.png',
-  src + 'circlePlatCannon.png'
+  src + 'circlePlatCannon.png',
+  src + 'yellowbomber.png',
+  src + 'aggressor.png',
+  src + 'green.png',
+  src + 'greenx2.png'
 ]);
 
 resources.onReady(play);

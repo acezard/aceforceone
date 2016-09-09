@@ -17,6 +17,7 @@ function Spawner(options) {
   this.leaderType = options.leader || null;
   this.squadronOffset = options.squadronOffset || 35;
   this.path = options.path;
+  this.firstSpawn = 0;
 
   this.speedS = 50;
   this.radiansS = 90 * (Math.PI / 180);
@@ -35,13 +36,23 @@ Spawner.prototype.update = function(dt) {
 };
 
 Spawner.prototype.squadron = function() {
-  var step = canvas.width / this.size;
+  var step;
+  var offset;
   var size = this.size;
   var half = Math.floor(this.size / 2);
-  var rotation = 180; // In squadrons, enemies always go toward bottom of the screen
+  var rotation = 180;
+  var config = false;
+
+  if (!config) {
+    var width = enemies.enemyConfig[this.enemyType].size[0];
+
+    step = width + (canvas.width - size * width) / size;
+    offset = ((canvas.width - size * width) / size) / 2;
+    config = true;
+  }
 
   // Centering the wave
-  this.pos[0] = step / size;
+  this.pos[0] = offset;
 
   // Calculating vertical offset
   this.pos[1] = - this.squadronOffset * this.size;
@@ -76,13 +87,14 @@ Spawner.prototype.squadron = function() {
 };
 
 Spawner.prototype.line = function() {
-  if (this.now - this.lastTime > this.delay) {
+  if (this.now - this.lastTime > this.firstSpawn) {
     state.enemies.push(enemies[this.enemyType].add({
       pos: [this.pos[0], this.pos[1]],
       angle: this.angle,
       rotation: this.enemyRotation
     }));
 
+    this.firstSpawn = this.delay;
     this.lastTime = this.now;
     this.size--;
   }

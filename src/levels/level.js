@@ -22,7 +22,7 @@ var level = [
     position: [0, 0],
     enemyType: 'scout',
     enemyNumbers: 3,
-    type: 'squadron'
+    type: 'squadron',
   },
 
   {
@@ -397,8 +397,130 @@ var level = [
     rotation: 180
   },
 
-
   // 3: Out in the open, killzone
+  {
+    spawnTime: 85,
+    position: [0, 0],
+    enemyType: 'rogueLeader',
+    enemyNumbers: 3,
+    type: 'squadron'
+  },
+
+  {
+    spawnTime: 95,
+    position: [0, 0],
+    enemyType: 'rogueLeader',
+    enemyNumbers: 5,
+    type: 'squadron'
+  },
+
+  {
+    spawnTime: 100,
+    position: [0, 0],
+    enemyType: 'rogueLeader',
+    enemyNumbers: 3,
+    type: 'squadron'
+  },
+
+  {
+    spawnTime: 105,
+    position: [0, 0],
+    enemyType: 'rogueLeader',
+    enemyNumbers: 5,
+    type: 'squadron'
+  },
+
+  {
+    spawnTime: 110,
+    position: [0, 0],
+    enemyType: 'rogueLeader',
+    enemyNumbers: 3,
+    type: 'squadron'
+  },
+
+  {
+    spawnTime: 115,
+    position: [0, 0],
+    enemyType: 'rogueLeader',
+    enemyNumbers: 5,
+    type: 'squadron'
+  },
+
+  {
+    spawnTime: 90,
+    position: [canvas.width * 0.2, -50],
+    enemyType: 'yellowBomber',
+    enemyNumbers: 5,
+    type: 'line',
+    angle: 90,
+    delay: 5000,
+    rotation: 180
+  },
+
+  {
+    spawnTime: 92.5,
+    position: [canvas.width * 0.8, -50],
+    enemyType: 'yellowBomber',
+    enemyNumbers: 5,
+    type: 'line',
+    angle: 90,
+    delay: 5000,
+    rotation: 180
+  },
+
+  {
+    spawnTime: 90,
+    position: [- 100, 0],
+    enemyType: 'aggressor',
+    enemyNumbers: 2,
+    type: 'line',
+    angle: 45,
+    delay: 20000,
+    rotation: 45+90
+  },
+
+  {
+    spawnTime: 100,
+    position: [800, 0],
+    enemyType: 'aggressor',
+    enemyNumbers: 1,
+    type: 'line',
+    angle: 135,
+    delay: 20000,
+    rotation: 135+90
+  },
+
+  {
+    spawnTime: 125,
+    position: [0, 0],
+    enemyType: 'scout',
+    enemyNumbers: 9,
+    type: 'squadron'
+  },
+
+  {
+    spawnTime: 125.5,
+    position: [0, 0],
+    enemyType: 'scout',
+    enemyNumbers: 9,
+    type: 'squadron'
+  },
+
+  {
+    spawnTime: 126,
+    position: [0, 0],
+    enemyType: 'scout',
+    enemyNumbers: 9,
+    type: 'squadron'
+  },
+
+  {
+    spawnTime: 126.5,
+    position: [0, 0],
+    enemyType: 'scout',
+    enemyNumbers: 9,
+    type: 'squadron'
+  },
 
   // 4: Rise of the platforms
 
