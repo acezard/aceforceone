@@ -71,7 +71,6 @@ module.exports = function(enemies, bullets, explosions, ebullets) {
         var damage = bullet.damage;
 
         if (circleCollides(boundingCircle, bullet.boundingCircle)) {
-          console.log('collide')
           var cx = enemy.pos[0] + enemy.sprite.size[0] / 2;
           var cy = enemy.pos[1] + enemy.sprite.size[1] / 2;
           var rotation = enemy.rotation;
@@ -113,7 +112,11 @@ module.exports = function(enemies, bullets, explosions, ebullets) {
               }
 
               // Add an explosion
-              explosions.push(new explosion.Explosion(pos[0], pos[1]));
+              if (enemy.exploding) {
+                explosions.push(new explosion[enemy.exploding](pos[0], pos[1]));
+              } else {
+                explosions.push(new explosion.Explosion(pos[0], pos[1]));
+              }
               explosions.push(new explosion.Scored(pos[0] + size[0] / 3, pos[1], score, 'good'));
 
               // Remove the bullet and stop this iteration

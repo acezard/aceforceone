@@ -38,6 +38,14 @@ var weaponsConfig = {
     pos: [0, 0],
     size: [12, 11]
   },
+  green: {
+    damage: 1,
+    hitColor: 'red',
+    speed: 200,
+    url: 'assets/images/green.png',
+    pos: [0, 0],
+    size: [18, 18]
+  },
   redRay: {
     damage: 1,
     hitColor: 'red',
@@ -52,7 +60,8 @@ var weaponsConfig = {
     speed: 200,
     url: 'assets/images/redpulse.png',
     pos: [0, 0],
-    size: [15, 10]
+    size: [15, 10],
+    rotated: true
   },
   yellowBig: {
     damage: 5,
@@ -89,15 +98,16 @@ var WeaponEntity = function(settingsDefault, settingsActive) {
 
 // Update method
 WeaponEntity.prototype.update = function(dt) {
-    this.pos[0] += this.vector[0] * dt;
-    this.pos[1] += this.vector[1] * dt;
+  this.pos[0] += this.vector[0] * dt;
+  this.pos[1] += this.vector[1] * dt;
 
-    this.boundingCircle = {radius: this.sprite.size[0] / 2, x: this.pos[0] + this.sprite.size[0] / 2, y: this.pos[1] + this.sprite.size[1] / 2};
+  
+  this.boundingCircle = {radius: this.sprite.size[0] / 2, x: this.pos[0] + this.sprite.size[0] / 2, y: this.pos[1] + this.sprite.size[1] / 2};
 
-    // Remove the bullet if it goes offscreen
-    if(this.outOfBounds()) {
-      this.active = false;
-    }
+  // Remove the bullet if it goes offscreen
+  if(this.outOfBounds()) {
+    this.active = false;
+  }
 };
 
 WeaponEntity.prototype.outOfBounds = function() {
@@ -147,6 +157,11 @@ var YellowBig = function(settings) {
   WeaponEntity.call(this, weaponsConfig.yellowBig, settings);
 }
 YellowBig.prototype = Object.create(WeaponEntity.prototype);
+// Green
+var Green = function(settings) {
+  WeaponEntity.call(this, weaponsConfig.green, settings);
+}
+Green.prototype = Object.create(WeaponEntity.prototype);
 
 
 // Factory function
@@ -174,6 +189,9 @@ RedPulseFactory.prototype.type = RedPulse;
 function YellowBigFactory () {};
 YellowBigFactory.prototype = new WeaponsFactory();
 YellowBigFactory.prototype.type = YellowBig;
+function GreenFactory () {};
+GreenFactory.prototype = new WeaponsFactory();
+GreenFactory.prototype.type = Green;
 
 
 var blueFactory = new BlueLiberatorFactory();
@@ -182,6 +200,7 @@ var redFactory = new RedFoeFactory();
 var redRayFactory = new RedRayFactory();
 var redPulseFactory = new RedPulseFactory();
 var yellow = new YellowBigFactory();
+var green = new GreenFactory();
 
 module.exports = {
   conf: weaponsConfig,
@@ -190,5 +209,6 @@ module.exports = {
   red: redFactory,
   redRay: redRayFactory,
   redPulse: redPulseFactory,
-  yellow: yellow
+  yellow: yellow,
+  green: green
 };

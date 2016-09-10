@@ -17,9 +17,8 @@ var spawn = 0;
 var distance = 0;
 var wave = 0;
 
-var timer = 0;
-
 exports.update = function (dt) {
+/*  console.log(gameTime)*/
   gameTime += dt;
   distance++;
 
@@ -73,7 +72,6 @@ exports.render = function () {
   renderList(state.ebullets);
   renderList(state.explosions);
 
-  
   postShake();
 }
 
