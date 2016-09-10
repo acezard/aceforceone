@@ -680,22 +680,115 @@ var level = [
     type: 'squadron',
   },
 
-
   // 5: Second base maze
+  {
+    spawnTime: 183,
+    position: [0, 0],
+    enemyType: 'bigBlock',
+    enemyNumbers: 2,
+    delay: 10000,
+    type: 'statics',
+    rotation: 0
+  },
 
-  // 6: MiniBoss
+  {
+    spawnTime: 188,
+    position: [canvas.width - 300, 0],
+    enemyType: 'bigBlock',
+    enemyNumbers: 2,
+    delay: 10000,
+    type: 'statics',
+    rotation: 180
+  },
 
-  // 7: Second killzone, bigger than the first one
+  {
+    spawnTime: 183 + 4,
+    position: [-50, 0],
+    enemyType: 'drone',
+    enemyNumbers: 10,
+    type: 'pattern',
+    angle: 360,
+    delay: 500,
+    rotation: 90,
+    path: 'angular'
+  },
 
-  // 8: Small interlude
+  {
+    spawnTime: 188 + 4,
+    position: [canvas.width, 0],
+    enemyType: 'drone',
+    enemyNumbers: 10,
+    type: 'pattern',
+    angle: 180,
+    delay: 500,
+    rotation: 270,
+    path: 'angular'
+  },
 
-  // 9: Boss fight
+  {
+    spawnTime: 193 + 4,
+    position: [-50, 0],
+    enemyType: 'drone',
+    enemyNumbers: 10,
+    type: 'pattern',
+    angle: 360,
+    delay: 500,
+    rotation: 90,
+    path: 'angular'
+  },
+
+  {
+    spawnTime: 198 + 4,
+    position: [canvas.width, 0],
+    enemyType: 'drone',
+    enemyNumbers: 10,
+    type: 'pattern',
+    angle: 180,
+    delay: 500,
+    rotation: 270,
+    path: 'angular'
+  },
+
+  {
+    spawnTime: 183,
+    position: [canvas.width - 64, 0],
+    enemyType: 'smallPlatform',
+    enemyNumbers: 2,
+    type: 'statics',
+    rotation: 0,
+    delay: 10000
+  },
+
+  {
+    spawnTime: 188,
+    position: [0, 0],
+    enemyType: 'smallPlatform',
+    enemyNumbers: 2,
+    type: 'statics',
+    rotation: 0,
+    delay: 10000
+  },
+
+  // 6: Second killzone, bigger than the first one
+  {
+    spawnTime: 215,
+    position: [0, - 200],
+    enemyType: 'aggressor',
+    enemyNumbers: 1,
+    type: 'squadron',
+    rotation: 0
+  },
+
+
+  // 7: Small interlude
+
+  // 8: Boss fight
 
 ];
 
 // The level function which contains every spawn
 module.exports = function (gameTime) {
-  for (i = 0; i < level.length; i++) {
+  for (i = 76; i < level.length; i++) {
     var wave = level[i];
 
     if (gameTime > wave.spawnTime) {
@@ -705,3 +798,5 @@ module.exports = function (gameTime) {
     }
   }
 };
+
+console.log(level.length);

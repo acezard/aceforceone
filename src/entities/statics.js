@@ -177,19 +177,13 @@ SmallPlatform.prototype = Object.create(StaticEntity.prototype);
 SmallPlatform.prototype.spawnEnemies = function() {
   var x = this.pos[0] + this.sprite.size[0] / 2 - 27 / 2;
   var y = this.pos[1] + this.sprite.size[1] / 2 - 37 / 2;
+  var unique = this.pos[0] > canvas.width / 2 ? 'right' : 'left';
 
   state.enemies.push(enemies.circlePlatCannon.add({
     pos: [x, y],
     angle: 90,
     rotation: 0,
-    unique: 'left'
-  }));
-
-  state.enemies.push(enemies.circlePlatCannon.add({
-    pos: [x, y],
-    angle: 90,
-    rotation: 180,
-    unique: 'right'
+    unique: unique
   }));
 };
 

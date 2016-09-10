@@ -42,6 +42,7 @@ body {
 
 #scoreEl,
 #lifeEl {
+  pointer-events: none;
   position: absolute;
   right : 0;
   font-family: 'quango';
@@ -55,10 +56,12 @@ body {
 
 #scoreEl {
   bottom: 1%;
+  pointer-events: none;
 }
 
 #lifeEl {
  bottom: calc(1% + 44px + 1%);
+ pointer-events: none;
 }
 
 #scoreVal {
@@ -77,6 +80,7 @@ body {
   background-image: url('../assets/images/hpmeter.png');
   width: 40px;
   height: 150px;
+  pointer-events: none;
 }
 
 #hpEl::before {
@@ -130,6 +134,7 @@ body {
   background-image: url('../assets/images/hpmeter.png');
   width: 40px;
   height: 150px;
+  pointer-events: none;
 }
 
 canvas {
