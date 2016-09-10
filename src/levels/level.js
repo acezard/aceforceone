@@ -957,12 +957,21 @@ var level = [
 
 
   // 8: Boss fight
+  {
+    spawnTime: 260,
+    position: [100, - 500],
+    enemyType: 'bigBoss',
+    angle: 90,
+    rotation: 180,
+    type: 'line',
+    enemyNumbers: 1
+  }
 
 ];
 
 // The level function which contains every spawn
 module.exports = function (gameTime) {
-  for (i = 87; i < level.length; i++) {
+  for (i = 94; i < level.length; i++) {
     var wave = level[i];
 
     if (gameTime > wave.spawnTime) {
@@ -972,5 +981,3 @@ module.exports = function (gameTime) {
     }
   }
 };
-
-console.log(level.length);

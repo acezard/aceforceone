@@ -37,7 +37,8 @@ resources.load([
   src + 'yellowbomber.png',
   src + 'aggressor.png',
   src + 'green.png',
-  src + 'greenx2.png'
+  src + 'greenx2.png',
+  src + 'bigBoss.png'
 ]);
 
 resources.onReady(play);
