@@ -543,6 +543,7 @@ var BigBoss = function(settings) {
   this.ROF3 = enemyConfig.bigBoss.ROF3;
   this.lastFire3 = Date.now();
   this.rotateAngle = 90;
+  this.fireCounter = 0;
 };
 
 BigBoss.prototype = Object.create(EnemyEntity.prototype);
@@ -579,7 +580,36 @@ BigBoss.prototype.shoot = function() {
   var now = Date.now();
 
   // If the enemy can shoot
-  if (this.fighting && now - this.lastFire > this.ROF1) {
+  if (this.fighting) {
+    var counter = (now - this.fireCounter) / 1000;
+
+    if (!this.fireCounter) {
+      this.fireCounter = Date.now();
+    }
+
+    this.protonBomber(now);
+
+    if (counter > 5 && counter < 10) {
+      this.focusedMassacre(now);
+    }
+
+    if (counter > 10 && counter < 15) {
+      this.ultraKilling(now);
+    }
+
+    if (counter > 15 && counter < 20) {
+      this.ultraKilling(now);
+      this.focusedMassacre(now);
+    }
+
+    if (counter > 20) {
+      this.fireCounter = Date.now();
+    }
+  }
+};
+
+BigBoss.prototype.ultraKilling = function(now) {
+  if (now - this.lastFire > this.ROF1) {
     var x = this.pos[0] + this.sprite.size[0] / 2;
     var y = this.pos[1] + this.sprite.size[1] / 2;
     var steps = 30;
@@ -591,7 +621,9 @@ BigBoss.prototype.shoot = function() {
 
     this.lastFire = now;
   }
+};
 
+BigBoss.prototype.protonBomber = function(now) {
   if (this.fighting && now - this.lastFire2 > this.ROF2) {
     var pos1 = [this.pos[0] + 40, this.pos[1] + 180]
     var pos2 = [this.pos[0] + 560, this.pos[1] + 180];
@@ -601,7 +633,9 @@ BigBoss.prototype.shoot = function() {
 
     this.lastFire2 = now;
   }
+};
 
+BigBoss.prototype.focusedMassacre = function(now) {
   if (this.fighting && now - this.lastFire3 > this.ROF3) {
     var pos1 = [this.pos[0] + 270, this.sprite.size[1]];
     var pos2 = [this.pos[0] + 335, this.sprite.size[1]];
