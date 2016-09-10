@@ -73,6 +73,18 @@ body {
   padding-right: 50px;
 }
 
+#bosshpEl {
+  display: none;
+  position: absolute;
+  top: 0.5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 20px;
+  background-image: url('../assets/images/bosshp.png');
+  pointer-events: none;
+}
+
 #hpEl {
   position: absolute;
   bottom: 1%;
@@ -120,6 +132,10 @@ body {
 }
 
 #hp {
+  background: #fd5842;
+}
+
+#bosshp {
   background: #fd5842;
 }
 

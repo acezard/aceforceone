@@ -8,6 +8,8 @@ var powerPoints = document.getElementById('sh');
 var uiWrap = document.getElementById('ui-wrapper');
 var gameOverWrap = document.getElementById('game-over-wrapper');
 var lifesEl = document.getElementById('lifeVal');
+var bossHp = document.getElementById('bosshp');
+var bossHpEl = document.getElementById('bosshpEl')
 var width = 800;
 var height = 800;
 
@@ -32,5 +34,7 @@ module.exports = {
   hitPoints: hp,
   ui: uiWrap,
   gameOver: gameOverWrap,
-  lifesEl: lifesEl
+  lifesEl: lifesEl,
+  bosshpEl: bosshpEl,
+  bosshp: bosshp
 };
