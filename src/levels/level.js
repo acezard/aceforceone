@@ -866,6 +866,95 @@ var level = [
   },
 
   // 7: Small interlude
+  {
+    spawnTime: 250,
+    position: [- 20, canvas.height],
+    enemyType: 'scout',
+    enemyNumbers: 15,
+    type: 'line',
+    angle: 315,
+    rotation: 45,
+    delay: 500
+  },
+
+  {
+    spawnTime: 250,
+    position: [- 20, canvas.height * 0.8],
+    enemyType: 'scout',
+    enemyNumbers: 15,
+    type: 'line',
+    angle: 315,
+    rotation: 45,
+    delay: 500
+  },
+
+  {
+    spawnTime: 250,
+    position: [- 20, canvas.height * 0.6],
+    enemyType: 'scout',
+    enemyNumbers: 15,
+    type: 'line',
+    angle: 315,
+    rotation: 45,
+    delay: 500
+  },
+
+  {
+    spawnTime: 250,
+    position: [- 20, canvas.height * 0.4],
+    enemyType: 'scout',
+    enemyNumbers: 15,
+    type: 'line',
+    angle: 315,
+    rotation: 45,
+    delay: 500
+  },
+
+
+  {
+    spawnTime: 250,
+    position: [canvas.width, canvas.height],
+    enemyType: 'scout',
+    enemyNumbers: 15,
+    type: 'line',
+    angle: 225,
+    rotation: 225 + 90,
+    delay: 500
+  },
+
+  {
+    spawnTime: 250,
+    position: [canvas.width, canvas.height * 0.8],
+    enemyType: 'scout',
+    enemyNumbers: 15,
+    type: 'line',
+    angle: 225,
+    rotation: 225 + 90,
+    delay: 500
+  },
+
+  {
+    spawnTime: 250,
+    position: [canvas.width, canvas.height * 0.6],
+    enemyType: 'scout',
+    enemyNumbers: 15,
+    type: 'line',
+    angle: 225,
+    rotation: 225 + 90,
+    delay: 500
+  },
+
+  {
+    spawnTime: 250,
+    position: [canvas.width, canvas.height * 0.4],
+    enemyType: 'scout',
+    enemyNumbers: 15,
+    type: 'line',
+    angle: 225,
+    rotation: 225 + 90,
+    delay: 500
+  },
+
 
   // 8: Boss fight
 
@@ -873,7 +962,7 @@ var level = [
 
 // The level function which contains every spawn
 module.exports = function (gameTime) {
-  for (i = 76; i < level.length; i++) {
+  for (i = 87; i < level.length; i++) {
     var wave = level[i];
 
     if (gameTime > wave.spawnTime) {

@@ -12,7 +12,7 @@ var canvas = require('../canvas'),
   level = require('../levels/level'),
   Transform = require('../utils/transform');
 
-var gameTime = 214;
+var gameTime = 249;
 var spawn = 0;
 var distance = 0;
 var wave = 0;
