@@ -494,7 +494,7 @@ var level = [
     spawnTime: 125,
     position: [0, 0],
     enemyType: 'scout',
-    enemyNumbers: 9,
+    enemyNumbers: 3,
     type: 'squadron'
   },
 
@@ -502,7 +502,7 @@ var level = [
     spawnTime: 125.5,
     position: [0, 0],
     enemyType: 'scout',
-    enemyNumbers: 9,
+    enemyNumbers: 5,
     type: 'squadron'
   },
 
@@ -510,7 +510,7 @@ var level = [
     spawnTime: 126,
     position: [0, 0],
     enemyType: 'scout',
-    enemyNumbers: 9,
+    enemyNumbers: 7,
     type: 'squadron'
   },
 
@@ -680,22 +680,298 @@ var level = [
     type: 'squadron',
   },
 
-
   // 5: Second base maze
+  {
+    spawnTime: 183,
+    position: [0, 0],
+    enemyType: 'bigBlock',
+    enemyNumbers: 2,
+    delay: 10000,
+    type: 'statics',
+    rotation: 0
+  },
 
-  // 6: MiniBoss
+  {
+    spawnTime: 188,
+    position: [canvas.width - 300, 0],
+    enemyType: 'bigBlock',
+    enemyNumbers: 2,
+    delay: 10000,
+    type: 'statics',
+    rotation: 180
+  },
 
-  // 7: Second killzone, bigger than the first one
+  {
+    spawnTime: 183 + 4,
+    position: [-50, 0],
+    enemyType: 'drone',
+    enemyNumbers: 10,
+    type: 'pattern',
+    angle: 360,
+    delay: 500,
+    rotation: 90,
+    path: 'angular'
+  },
 
-  // 8: Small interlude
+  {
+    spawnTime: 188 + 4,
+    position: [canvas.width, 0],
+    enemyType: 'drone',
+    enemyNumbers: 10,
+    type: 'pattern',
+    angle: 180,
+    delay: 500,
+    rotation: 270,
+    path: 'angular'
+  },
 
-  // 9: Boss fight
+  {
+    spawnTime: 193 + 4,
+    position: [-50, 0],
+    enemyType: 'drone',
+    enemyNumbers: 10,
+    type: 'pattern',
+    angle: 360,
+    delay: 500,
+    rotation: 90,
+    path: 'angular'
+  },
+
+  {
+    spawnTime: 198 + 4,
+    position: [canvas.width, 0],
+    enemyType: 'drone',
+    enemyNumbers: 10,
+    type: 'pattern',
+    angle: 180,
+    delay: 500,
+    rotation: 270,
+    path: 'angular'
+  },
+
+  {
+    spawnTime: 183,
+    position: [canvas.width - 64, 0],
+    enemyType: 'smallPlatform',
+    enemyNumbers: 2,
+    type: 'statics',
+    rotation: 0,
+    delay: 10000
+  },
+
+  {
+    spawnTime: 188,
+    position: [0, 0],
+    enemyType: 'smallPlatform',
+    enemyNumbers: 2,
+    type: 'statics',
+    rotation: 0,
+    delay: 10000
+  },
+
+  // 6: Second killzone, bigger than the first one
+  {
+    spawnTime: 215,
+    position: [0, 0],
+    enemyType: 'aggressor',
+    enemyNumbers: 3,
+    type: 'squadron',
+    rotation: 0
+  },
+
+  {
+    spawnTime: 215 + 3,
+    position: [0, 0],
+    enemyType: 'drone',
+    enemyNumbers: 3,
+    type: 'squadron',
+  },
+
+  {
+    spawnTime: 215 + 5,
+    position: [0, 0],
+    enemyType: 'drone',
+    enemyNumbers: 5,
+    type: 'line',
+    angle: 45,
+    delay: 500,
+    rotation: 45 + 90
+  },
+
+  {
+    spawnTime: 215 + 8,
+    position: [canvas.width, canvas.height * 0.7],
+    enemyType: 'drone',
+    enemyNumbers: 5,
+    type: 'line',
+    angle: 220,
+    delay: 500,
+    rotation: 220 + 90
+  },
+
+  {
+    spawnTime: 215 + 10,
+    position: [0, 0],
+    enemyType: 'yellowBomber',
+    leader: 'aggressor',
+    enemyNumbers: 3,
+    type: 'squadron'
+  },
+
+  {
+    spawnTime: 225 + 3,
+    position: [0, 0],
+    enemyType: 'drone',
+    enemyNumbers: 3,
+    type: 'squadron',
+  },
+
+  {
+    spawnTime: 225 + 5,
+    position: [0, 0],
+    enemyType: 'drone',
+    enemyNumbers: 5,
+    type: 'line',
+    angle: 45,
+    delay: 500,
+    rotation: 45 + 90
+  },
+
+  {
+    spawnTime: 225 + 8,
+    position: [canvas.width, canvas.height * 0.7],
+    enemyType: 'drone',
+    enemyNumbers: 5,
+    type: 'line',
+    angle: 220,
+    delay: 500,
+    rotation: 220 + 90
+  },
+
+  {
+    spawnTime: 225 + 13,
+    position: [0, 0],
+    enemyType: 'rogueLeader',
+    enemyNumbers: 3,
+    type: 'squadron'
+  },
+
+  {
+    spawnTime: 215 + 17,
+    position: [0, 0],
+    enemyType: 'aggressor',
+    enemyNumbers: 3,
+    type: 'squadron',
+    rotation: 0
+  },
+
+  // 7: Small interlude
+  {
+    spawnTime: 250,
+    position: [- 20, canvas.height],
+    enemyType: 'scout',
+    enemyNumbers: 15,
+    type: 'line',
+    angle: 315,
+    rotation: 45,
+    delay: 500
+  },
+
+  {
+    spawnTime: 250,
+    position: [- 20, canvas.height * 0.8],
+    enemyType: 'scout',
+    enemyNumbers: 15,
+    type: 'line',
+    angle: 315,
+    rotation: 45,
+    delay: 500
+  },
+
+  {
+    spawnTime: 250,
+    position: [- 20, canvas.height * 0.6],
+    enemyType: 'scout',
+    enemyNumbers: 15,
+    type: 'line',
+    angle: 315,
+    rotation: 45,
+    delay: 500
+  },
+
+  {
+    spawnTime: 250,
+    position: [- 20, canvas.height * 0.4],
+    enemyType: 'scout',
+    enemyNumbers: 15,
+    type: 'line',
+    angle: 315,
+    rotation: 45,
+    delay: 500
+  },
+
+
+  {
+    spawnTime: 250,
+    position: [canvas.width, canvas.height],
+    enemyType: 'scout',
+    enemyNumbers: 15,
+    type: 'line',
+    angle: 225,
+    rotation: 225 + 90,
+    delay: 500
+  },
+
+  {
+    spawnTime: 250,
+    position: [canvas.width, canvas.height * 0.8],
+    enemyType: 'scout',
+    enemyNumbers: 15,
+    type: 'line',
+    angle: 225,
+    rotation: 225 + 90,
+    delay: 500
+  },
+
+  {
+    spawnTime: 250,
+    position: [canvas.width, canvas.height * 0.6],
+    enemyType: 'scout',
+    enemyNumbers: 15,
+    type: 'line',
+    angle: 225,
+    rotation: 225 + 90,
+    delay: 500
+  },
+
+  {
+    spawnTime: 250,
+    position: [canvas.width, canvas.height * 0.4],
+    enemyType: 'scout',
+    enemyNumbers: 15,
+    type: 'line',
+    angle: 225,
+    rotation: 225 + 90,
+    delay: 500
+  },
+
+
+  // 8: Boss fight
+  {
+    spawnTime: 260,
+    position: [100, - 500],
+    enemyType: 'bigBoss',
+    angle: 90,
+    rotation: 180,
+    type: 'line',
+    enemyNumbers: 1
+  }
 
 ];
 
 // The level function which contains every spawn
 module.exports = function (gameTime) {
-  for (i = 0; i < level.length; i++) {
+  for (i = 94; i < level.length; i++) {
     var wave = level[i];
 
     if (gameTime > wave.spawnTime) {

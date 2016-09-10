@@ -115,12 +115,23 @@ var enemyConfig = {
     pos: [0, 0],
     size: [150, 142],
     speed: 100,
-    hitpoints: 20,
+    hitpoints: 35,
     ROF: 1000,
     score: 300,
     exploding: 'GreenX2'
   },
   
+  bigBoss: {
+    url: 'assets/images/bigBoss.png',
+    pos: [0, 0],
+    size: [600, 253],
+    speed: 50,
+    hitpoints: 2000,
+    ROF1: 1000,
+    ROF2: 500,
+    ROF3: 100,
+    score: 5000
+  },
 };
 
 // Base enemy prototype
@@ -503,7 +514,7 @@ Aggressor.prototype.shoot = function() {
   if (this.pos[1] > 0 && now - this.lastFire > this.ROF) {
     var x = this.pos[0] + this.sprite.size[0] / 2;
     var y = this.pos[1] + this.sprite.size[1] / 2;
-    var steps = 45;
+    var steps = 30;
     var step = 360 / steps;
 
     for (i = 0; i < steps; i++) {
@@ -520,6 +531,142 @@ AggressorFactory.prototype.type = Aggressor;
 
 var aggressor = new AggressorFactory();
 
+// BigBoss
+var BigBoss = function(settings) {
+  EnemyEntity.call(this, enemyConfig.bigBoss, settings);
+
+  this.goingLeft = true;
+  this.fighting = false;
+  this.ROF1 = enemyConfig.bigBoss.ROF1;
+  this.ROF2 = enemyConfig.bigBoss.ROF2;
+  this.lastFire2 = Date.now();
+  this.ROF3 = enemyConfig.bigBoss.ROF3;
+  this.lastFire3 = Date.now();
+  this.rotateAngle = 90;
+  this.fireCounter = 0;
+};
+
+BigBoss.prototype = Object.create(EnemyEntity.prototype);
+
+BigBoss.prototype.update = function(dt) {
+  if (this.pos[1] < 40) {
+    this.pos[0] += this.vector[0] * dt;
+    this.pos[1] += this.vector[1] * dt;
+    return;
+  }
+
+  if (!this.fighting) {
+    this.fighting = true;
+  }
+
+  if (this.pos[0] <= 10) {
+    this.goingLeft = false;
+  }
+
+  if (this.pos[0] + this.sprite.size[0] >= canvas.width - 10) {
+    this.goingLeft = true;
+  }
+
+  if (this.goingLeft) {
+    this.pos[0] -= 50 * dt;
+  }
+  
+  if (!this.goingLeft) {
+    this.pos[0] += 50 * dt;
+  }
+};
+
+BigBoss.prototype.shoot = function() {
+  var now = Date.now();
+
+  // If the enemy can shoot
+  if (this.fighting) {
+    var counter = (now - this.fireCounter) / 1000;
+
+    if (!this.fireCounter) {
+      this.fireCounter = Date.now();
+    }
+
+    this.protonBomber(now);
+
+    if (counter > 5 && counter < 10) {
+      this.focusedMassacre(now);
+    }
+
+    if (counter > 10 && counter < 15) {
+      this.ultraKilling(now);
+    }
+
+    if (counter > 15 && counter < 20) {
+      this.ultraKilling(now);
+      this.focusedMassacre(now);
+    }
+
+    if (counter > 20) {
+      this.fireCounter = Date.now();
+    }
+  }
+};
+
+BigBoss.prototype.ultraKilling = function(now) {
+  if (now - this.lastFire > this.ROF1) {
+    var x = this.pos[0] + this.sprite.size[0] / 2;
+    var y = this.pos[1] + this.sprite.size[1] / 2;
+    var steps = 30;
+    var step = 360 / steps;
+
+    for (i = 0; i < steps; i++) {
+      state.ebullets.push(weapons.green.addMissile({pos: [x, y], angle: step * i}));
+    }
+
+    this.lastFire = now;
+  }
+};
+
+BigBoss.prototype.protonBomber = function(now) {
+  if (this.fighting && now - this.lastFire2 > this.ROF2) {
+    var pos1 = [this.pos[0] + 40, this.pos[1] + 180]
+    var pos2 = [this.pos[0] + 560, this.pos[1] + 180];
+
+    state.ebullets.push(weapons.yellow.addMissile({pos: pos1, angle: 90}));
+    state.ebullets.push(weapons.yellow.addMissile({pos: pos2, angle: 90}));
+
+    this.lastFire2 = now;
+  }
+};
+
+BigBoss.prototype.focusedMassacre = function(now) {
+  if (this.fighting && now - this.lastFire3 > this.ROF3) {
+    var pos1 = [this.pos[0] + 270, this.sprite.size[1]];
+    var pos2 = [this.pos[0] + 335, this.sprite.size[1]];
+
+    state.ebullets.push(weapons.red.addMissile({pos: pos1, angle: this.rotateAngle}));
+    state.ebullets.push(weapons.red.addMissile({pos: pos2, angle: this.rotateAngle}));
+
+    if (this.rotateAngle >= 135) {
+      this.inverseAngle = true;
+    } else if (this.rotateAngle <= 45) {
+      this.inverseAngle = false;
+    }
+
+    if (!this.inverseAngle) {
+      this.rotateAngle += 10;
+    }
+
+    if (this.inverseAngle) {
+      this.rotateAngle -= 10;
+    }
+
+    this.lastFire3 = now;
+  }
+};
+
+function BigBossFactory () {};
+BigBossFactory.prototype = new EnemyFactory();
+BigBossFactory.prototype.type = BigBoss;
+
+var bigBoss = new BigBossFactory();
+
 module.exports = {
   enemyConfig: enemyConfig,
   redBomber: redBomber,
@@ -531,5 +678,6 @@ module.exports = {
   circlePlatCannon: circlePlatCannon,
   yellowBomber: yellowBomber,
   aggressor: aggressor,
-  platformSpawner: platformSpawner
+  platformSpawner: platformSpawner,
+  bigBoss: bigBoss
 };

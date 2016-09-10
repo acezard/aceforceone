@@ -3,6 +3,7 @@ var explosion = require('../entities/explosions');
 var state = require('../state');
 var player = require('../entities/player');
 var canvas = require('../canvas');
+var utils = require('../utils/utils');
 
 function collides(x, y, r, b, x2, y2, r2, b2) {
   return !(r <= x2 || x > r2 || b <= y2 || y > b2);
@@ -111,6 +112,19 @@ module.exports = function(enemies, bullets, explosions, ebullets) {
                   player.powerPoints += score * state.scoreMultiplier;
               }
 
+              bullet.active = false;
+
+              // if boss
+              if (enemy.ROF1) {
+                for (i = 0; i < 20; i++) {
+                  var hitPos = [utils.getRandom(pos[0], size[0]), utils.getRandom(pos[1], size[1])];
+
+                  // Add a hit marker
+                  explosions.push(new explosion.Explosion(hitPos[0] - 45, hitPos[1] - 45, bullet.hit));
+                }
+                return;
+              }
+
               // Add an explosion
               if (enemy.exploding) {
                 explosions.push(new explosion[enemy.exploding](pos[0], pos[1]));
@@ -120,8 +134,8 @@ module.exports = function(enemies, bullets, explosions, ebullets) {
               explosions.push(new explosion.Scored(pos[0] + size[0] / 3, pos[1], score, 'good'));
 
               // Remove the bullet and stop this iteration
-              bullet.active = false;
-              break;
+              
+              return;
             }
 
             else {
@@ -132,11 +146,22 @@ module.exports = function(enemies, bullets, explosions, ebullets) {
               // Update score
               state.score += removed * pointPerHp;
 
+              // Remove the bullet
+              bullet.active = false;
+
+              // if boss
+              if (enemy.ROF1) {
+                if (enemy.fighting) {
+                  var hitPos = [utils.getRandom(pos[0], size[0]), utils.getRandom(pos[1], size[1])];
+
+                  // Add a hit marker
+                  explosions.push(new explosion.Hit(hitPos[0] - 45, hitPos[1] - 45, bullet.hit));
+                }
+                return;
+              }
+
               // Add a hit marker
               explosions.push(new explosion.Hit(pos[0] + (enemy.sprite.size[0] / 2) -45, pos[1] + (enemy.sprite.size[1] / 2)-45, bullet.hit));
-
-              // Remove the bullet
-              bullet.active = false;;
             }
           }
         }

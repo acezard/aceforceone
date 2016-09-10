@@ -55,7 +55,7 @@ Spawner.prototype.squadron = function() {
   this.pos[0] = offset;
 
   // Calculating vertical offset
-  this.pos[1] = - this.squadronOffset * this.size;
+  this.pos[1] = (- this.squadronOffset * this.size) - enemies.enemyConfig[this.enemyType].size[1];
 
   for (i = 0; i < size; i ++) {
     if (i <= half) {
@@ -109,12 +109,13 @@ Spawner.prototype.line = function() {
 };
 
 Spawner.prototype.statics = function() {
-  if (this.now - this.lastTime > this.delay) {
+  if (this.now - this.lastTime > this.firstSpawn) {
     state.enemies.push(statics[this.enemyType].add({
       posX: this.pos[0],
       rotation: this.enemyRotation
     }));
 
+    this.firstSpawn = this.delay;
     this.lastTime = this.now;
     this.size--;
   }
@@ -124,7 +125,7 @@ Spawner.prototype.pattern = function(dt) {
 
   this.pos[1] += Math.sin(this.radiansS) * this.speedS * dt;
 
-  if (this.now - this.lastTime > this.delay) {
+  if (this.now - this.lastTime > this.firstSpawn) {
     state.enemies.push(enemies[this.enemyType].add({
       pos: [this.pos[0],
       this.pos[1]],
@@ -133,6 +134,7 @@ Spawner.prototype.pattern = function(dt) {
       path: this.path
     }));
 
+    this.firstSpawn = this.delay;
     this.lastTime = this.now;
     this.size--;
   }
