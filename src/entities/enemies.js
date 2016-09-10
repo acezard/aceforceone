@@ -122,7 +122,7 @@ var enemyConfig = {
   },
   
   bigBoss: {
-    url: 'assets/images/bigBoss.png',
+    url: 'assets/images/bigboss.png',
     pos: [0, 0],
     size: [600, 253],
     speed: 50,
