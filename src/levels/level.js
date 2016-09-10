@@ -494,7 +494,7 @@ var level = [
     spawnTime: 125,
     position: [0, 0],
     enemyType: 'scout',
-    enemyNumbers: 9,
+    enemyNumbers: 3,
     type: 'squadron'
   },
 
@@ -502,7 +502,7 @@ var level = [
     spawnTime: 125.5,
     position: [0, 0],
     enemyType: 'scout',
-    enemyNumbers: 9,
+    enemyNumbers: 5,
     type: 'squadron'
   },
 
@@ -510,7 +510,7 @@ var level = [
     spawnTime: 126,
     position: [0, 0],
     enemyType: 'scout',
-    enemyNumbers: 9,
+    enemyNumbers: 7,
     type: 'squadron'
   },
 
@@ -772,13 +772,98 @@ var level = [
   // 6: Second killzone, bigger than the first one
   {
     spawnTime: 215,
-    position: [0, - 200],
+    position: [0, 0],
     enemyType: 'aggressor',
-    enemyNumbers: 1,
+    enemyNumbers: 3,
     type: 'squadron',
     rotation: 0
   },
 
+  {
+    spawnTime: 215 + 3,
+    position: [0, 0],
+    enemyType: 'drone',
+    enemyNumbers: 3,
+    type: 'squadron',
+  },
+
+  {
+    spawnTime: 215 + 5,
+    position: [0, 0],
+    enemyType: 'drone',
+    enemyNumbers: 5,
+    type: 'line',
+    angle: 45,
+    delay: 500,
+    rotation: 45 + 90
+  },
+
+  {
+    spawnTime: 215 + 8,
+    position: [canvas.width, canvas.height * 0.7],
+    enemyType: 'drone',
+    enemyNumbers: 5,
+    type: 'line',
+    angle: 220,
+    delay: 500,
+    rotation: 220 + 90
+  },
+
+  {
+    spawnTime: 215 + 10,
+    position: [0, 0],
+    enemyType: 'yellowBomber',
+    leader: 'aggressor',
+    enemyNumbers: 3,
+    type: 'squadron'
+  },
+
+  {
+    spawnTime: 225 + 3,
+    position: [0, 0],
+    enemyType: 'drone',
+    enemyNumbers: 3,
+    type: 'squadron',
+  },
+
+  {
+    spawnTime: 225 + 5,
+    position: [0, 0],
+    enemyType: 'drone',
+    enemyNumbers: 5,
+    type: 'line',
+    angle: 45,
+    delay: 500,
+    rotation: 45 + 90
+  },
+
+  {
+    spawnTime: 225 + 8,
+    position: [canvas.width, canvas.height * 0.7],
+    enemyType: 'drone',
+    enemyNumbers: 5,
+    type: 'line',
+    angle: 220,
+    delay: 500,
+    rotation: 220 + 90
+  },
+
+  {
+    spawnTime: 225 + 13,
+    position: [0, 0],
+    enemyType: 'rogueLeader',
+    enemyNumbers: 3,
+    type: 'squadron'
+  },
+
+  {
+    spawnTime: 215 + 17,
+    position: [0, 0],
+    enemyType: 'aggressor',
+    enemyNumbers: 3,
+    type: 'squadron',
+    rotation: 0
+  },
 
   // 7: Small interlude
 

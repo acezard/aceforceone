@@ -115,7 +115,7 @@ var enemyConfig = {
     pos: [0, 0],
     size: [150, 142],
     speed: 100,
-    hitpoints: 20,
+    hitpoints: 35,
     ROF: 1000,
     score: 300,
     exploding: 'GreenX2'
@@ -503,7 +503,7 @@ Aggressor.prototype.shoot = function() {
   if (this.pos[1] > 0 && now - this.lastFire > this.ROF) {
     var x = this.pos[0] + this.sprite.size[0] / 2;
     var y = this.pos[1] + this.sprite.size[1] / 2;
-    var steps = 45;
+    var steps = 30;
     var step = 360 / steps;
 
     for (i = 0; i < steps; i++) {

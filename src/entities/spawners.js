@@ -55,7 +55,7 @@ Spawner.prototype.squadron = function() {
   this.pos[0] = offset;
 
   // Calculating vertical offset
-  this.pos[1] = - this.squadronOffset * this.size;
+  this.pos[1] = (- this.squadronOffset * this.size) - enemies.enemyConfig[this.enemyType].size[1];
 
   for (i = 0; i < size; i ++) {
     if (i <= half) {
