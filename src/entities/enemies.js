@@ -4,6 +4,7 @@ var utils = require('../utils/utils');
 var state = require('../state');
 var weapons = require('./weapons');
 var paths = require('./paths');
+var explosion = require('./explosions');
 
 // Config Object
 var enemyConfig = {
@@ -126,7 +127,7 @@ var enemyConfig = {
     pos: [0, 0],
     size: [600, 253],
     speed: 50,
-    hitpoints: 2000,
+    hitpoints: 3000,
     ROF1: 1000,
     ROF2: 500,
     ROF3: 100,
@@ -544,9 +545,37 @@ var BigBoss = function(settings) {
   this.lastFire3 = Date.now();
   this.rotateAngle = 90;
   this.fireCounter = 0;
+  this.dieCounter = Date.now();
+  this.dieRof = 750;
+  this.dieCount = 0;
+  this.maxHp = enemyConfig.bigBoss.hitpoints;
 };
 
 BigBoss.prototype = Object.create(EnemyEntity.prototype);
+
+BigBoss.prototype.die = function(dt) {
+  var now = Date.now();
+
+  if (now - this.dieCounter > this.dieRof && this.dieCount < 100) {
+    for (i = 0; i < 2; i++) {
+      var hitPos = [utils.getRandom(this.pos[0], this.sprite.size[0]), utils.getRandom(this.pos[1], this.sprite.size[1])];
+
+      // Add a hit marker
+      state.explosions.push(new explosion.Explosion(hitPos[0] - 45, hitPos[1] - 45));
+    }
+
+    this.dieCount ++;
+    return;
+  }
+
+  // Update score
+  var score = this.score;
+  var pointPerHp = score / 2 / this.maxHitpoints;
+  canvas.bosshpEl.style.display = 'none';
+  this.active = false;
+  state.score += (score * 0.5) + (this.hitpoints * pointPerHp);
+  state.explosions.push(new explosion.Scored(this.pos[0] + this.sprite.size[0] / 3, this.pos[1], score, 'good'));
+};
 
 BigBoss.prototype.update = function(dt) {
   if (this.pos[1] < 40) {
@@ -556,6 +585,9 @@ BigBoss.prototype.update = function(dt) {
   }
 
   if (!this.fighting) {
+    canvas.bosshpEl.style.display = 'block';
+    canvas.bosshp.style.width = '100%';
+    canvas.bosshp.style.height = '100%';
     this.fighting = true;
   }
 

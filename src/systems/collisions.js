@@ -102,6 +102,12 @@ module.exports = function(enemies, bullets, explosions, ebullets) {
             if (enemy.hitpoints - bullet.damage <= 0) {
               var removed = enemy.hitpoints;
 
+              // if boss
+              if (enemy.ROF1) {
+                enemy.die();
+                return;
+              }
+
               // Remove the enemy
               enemy.active = false;
 
@@ -113,17 +119,6 @@ module.exports = function(enemies, bullets, explosions, ebullets) {
               }
 
               bullet.active = false;
-
-              // if boss
-              if (enemy.ROF1) {
-                for (i = 0; i < 20; i++) {
-                  var hitPos = [utils.getRandom(pos[0], size[0]), utils.getRandom(pos[1], size[1])];
-
-                  // Add a hit marker
-                  explosions.push(new explosion.Explosion(hitPos[0] - 45, hitPos[1] - 45, bullet.hit));
-                }
-                return;
-              }
 
               // Add an explosion
               if (enemy.exploding) {
@@ -139,6 +134,29 @@ module.exports = function(enemies, bullets, explosions, ebullets) {
             }
 
             else {
+              // if boss
+              if (enemy.ROF1) {
+                if (enemy.fighting) {
+                  var removed = bullet.damage;
+
+                  enemies[i].hitpoints -= bullet.damage;
+
+                  // Update score
+                  state.score += removed * pointPerHp;
+
+                  // Remove the bullet
+                  bullet.active = false;
+                  var hitPos = [utils.getRandom(pos[0], size[0]), utils.getRandom(pos[1], size[1])];
+
+                  // Add a hit marker
+                  explosions.push(new explosion.Hit(hitPos[0] - 45, hitPos[1] - 45, bullet.hit));
+                  
+                  var hp = enemy.hitpoints * 100 / enemy.maxHp;
+                  canvas.bosshp.style.width = hp + '%';
+                }
+                return;
+              }
+
               var removed = bullet.damage;
 
               enemies[i].hitpoints -= bullet.damage;
@@ -148,17 +166,6 @@ module.exports = function(enemies, bullets, explosions, ebullets) {
 
               // Remove the bullet
               bullet.active = false;
-
-              // if boss
-              if (enemy.ROF1) {
-                if (enemy.fighting) {
-                  var hitPos = [utils.getRandom(pos[0], size[0]), utils.getRandom(pos[1], size[1])];
-
-                  // Add a hit marker
-                  explosions.push(new explosion.Hit(hitPos[0] - 45, hitPos[1] - 45, bullet.hit));
-                }
-                return;
-              }
 
               // Add a hit marker
               explosions.push(new explosion.Hit(pos[0] + (enemy.sprite.size[0] / 2) -45, pos[1] + (enemy.sprite.size[1] / 2)-45, bullet.hit));
