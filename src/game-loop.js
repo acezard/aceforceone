@@ -38,7 +38,15 @@ resources.load([
   src + 'aggressor.png',
   src + 'green.png',
   src + 'greenx2.png',
-  src + 'bigboss.png'
+  src + 'bigboss.png',
+  src + 'angularsmall.png',
+  src + 'csssmall.png',
+  src + 'htmlsmall.png',
+  src + 'nodesmall.png',
+  src + 'sasssmall.png',
+  src + 'bootstrapsmall.png',
+  src + 'javascriptsmall.png',
+  src + 'nodesmall.png',
 ]);
 
 resources.onReady(play);

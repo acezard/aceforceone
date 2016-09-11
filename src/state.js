@@ -7,6 +7,7 @@ var state = {
   enemies: [],
   explosions: [],
   spawners: [],
+  powerups: [],
   lastFire: Date.now(),
   gameTime: 0,
   isGameOver: false,
@@ -18,6 +19,16 @@ var state = {
     this.isGameOver = true;
     canvas.ui.setAttribute('class', 'hide');
     canvas.gameOver.setAttribute('class', 'show');
+  },
+  skills: {
+    angular: false,
+    node: false,
+    express: false,
+    greensock: false,
+    bootstrap: false,
+    sass: false,
+    mongodb: false,
+    jekyll: false
   }
 };
 

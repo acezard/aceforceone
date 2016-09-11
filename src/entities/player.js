@@ -19,6 +19,8 @@ var player = {
   dY: 0,
   crushed: false,
   lastPurpleFire: Date.now(),
+  weapon1level: 1,
+  weapon2level: 0,
   angryShoot: function() {
     // ugly
     if(inputs.clicked && this.powerPoints >= 100 || this.ultiCount >= 1 && Date.now() - this.lastUlti > 500) {
@@ -74,17 +76,49 @@ var player = {
     var playerY = player.pos[1] + player.sprite.size[1] / 2;
 
     if(now - state.lastFire > 100) {
-      state.bullets.push(weapons.blue.addMissile({pos: [playerX, playerY], angle: 270 - 25}));
-      state.bullets.push(weapons.blue.addMissile({pos: [playerX, playerY], angle: 270 - 20}));
-      state.bullets.push(weapons.blue.addMissile({pos: [playerX, playerY], angle: 270 + 20}));
-      state.bullets.push(weapons.blue.addMissile({pos: [playerX, playerY], angle: 270 + 25}));
+
+      if (this.weapon2level == 1) {
+        state.bullets.push(weapons.blue.addMissile({pos: [playerX, playerY], angle: 270 - 20}));
+        state.bullets.push(weapons.blue.addMissile({pos: [playerX, playerY], angle: 270 + 20}));
+      }
+
+      if (this.weapon2level == 2) {
+        state.bullets.push(weapons.blue.addMissile({pos: [playerX, playerY], angle: 270 - 25}));
+        state.bullets.push(weapons.blue.addMissile({pos: [playerX, playerY], angle: 270 - 20}));
+        state.bullets.push(weapons.blue.addMissile({pos: [playerX, playerY], angle: 270 + 20}));
+        state.bullets.push(weapons.blue.addMissile({pos: [playerX, playerY], angle: 270 + 25}));
+      }
+
+      if (this.weapon2level == 3) {
+        state.bullets.push(weapons.blue.addMissile({pos: [playerX, playerY], angle: 270 - 25}));
+        state.bullets.push(weapons.blue.addMissile({pos: [playerX, playerY], angle: 270 - 20}));
+        state.bullets.push(weapons.blue.addMissile({pos: [playerX, playerY], angle: 270 + 20}));
+        state.bullets.push(weapons.blue.addMissile({pos: [playerX, playerY], angle: 270 + 25}));
+
+        state.bullets.push(weapons.blue.addMissile({pos: [playerX, playerY], angle: 270 - 50}));
+        state.bullets.push(weapons.blue.addMissile({pos: [playerX, playerY], angle: 270 + 50}));
+      }
+
 
       state.lastFire = now;
     }
 
     if(now - this.lastPurpleFire > 500) {
-      state.bullets.push(weapons.purple.addMissile({pos: [playerX - 30, playerY], angle: 270}));
-      state.bullets.push(weapons.purple.addMissile({pos: [playerX + 10, playerY], angle: 270}));
+      if (this.weapon1level == 1) {
+        state.bullets.push(weapons.purple.addMissile({pos: [playerX - 10, playerY], angle: 270}));
+      }
+
+      if (this.weapon1level == 2) {
+        state.bullets.push(weapons.purple.addMissile({pos: [playerX - 30, playerY], angle: 270}));
+        state.bullets.push(weapons.purple.addMissile({pos: [playerX + 10, playerY], angle: 270}));
+      }
+
+      if (this.weapon1level == 3) {
+        state.bullets.push(weapons.purple.addMissile({pos: [playerX - 30, playerY], angle: 270}));
+        state.bullets.push(weapons.purple.addMissile({pos: [playerX + 10, playerY], angle: 270}));
+        state.bullets.push(weapons.purple.addMissile({pos: [playerX - 50, playerY + 10], angle: 270}));
+        state.bullets.push(weapons.purple.addMissile({pos: [playerX + 30, playerY + 10], angle: 270}));
+      }
 
       this.lastPurpleFire = now;
     }
