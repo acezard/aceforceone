@@ -37,7 +37,7 @@ var enemyConfig = {
     pos: [0, 0],
     size: [150, 44],
     speed: 30,
-    hitpoints: 100,
+    hitpoints: 50,
     ROF: 200,
     score: 250,
     burst: {

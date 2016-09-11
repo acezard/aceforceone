@@ -10,9 +10,10 @@ var canvas = require('../canvas'),
   spawners = require('../entities/spawners'),
   statics = require('../entities/statics'),
   level = require('../levels/level'),
-  Transform = require('../utils/transform');
+  Transform = require('../utils/transform'),
+  powerups = require('../entities/powerups');
 
-var gameTime = 259;
+var gameTime = 0;
 var spawn = 0;
 var distance = 0;
 var wave = 0;
@@ -32,6 +33,7 @@ exports.update = function (dt) {
 
   level(gameTime);
 
+  updateList(state.powerups, dt);
   updateList(state.spawners, dt);
   updateList(state.bullets, dt);
   updateList(state.enemies, dt);
@@ -39,7 +41,7 @@ exports.update = function (dt) {
   updateList(state.explosions, dt);
 
   if (!state.isGameOver) {
-    collisions(state.enemies, state.bullets, state.explosions, state.ebullets);
+    collisions(state.enemies, state.bullets, state.explosions, state.ebullets, state.powerups);
   }
 
   player.updatePowerPoints(state.score);
@@ -57,22 +59,17 @@ exports.render = function () {
 
   renderList(state.enemies);
 
-/*  for (i= 0; i < state.enemies.length; i++) {
-    var enemy = state.enemies[i];
-
-    canvas.ctx.fillRect(enemy.pos[0], enemy.pos[1], enemy.sprite.size[0], enemy.sprite.size[1])
-  }
-*/
   if (!state.isGameOver) {
     renderList(state.bullets);
     player.render();
     player.mouseRender();
   }
+  renderList(state.powerups);
   renderList(state.ebullets);
   renderList(state.explosions);
 
   postShake();
-}
+};
 
 function updateList(list, dt) {
   for (var i = 0; i < list.length; i++) {
@@ -83,21 +80,21 @@ function updateList(list, dt) {
       list[i].update(dt);
     }
   }
-}
+};
 
 function renderList(list) {
   for (var i = 0; i < list.length; i++) {
     list[i].render();
   }
-}
+};
 
 function preShake() {
   canvas.ctx.save();
   var dx = Math.random() * 5;
   var dy = Math.random() * 5;
   canvas.ctx.translate(dx, dy);
-}
+};
 
 function postShake() {
   canvas.ctx.restore();
-}
+};

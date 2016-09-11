@@ -183,3 +183,8 @@ canvas {
   opacity: 1 !important;
   transition: opacity 2000ms ease;
 }
+
+.bonus-wrapper {
+  position: absolute;
+  top: 100%;
+}

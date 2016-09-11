@@ -4,6 +4,7 @@ var state = require('../state');
 var player = require('../entities/player');
 var canvas = require('../canvas');
 var utils = require('../utils/utils');
+var powerupapi = require('../entities/powerups');
 
 function collides(x, y, r, b, x2, y2, r2, b2) {
   return !(r <= x2 || x > r2 || b <= y2 || y > b2);
@@ -23,12 +24,12 @@ function circleCollides(circle1, circle2) {
   }
 };
 
-module.exports = function(enemies, bullets, explosions, ebullets) {
+module.exports = function(enemies, bullets, explosions, ebullets, powerups) {
   for (var i = 0; i < ebullets.length; i++) {
     var bullet = ebullets[i];
 
     if (boxCollides(player.hitboxXY, player.hitbox, bullet.pos, bullet.sprite.size) && !player.invulnerable) {
-      player.hitPoints-=10;
+      player.hitPoints -= 10;
       
 
       if (player.hitPoints - 10 < 0 && state.lives == 1) {
@@ -50,6 +51,16 @@ module.exports = function(enemies, bullets, explosions, ebullets) {
 
       // Make invulnerable
       player.makeInvulnerable();
+    }
+  }
+
+  for (var i = 0; i < powerups.length; i++) {
+    var powerup = powerups[i];
+    var hitbox = [powerup.pos[0] - powerup.sprite.size[0], powerup.pos[1] - powerup.sprite.size[1]];
+    var hitboxSize = [powerup.sprite.size[0] * 3, powerup.sprite.size[1] * 3];
+
+    if (boxCollides(player.hitboxXY, player.hitbox, hitbox, hitboxSize)) {
+      powerup.consumed();
     }
   }
 
@@ -129,7 +140,7 @@ module.exports = function(enemies, bullets, explosions, ebullets) {
               explosions.push(new explosion.Scored(pos[0] + size[0] / 3, pos[1], score, 'good'));
 
               // Remove the bullet and stop this iteration
-              
+              powerupapi.roll(pos);
               return;
             }
 
