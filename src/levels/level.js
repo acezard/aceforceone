@@ -237,7 +237,7 @@ var level = [
 
   // 2: Base maze
   {
-    spawnTime: 30,
+    spawnTime: 35,
     position: [0, 0],
     enemyType: 'bigBlock',
     enemyNumbers: 3,
@@ -247,7 +247,7 @@ var level = [
   },
 
   {
-    spawnTime: 30,
+    spawnTime: 35,
     position: [canvas.width - 300, 0],
     enemyType: 'bigBlock',
     enemyNumbers: 3,
@@ -360,7 +360,7 @@ var level = [
   },
 
   {
-    spawnTime: 48,
+    spawnTime: 53,
     position: [0, 0],
     enemyType: 'smallPlatform',
     enemyNumbers: 2,
@@ -370,7 +370,7 @@ var level = [
   },
 
   {
-    spawnTime: 48,
+    spawnTime: 53,
     position: [canvas.width - 64, 0],
     enemyType: 'smallPlatform',
     enemyNumbers: 2,
@@ -971,7 +971,7 @@ var level = [
 
 // The level function which contains every spawn
 module.exports = function (gameTime) {
-  for (i = 94; i < level.length; i++) {
+  for (i = 0; i < level.length; i++) {
     var wave = level[i];
 
     if (gameTime > wave.spawnTime) {
