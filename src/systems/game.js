@@ -11,18 +11,30 @@ var canvas = require('../canvas'),
   statics = require('../entities/statics'),
   level = require('../levels/level'),
   Transform = require('../utils/transform'),
-  powerups = require('../entities/powerups');
+  powerupsapi = require('../entities/powerups');
 
 var gameTime = 0;
 var spawn = 0;
 var distance = 0;
 var wave = 0;
+var help = true;
 
 exports.update = function (dt) {
   gameTime += dt;
   distance++;
 
   background.update();
+
+  if (gameTime >= 0 && help) {
+    state.powerups.push(
+      powerupsapi.css.create({pos: [200, 200]})
+    );
+    state.powerups.push(
+      powerupsapi.html.create({pos: [400, 400]})
+    );
+    help = false;
+  }
+
 
   player.handleInput(dt);
   player.angryShoot();
