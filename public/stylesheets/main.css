@@ -180,6 +180,10 @@ canvas {
 }
 
 .show {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0 !important;
   opacity: 1 !important;
   transition: opacity 2000ms ease;
 }
@@ -246,10 +250,7 @@ canvas {
 #victory-game-wrapper {
   background: rgba(0, 0, 0, 0.4);
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  left: -9999px;
   opacity: 0;
   display: flex;
   justify-content: center;
@@ -260,16 +261,6 @@ canvas {
 }
 
 .victory-text {
-/*  margin-top: 10%;
-  font-family: 'Quango';
-  color: #fff;
-  font-size: 1rem;
-  max-width: 50%;
-  display: inline-block;
-  text-align: center;
-  background: #516773;
-  border: 3px black solid;
-  padding: 15px;*/
   margin-top: 25%;
   font-size: 3rem;
 }
