@@ -127,7 +127,12 @@ PowerupFactory.prototype.create = function(settings) {
 var HealthBoostConstructor = function(settings) {PowerupEntity.call(this, powerupConfig.healthBoost, settings);};
 HealthBoostConstructor.prototype = Object.create(PowerupEntity.prototype);
 HealthBoostConstructor.prototype.getPower = function() {
-  player.hitPoints = 100;
+  if (player.hitPoints != 100) {
+    player.hitPoints = 100;
+    state.explosions.push(new explosions.Scored(this.pos[0], this.pos[1], '+100 HP', 'good'));
+  } else {
+    state.explosions.push(new explosions.Scored(this.pos[0], this.pos[1], '50', 'good'));
+  }
 };
 function HealthBoostFactoryConstructor() {};
 HealthBoostFactoryConstructor.prototype = new PowerupFactory();
@@ -140,7 +145,11 @@ WeaponBlueBoostConstructor.prototype = Object.create(PowerupEntity.prototype);
 WeaponBlueBoostConstructor.prototype.getPower = function() {
   if (player.weapon2level < 3) {
     player.weapon2level +=1;
+    state.explosions.push(new explosions.Scored(this.pos[0], this.pos[1], '+1 Weapon', 'good'));
+  } else {
+    state.explosions.push(new explosions.Scored(this.pos[0], this.pos[1], '50', 'good'));
   }
+  
 };
 function WeaponBlueBoostFactoryConstructor() {};
 WeaponBlueBoostFactoryConstructor.prototype = new PowerupFactory();
@@ -153,7 +162,11 @@ WeaponPurpleBoostConstructor.prototype = Object.create(PowerupEntity.prototype);
 WeaponPurpleBoostConstructor.prototype.getPower = function() {
   if (player.weapon1level < 3) {
     player.weapon1level +=1;
+    state.explosions.push(new explosions.Scored(this.pos[0], this.pos[1], '+1 Weapon', 'good'));
+  } else {
+    state.explosions.push(new explosions.Scored(this.pos[0], this.pos[1], '50', 'good'));
   }
+
 };
 function WeaponPurpleBoostFactoryConstructor() {};
 WeaponPurpleBoostFactoryConstructor.prototype = new PowerupFactory();
@@ -178,7 +191,11 @@ LifeBoostConstructor.prototype = Object.create(PowerupEntity.prototype);
 LifeBoostConstructor.prototype.getPower = function() {
   if (state.lives < 2) {
     state.lives += 1;
+    state.explosions.push(new explosions.Scored(this.pos[0], this.pos[1], '+1 Life', 'good'));
+  } else {
+    state.explosions.push(new explosions.Scored(this.pos[0], this.pos[1], '50', 'good'));
   }
+
 };
 function LifeBoostFactoryConstructor() {};
 LifeBoostFactoryConstructor.prototype = new PowerupFactory();
@@ -189,7 +206,12 @@ var lifeBoostFactory = new LifeBoostFactoryConstructor();
 var UltiBoostConstructor = function(settings) {PowerupEntity.call(this, powerupConfig.ultiBoost, settings);};
 UltiBoostConstructor.prototype = Object.create(PowerupEntity.prototype);
 UltiBoostConstructor.prototype.getPower = function() {
-  player.powerPoints = 100;
+  if (player.powerPoints != 100) {
+    player.powerPoints = 100;
+    state.explosions.push(new explosions.Scored(this.pos[0], this.pos[1], '+100 Power', 'good'));
+  } else {
+    state.explosions.push(new explosions.Scored(this.pos[0], this.pos[1], '50', 'good'));
+  }
 };
 function UltiBoostFactoryConstructor() {};
 UltiBoostFactoryConstructor.prototype = new PowerupFactory();
@@ -201,7 +223,7 @@ var rolllib = [healthBoostFactory, weaponBlueBoostFactory, weaponPurpleBoostFact
 var roll = function(pos) {
   var roll1 = utils.getRandom(1, 100);
 
-  if (roll1 > 85) {
+  if (roll1 > 90) {
     var roll2 = Math.round(utils.getRandom(0, 5));
     console.log(roll2)
 

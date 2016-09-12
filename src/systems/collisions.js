@@ -30,6 +30,13 @@ module.exports = function(enemies, bullets, explosions, ebullets, powerups) {
 
     if (boxCollides(player.hitboxXY, player.hitbox, bullet.pos, bullet.sprite.size) && !player.invulnerable) {
       player.hitPoints -= 10;
+
+      if (player.weapon2level > 1) {
+        player.weapon2level -= 1;
+      } else if (player.weapon1level > 2) {
+        player.weapon1level -= 1;
+      }
+      
       
 
       if (player.hitPoints - 10 < 0 && state.lives == 1) {
