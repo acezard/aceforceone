@@ -29,7 +29,14 @@ module.exports = function(enemies, bullets, explosions, ebullets, powerups) {
     var bullet = ebullets[i];
 
     if (boxCollides(player.hitboxXY, player.hitbox, bullet.pos, bullet.sprite.size) && !player.invulnerable) {
-      player.hitPoints -= 10;
+      player.hitPoints -= 20;
+
+      if (player.weapon2level > 1) {
+        player.weapon2level -= 1;
+      } else if (player.weapon1level > 2) {
+        player.weapon1level -= 1;
+      }
+      
       
 
       if (player.hitPoints - 10 < 0 && state.lives == 1) {
@@ -44,8 +51,8 @@ module.exports = function(enemies, bullets, explosions, ebullets, powerups) {
 
       // Add a hit marker
       explosions.push(new explosion.Hit(player.pos[0], player.pos[1], 'red'));
-      explosions.push(new explosion.Scored(player.pos[0] + player.sprite.size[0] / 3, player.pos[1] + player.sprite.size[1] * 1.5, '-50', 'bad'));
-      state.score-=50;
+      explosions.push(new explosion.Scored(player.pos[0] + player.sprite.size[0] / 3, player.pos[1] + player.sprite.size[1] * 1.5, '-100', 'bad'));
+      state.score-=1000;
       // Remove the bullet
       ebullets.splice(i, 1);
 
