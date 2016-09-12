@@ -225,7 +225,6 @@ var roll = function(pos) {
 
   if (roll1 > 90) {
     var roll2 = Math.round(utils.getRandom(0, 5));
-    console.log(roll2)
 
     state.powerups.push(rolllib[roll2].create({pos: pos}));
   }
