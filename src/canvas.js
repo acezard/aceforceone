@@ -9,7 +9,8 @@ var uiWrap = document.getElementById('ui-wrapper');
 var gameOverWrap = document.getElementById('game-over-wrapper');
 var lifesEl = document.getElementById('lifeVal');
 var bossHp = document.getElementById('bosshp');
-var bossHpEl = document.getElementById('bosshpEl')
+var bossHpEl = document.getElementById('bosshpEl');
+var victoryScreen = document.getElementById('victory-game-wrapper');
 var width = 800;
 var height = 800;
 
@@ -36,5 +37,6 @@ module.exports = {
   gameOver: gameOverWrap,
   lifesEl: lifesEl,
   bosshpEl: bosshpEl,
-  bosshp: bosshp
+  bosshp: bosshp,
+  victoryScreen: victoryScreen
 };

@@ -20,6 +20,11 @@ var state = {
     this.isGameOver = true;
     canvas.ui.setAttribute('class', 'hide');
     canvas.gameOver.setAttribute('class', 'show');
+  },
+  victory: function() {
+    this.isGameOver = true;
+    canvas.victoryScreen.style.display = 'block';
+    canvas.victoryScreen.setAttribute('class', 'show');
   }
 };
 
