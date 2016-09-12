@@ -189,7 +189,7 @@ var scoreBoostFactory = new ScoreBoostFactoryConstructor();
 var LifeBoostConstructor = function(settings) {PowerupEntity.call(this, powerupConfig.lifeBoost, settings);};
 LifeBoostConstructor.prototype = Object.create(PowerupEntity.prototype);
 LifeBoostConstructor.prototype.getPower = function() {
-  if (state.lives < 2) {
+  if (state.lives <= 2) {
     state.lives += 1;
     state.explosions.push(new explosions.Scored(this.pos[0], this.pos[1], '+1 Life', 'good'));
   } else {
