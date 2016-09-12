@@ -556,6 +556,22 @@ var level = [
   },
 
   {
+    spawnTime: 165,
+    position: [200, - 200],
+    enemyType: 'platformSpawner',
+    enemyNumbers: 1,
+    type: 'customSpawner'
+  },
+
+  {
+    spawnTime: 170,
+    position: [600, - 200],
+    enemyType: 'platformSpawner',
+    enemyNumbers: 1,
+    type: 'customSpawner'
+  },
+
+  {
     spawnTime: 133,
     position: [canvas.width * 0.4, -50],
     enemyType: 'drone',

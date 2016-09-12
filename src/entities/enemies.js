@@ -575,6 +575,8 @@ BigBoss.prototype.die = function(dt) {
   this.active = false;
   state.score += (score * 0.5) + (this.hitpoints * pointPerHp);
   state.explosions.push(new explosion.Scored(this.pos[0] + this.sprite.size[0] / 3, this.pos[1], score, 'good'));
+
+  state.victory();
 };
 
 BigBoss.prototype.update = function(dt) {

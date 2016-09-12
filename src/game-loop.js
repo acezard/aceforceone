@@ -1,10 +1,9 @@
 var canvas = require('./canvas'),
     game = require('./systems/game'),
-    resources = require('./utils/resources');
+    resources = require('./utils/resources'),
+    state = require('./state');
 
 var src = 'assets/images/';
-var lastTime;
-var distance = 0;
 
 // Loading game first
 resources.load([
@@ -49,12 +48,17 @@ resources.load([
   src + 'nodesmall.png',
 ]);
 
-resources.onReady(play);
+resources.onReady(init);
+
+var playInterface = document.getElementById('start-game-wrapper');
 
 // Launch game and initializing game timer
-function play() {
-  lastTime = Date.now();
-  gameLoop();
+function init() {
+  document.getElementById('play').addEventListener('click', function() {
+    playInterface.style.display = 'none';
+    lastTime = Date.now();
+    gameLoop();
+  });
 };
 
 // Main game loop

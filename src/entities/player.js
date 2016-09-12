@@ -7,8 +7,8 @@ var weapons = require('./weapons');
 var ang = 0;
 // Load player
 var player = {
-  pos: [0, 0],
-  sprite: new Sprite({url: 'assets/images/player2.png', pos: [0, 0], size: [0, 0]}),
+  sprite: new Sprite({url: 'assets/images/player2.png', pos: [0, 0], size: [75, 63]}),
+  pos: [canvas.width / 2 - 75 / 2, canvas.height],
   speed: 10,
   hitPoints: 100,
   powerPoints: 100,
@@ -21,6 +21,7 @@ var player = {
   lastPurpleFire: Date.now(),
   weapon1level: 1,
   weapon2level: 0,
+  hitbox: [75 / 4, 63 / 4],
   angryShoot: function() {
     // ugly
     if(inputs.clicked && this.powerPoints >= 100 || this.ultiCount >= 1 && Date.now() - this.lastUlti > 500) {
@@ -174,12 +175,5 @@ var player = {
 
   }
 };
-
-resources.onReady(function() {
-  player.sprite.size[0] = resources.get('assets/images/player2.png').naturalWidth;
-  player.sprite.size[1] = resources.get('assets/images/player2.png').naturalHeight;
-  player.pos = [canvas.width / 2 - player.sprite.size[0] / 2, canvas.height];
-  player.hitbox = [player.sprite.size[0] / 4, player.sprite.size[1] / 4];
-})
 
 module.exports = player;

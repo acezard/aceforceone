@@ -113,7 +113,6 @@ PowerupEntity.prototype.render = function() {
 
 PowerupEntity.prototype.consumed = function() {
   this.getPower();
-  state.skills[this.skill] = true;
   this.active = false;
   state.score += 50;
 };
