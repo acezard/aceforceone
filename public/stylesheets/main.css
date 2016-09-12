@@ -188,3 +188,57 @@ canvas {
   position: absolute;
   top: 100%;
 }
+
+#start-game-wrapper {
+  background-color: #0d1125;
+  background-image: url('../assets/images/bigstars.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 200;
+}
+
+#intro-wrap {
+  background: url('../assets/images/uibg.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  bottom: 10%;
+  left: 10%;
+  text-align: center;
+}
+
+#play {
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.intro-text {
+  margin-top: 10%;
+  font-family: 'Quango';
+  color: #fff;
+  font-size: 1rem;
+  max-width: 50%;
+  display: inline-block;
+  text-align: center;
+  background: #516773;
+  border: 3px black solid;
+  padding: 15px;
+}
+
+#intro-title {
+  width: 60%;
+}

@@ -1,4 +1,5 @@
 var canvas = require('./canvas');
+var player = require('./entities/player');
 
 // Game state
 var state = {
@@ -19,17 +20,25 @@ var state = {
     this.isGameOver = true;
     canvas.ui.setAttribute('class', 'hide');
     canvas.gameOver.setAttribute('class', 'show');
-  },
-  skills: {
-    angular: false,
-    node: false,
-    express: false,
-    greensock: false,
-    bootstrap: false,
-    sass: false,
-    mongodb: false,
-    jekyll: false
   }
+};
+
+function reset() {
+  state.bullets = [];
+  state.ebullets = [],
+  state.enemies = [],
+  state.explosions = [],
+  state.spawners = [],
+  state.powerups = [],
+  state.lastFire = Date.now(),
+  state.gameTime = 0,
+  state.isGameOver = false,
+  state.score = 0;
+  state.scoreEl = document.getElementById('score'),
+  state.lives = 3;
+  state.scoreMultiplier = 0.020;
+
+  player.pos = [canvas.width / 2 - 75 / 2, canvas.height];
 };
 
 module.exports = state;

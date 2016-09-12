@@ -13,19 +13,18 @@ var canvas = require('../canvas'),
   Transform = require('../utils/transform'),
   powerupsapi = require('../entities/powerups');
 
-var gameTime = 0;
 var spawn = 0;
 var distance = 0;
 var wave = 0;
 var help = true;
 
 exports.update = function (dt) {
-  gameTime += dt;
+  state.gameTime += dt;
   distance++;
 
   background.update();
 
-  if (gameTime >= 0 && help) {
+  if (state.gameTime >= 0 && help) {
     state.powerups.push(
       powerupsapi.css.create({pos: [200, 200]})
     );
@@ -43,7 +42,7 @@ exports.update = function (dt) {
     state.enemies[i].shoot();
   }
 
-  level(gameTime);
+  level(state.gameTime);
 
   updateList(state.powerups, dt);
   updateList(state.spawners, dt);
