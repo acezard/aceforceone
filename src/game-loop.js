@@ -4,7 +4,7 @@ var canvas = require('./canvas'),
     state = require('./state');
 
 var src = 'assets/images/';
-
+var audio = new Audio('assets/spaceharrier.mp3');
 // Loading game first
 resources.load([
   src + 'bigstars.png',
@@ -58,6 +58,9 @@ function init() {
     playInterface.style.display = 'none';
     lastTime = Date.now();
     gameLoop();
+
+    audio.loop = true;
+    audio.play();
   });
 };
 
