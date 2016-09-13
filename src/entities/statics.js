@@ -10,9 +10,9 @@ var STATIC_SPEED = 50;
 // Default settings
 var staticSettings = {
   bigBlock: {
-    url: 'assets/images/base1.svg',
+    url: 'assets/images/base1.png',
     pos: [0, 0],
-    size: [300, 130],
+    size: [300, 129],
     rotation: 0
   },
   battlePlatform: {
@@ -22,9 +22,9 @@ var staticSettings = {
     rotation: 0
   },
   smallPlatform: {
-    url: 'assets/images/base3.svg',
+    url: 'assets/images/base3.png',
     pos: [0, 0],
-    size: [64, 129],
+    size: [64, 128],
     rotation: 0
   }
 };

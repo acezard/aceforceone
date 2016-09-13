@@ -9,7 +9,7 @@ var explosion = require('./explosions');
 // Config Object
 var enemyConfig = {
   redBomber: {
-    url: 'assets/images/enemy-xs-1.svg',
+    url: 'assets/images/enemy-xs-1.png',
     pos: [0, 0],
     size: [75, 53],
     speed: 100,
@@ -48,7 +48,7 @@ var enemyConfig = {
   },
 
   rogueLeader: {
-    url: 'assets/images/rogueleader.svg',
+    url: 'assets/images/rogueleader.png',
     pos: [0, 0],
     size: [200, 89],
     speed: 100,
@@ -58,7 +58,7 @@ var enemyConfig = {
   },
 
   drone: {
-    url: 'assets/images/drone.svg',
+    url: 'assets/images/drone.png',
     pos: [0, 0],
     size: [50, 62],
     speed: 300,
