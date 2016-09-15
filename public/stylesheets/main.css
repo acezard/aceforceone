@@ -7,6 +7,10 @@
   max-height: 600px;
 }*/
 
+canvas {
+  position: relative;
+}
+
 #outer {
   background-image: url('../assets/images/stars.png'), url('../assets/images/stars2.png');
   background-repeat: no-repeat;
