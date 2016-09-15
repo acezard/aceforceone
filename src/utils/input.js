@@ -62,8 +62,11 @@ function keyup(e) {
 }
 
 function setMousePosition(e) {
-  inputs.mouseX = e.clientX - canvasPos.x;
-  inputs.mouseY = e.clientY - canvasPos.y;
+  var rect = canvas.el.getBoundingClientRect();
+  inputs.mouseX = e.clientX - rect.left;
+  inputs.mouseY = e.clientY - rect.top;
+
+  console.log(inputs.mouseX + ' ' + inputs.mouseY)
 }
 
 function getPosition(el) {
