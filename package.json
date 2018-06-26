@@ -21,7 +21,7 @@
   "dependencies": {
     "browserify": "^13.1.0",
     "ejs": "2.4.1",
-    "express": "4.13.3"
+    "express": "4.16.0"
   },
   "repository": {
     "type": "git",
