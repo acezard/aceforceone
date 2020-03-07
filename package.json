@@ -19,7 +19,7 @@
     "watchify": "^3.7.0"
   },
   "dependencies": {
-    "browserify": "^13.1.0",
+    "browserify": "^15.0.0",
     "ejs": "2.4.1",
     "express": "4.13.3"
   },
